@@ -1,6 +1,7 @@
 class CreateRules < ActiveRecord::Migration
   def change
     create_table :rules do |t|
+      t.string :name, null: false
       t.references :shop, index: true, foreign_key: true, null: false
       t.string :topic, null: false
 

@@ -24,6 +24,6 @@ class RulesController < ShopifyApp::AuthenticatedController
   private
 
   def rule_params
-    params.require(:rule).permit(:topic)
+    params.require(:rule).permit(:name, :topic)
   end
 end

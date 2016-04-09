@@ -6,6 +6,12 @@
     <div class="section-content">
       <div class="section-row">
         <div class="section-cell">
+          <%= f.label :name %>
+          <%= f.text_field :name %>
+        </div>
+      </div>
+      <div class="section-row">
+        <div class="section-cell">
           <%= f.label :topic %>
           <%= f.select :topic, Rule::TOPICS %>
         </div>

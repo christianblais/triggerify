@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20160409173114) do
   add_index "handlers", ["rule_id"], name: "index_handlers_on_rule_id"
 
   create_table "rules", force: :cascade do |t|
+    t.string   "name",       null: false
     t.integer  "shop_id",    null: false
     t.string   "topic",      null: false
     t.datetime "created_at", null: false
