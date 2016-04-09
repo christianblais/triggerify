@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :rules
   root :to => 'home#index'
   mount ShopifyApp::Engine, at: '/'
   # The priority is based upon order of creation: first created -> highest priority.
