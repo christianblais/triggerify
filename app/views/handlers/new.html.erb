@@ -21,7 +21,7 @@
       <%= f.fields_for :settings do |ff| %>
         <% Handler::HANDLERS.each do |service| %>
           <% service::SETTINGS.each do |setting_name| %>
-            <div class="section-row">
+            <div class="section-row" data-handler="<%= service %>">
               <div class="section-cell">
                 <%= ff.label setting_name %>
                 <%= ff.text_field setting_name %>
@@ -32,6 +32,26 @@
       <% end %>
     </div>
   </div>
+<% end %>
+
+<% content_for :javascript do %>
+  <script>
+    update_settings = function () {
+      $('[data-handler]').each( function (index, element) {
+        element = $(element);
+        if (element.data('handler') == $('select#handler_service_name').val()) {
+          element.prop('disabled', false);
+          element.show();
+        } else {
+          element.hide();
+          element.prop('disabled', true);
+        }
+      });
+    };
+    update_settings();
+
+    $('select#handler_service_name').on('change', update_settings);
+  </script>
 <% end %>
 
 <% content_for :shopify_app_javascript do %>

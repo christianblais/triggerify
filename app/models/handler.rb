@@ -1,5 +1,6 @@
 class Handler < ActiveRecord::Base
   HANDLERS = [
+    Handlers::Emailer,
     Handlers::Tagger
   ]
 
