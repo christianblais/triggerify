@@ -1,0 +1,24 @@
+<%= form_for(@rule) do |f| %>
+  <%= f.select :topic, Rule::TOPICS %>
+<% end %>
+
+<% content_for :shopify_app_javascript do %>
+  ShopifyApp.Bar.initialize({
+    title: "<%= @rule.persisted? ? 'Edit' : 'New' %>",
+    breadcrumb: { label: "Rules", href: "<%= rules_path %>", target: 'app', loading: false },
+    buttons: {
+      primary: { label: "Save", callback: function() {
+        $('form').submit()
+      }},
+      secondary: [{
+        label: "Cancel", callback: function() {
+          window.location = "<%= rules_path %>"
+        }
+      }]
+    }
+  });
+
+  <% if @rule.errors.any? %>
+    ShopifyApp.flashError('Oops, something went wrong!');
+  <% end %>
+<% end %>

@@ -1,0 +1,16 @@
+<ul>
+  <% @rules.each do |rule| %>
+    <li><%= link_to rule, rule_path(rule) %></li>
+  <% end %>
+</ul>
+
+<% content_for :shopify_app_javascript do %>
+  ShopifyApp.Bar.initialize({
+    title: 'Rules',
+    buttons: {
+      primary: { label: "New rule", callback: function() {
+        window.location = "<%= new_rule_path %>"
+      }}
+    }
+  });
+<% end %>

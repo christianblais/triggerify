@@ -20,13 +20,23 @@
 
     <script src="https://cdn.shopify.com/s/assets/external/app.js?<%= Time.now.strftime('%Y%m%d%H') %>"></script>
 
-    <script type="text/javascript">
+    <script>
       ShopifyApp.init({
         apiKey: "<%= ShopifyApp.configuration.api_key %>",
         shopOrigin: "<%= "https://#{ @shop_session.url }" if @shop_session %>",
         debug: <%= Rails.env.development? ? 'true' : 'false' %>,
         forceRedirect: true
       });
+
+      ShopifyApp.ready(function() {
+        <%= yield :shopify_app_javascript %>
+
+        ShopifyApp.Bar.loadingOff();
+      });
+
+      <% if flash[:notice].present? %>
+        ShopifyApp.flashNotice(<%= flash[:notice] %>);
+      <% end %>
     </script>
 
     <%= javascript_include_tag 'application', "data-turbolinks-track" => true %>
