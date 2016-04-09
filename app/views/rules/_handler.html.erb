@@ -1,0 +1,17 @@
+<div class="section-row">
+  <div class="section-cell">
+    <%= f.label :service_name %>
+    <%= f.select :service_name, Handler::HANDLERS.map(&:to_s) %>
+
+    <%= f.fields_for :settings do |ff| %>
+      <% Handler::HANDLERS.each do |handler| %>
+        <div data-handler="<%= handler %>">
+          <% handler::SETTINGS.each do |setting_name| %>
+            <%= ff.label setting_name %>
+            <%= ff.text_field setting_name, value: f.object.settings[setting_name] %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -21,9 +21,34 @@ class RulesController < ShopifyApp::AuthenticatedController
     end
   end
 
+  def update
+    @rule = shop.rules.find(params[:id])
+
+    if @rule.update_attributes(rule_params)
+      redirect_to(rule_path(@rule))
+    else
+      render('show')
+    end
+  end
+
+  def destroy
+    @rule = shop.rules.find(params[:id])
+
+    if @rule.destroy
+      redirect_to(rules_path)
+    else
+      render('show')
+    end
+  end
+
   private
 
   def rule_params
-    params.require(:rule).permit(:name, :topic)
+    rule = params.require(:rule)
+    rule = rule.permit(:name, :topic, handlers_attributes: [:id, :service_name])
+    rule[:handlers_attributes].each do |k, _v|
+      rule[:handlers_attributes][k][:settings] = params[:rule][:handlers_attributes][k][:settings]
+    end
+    rule
   end
 end

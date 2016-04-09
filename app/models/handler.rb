@@ -7,4 +7,8 @@ class Handler < ActiveRecord::Base
   belongs_to :rule
 
   serialize :settings
+
+  def settings
+    super || {}
+  end
 end

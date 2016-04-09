@@ -8,4 +8,6 @@ class Rule < ActiveRecord::Base
 
   validates :name, presence: true
   validates :topic, presence: true, inclusion: TOPICS
+
+  accepts_nested_attributes_for :handlers
 end
