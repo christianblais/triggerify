@@ -1,1 +1,43 @@
-<%= render 'form' %>
+<div class="section">
+  <div class="section-summary">
+    <h1>Rule details</h1>
+  </div>
+  <div class="section-content">
+    <div class="section-row">
+      <div class="section-cell">
+        Topic: <%= @rule.topic %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-summary">
+    <h1>Events</h1>
+  </div>
+  <div class="section-content">
+    <div class="section-row">
+      <div class="section-cell">
+        <%= link_to 'Create new event', new_rule_action_path(@rule) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :shopify_app_javascript do %>
+  ShopifyApp.Bar.initialize({
+    title: "<%= @rule.id %>",
+    breadcrumb: { label: "Rules", href: "<%= rules_path %>", target: 'app', loading: false },
+    buttons: {
+      secondary: [{
+        label: "Back", callback: function() {
+          window.location = "<%= rules_path %>"
+        }
+      }]
+    }
+  });
+
+  <% if @rule.errors.any? %>
+    ShopifyApp.flashError('Oops, something went wrong!');
+  <% end %>
+<% end %>

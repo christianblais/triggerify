@@ -1,1 +1,36 @@
-<%= render 'form' %>
+<%= form_for(@rule) do |f| %>
+  <div class="section">
+    <div class="section-summary">
+      <h1>Rule details</h1>
+    </div>
+    <div class="section-content">
+      <div class="section-row">
+        <div class="section-cell">
+          <%= f.label :topic %>
+          <%= f.select :topic, Rule::TOPICS %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :shopify_app_javascript do %>
+  ShopifyApp.Bar.initialize({
+    title: "<%= @rule.persisted? ? 'Edit' : 'New' %>",
+    breadcrumb: { label: "Rules", href: "<%= rules_path %>", target: 'app', loading: false },
+    buttons: {
+      primary: { label: "Save", callback: function() {
+        $('form').submit()
+      }},
+      secondary: [{
+        label: "Cancel", callback: function() {
+          window.location = "<%= rules_path %>"
+        }
+      }]
+    }
+  });
+
+  <% if @rule.errors.any? %>
+    ShopifyApp.flashError('Oops, something went wrong!');
+  <% end %>
+<% end %>
