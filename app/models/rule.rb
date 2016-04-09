@@ -4,6 +4,7 @@ class Rule < ActiveRecord::Base
   )
 
   belongs_to :shop
+  has_many :handlers, dependent: :destroy
 
   validates :topic, presence: true, inclusion: TOPICS
 end

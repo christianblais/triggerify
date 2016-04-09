@@ -11,11 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160409162928) do
+ActiveRecord::Schema.define(version: 20160409173114) do
+
+  create_table "handlers", force: :cascade do |t|
+    t.integer  "rule_id",      null: false
+    t.string   "service_name", null: false
+    t.text     "settings",     null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "handlers", ["rule_id"], name: "index_handlers_on_rule_id"
 
   create_table "rules", force: :cascade do |t|
-    t.integer  "shop_id"
-    t.string   "topic"
+    t.integer  "shop_id",    null: false
+    t.string   "topic",      null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

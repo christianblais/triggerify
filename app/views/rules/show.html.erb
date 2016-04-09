@@ -16,9 +16,16 @@
     <h1>Events</h1>
   </div>
   <div class="section-content">
+    <% @rule.handlers.each do |handler| %>
+      <div class="section-row">
+        <div class="section-cell">
+          <%= link_to handler, 'edit' %>
+        </div>
+      </div>
+    <% end %>
     <div class="section-row">
       <div class="section-cell">
-        <%= link_to 'Create new event', new_rule_action_path(@rule) %>
+        <%= link_to 'Create new event', new_rule_handler_path(@rule) %>
       </div>
     </div>
   </div>
