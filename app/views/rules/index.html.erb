@@ -1,8 +1,26 @@
-<ul>
-  <% @rules.each do |rule| %>
-    <li><%= link_to rule, rule_path(rule) %></li>
-  <% end %>
-</ul>
+<div class="section">
+  <div class="section-summary">
+    <h1>Rules</h1>
+    <p>These are the rules you created.</p>
+  </div>
+
+  <div class="section-content">
+    <% @rules.each do |rule| %>
+      <div class="section-row">
+        <div class="section-cell">
+
+          <h1><%= rule %></h1>
+
+          <ul class="segmented right">
+            <li><%= link_to 'Edit', rule_path(rule), class: %w(btn default btn-slim) %></li>
+            <li><%= link_to 'Delete', rule_path(rule), method: :delete, class: %w(btn destroy btn-slim), data: { confirm: "Delete \"#{rule}\"?" } %></li>
+          </ul>
+
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <% content_for :shopify_app_javascript do %>
   ShopifyApp.Bar.initialize({
