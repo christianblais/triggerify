@@ -1,7 +1,8 @@
 $('#handlers select').on('change', function (event) {
-  var handler = $(event.target).val();
+  var $target = $(event.target);
+  var handler = $target.val();
 
-  $(event.target).parent('.section-cell').find('[data-handler]').each(function (index, element) {
+  $target.parent('.section-cell').find('[data-handler]').each(function (index, element) {
     var $element = $(element);
 
     if ($element.data('handler') == handler) {
