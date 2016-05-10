@@ -4,6 +4,10 @@ ShopifyApp.configure do |config|
   config.scope = "read_orders, read_products, write_customers"
   config.embedded_app = true
   config.webhooks = [
-    {topic: 'app/uninstalled', address: 'https://triggerify.herokuapp.com/webhooks/app_uninstall', format: 'json'}
+    {
+      address: "#{Rails.configuration.application_url}/webhooks/app_uninstall",
+      format: 'json',
+      topic: 'app/uninstalled'
+    }
   ]
 end
