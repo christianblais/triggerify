@@ -1,5 +1,5 @@
 class SyncWebhookJob < ShopJob
-  def perform_with_shop(*args)
+  def perform_with_shop(*_args)
     create_missing_webhooks
     delete_extra_webhooks
   end
