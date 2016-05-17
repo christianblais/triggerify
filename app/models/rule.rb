@@ -5,7 +5,7 @@ class Rule < ActiveRecord::Base
   )
 
   belongs_to :shop
-  has_many :handlers, dependent: :destroy
+  has_many :handlers, dependent: :destroy, inverse_of: :rule
 
   validates :name, presence: true
   validates :topic, presence: true, inclusion: TOPICS

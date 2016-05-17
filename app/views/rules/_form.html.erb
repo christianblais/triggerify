@@ -45,6 +45,6 @@
   });
 
   <% if @rule.errors.any? %>
-    ShopifyApp.flashError('Oops, something went wrong!');
+    ShopifyApp.flashError("<%= @rule.errors.full_messages %>");
   <% end %>
 <% end %>

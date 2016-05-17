@@ -4,7 +4,7 @@ class Handler < ActiveRecord::Base
     Handlers::Tagger
   ]
 
-  belongs_to :rule
+  belongs_to :rule, inverse_of: :handlers
 
   validates :rule, presence: true
   validates :service_name, presence: true, inclusion: HANDLERS.map(&:to_s)
