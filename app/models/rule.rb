@@ -1,6 +1,7 @@
 class Rule < ActiveRecord::Base
   TOPICS = %w(
     orders/create
+    customers/create
   )
 
   belongs_to :shop
