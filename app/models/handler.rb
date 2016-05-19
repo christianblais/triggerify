@@ -18,4 +18,8 @@ class Handler < ActiveRecord::Base
   def service
     service_name.constantize
   end
+
+  def handle(payload)
+    service.new(settings).handle(payload)
+  end
 end

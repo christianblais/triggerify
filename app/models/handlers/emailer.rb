@@ -1,5 +1,5 @@
 module Handlers
-  class Emailer
+  class Emailer < Base
     SETTINGS = %w(
       recipients
       subject
