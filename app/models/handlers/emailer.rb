@@ -1,9 +1,7 @@
 module Handlers
   class Emailer < Base
-    SETTINGS = %w(
-      recipients
-      subject
-      body
-    )
+    setting :recipients
+    setting :subject
+    setting :body
   end
 end

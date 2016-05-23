@@ -6,7 +6,7 @@
     <%= f.fields_for :settings do |ff| %>
       <% Handler::HANDLERS.each do |handler| %>
         <div data-handler="<%= handler %>">
-          <% handler::SETTINGS.each do |setting_name| %>
+          <% handler.settings.each do |setting_name| %>
             <%= ff.label setting_name %>
             <%= ff.text_field setting_name, value: f.object.settings[setting_name] %>
           <% end %>

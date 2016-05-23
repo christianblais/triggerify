@@ -20,6 +20,6 @@ class Handler < ActiveRecord::Base
   end
 
   def handle(payload)
-    service.new(settings).handle(payload)
+    service.new(settings, payload).call
   end
 end
