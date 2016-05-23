@@ -27,7 +27,7 @@ class SyncWebhookJob < ShopJob
   end
 
   def callback_path
-    "#{Rails.configuration.application_url}/webhooks/rules"
+    "#{Rails.configuration.application_url}/webhooks/rules/#{shop.id}"
   end
 
   def desired_topics
