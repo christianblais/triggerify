@@ -2,13 +2,11 @@ class CallbackController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def webhook
-    shop.with_shopify_session do
-      shop.rules.where(topic: params[:topic]).each do |rule|
-        rule.handlers.each do |handler|
-          handler.handle(params[:callback])
-        end
-      end
-    end
+    CallbackWebhookJob.perform_later(
+      shop_domain: shop.shopify_domain,
+      callback: params[:callback],
+      topic: params[:topic]
+    )
   end
 
   private
