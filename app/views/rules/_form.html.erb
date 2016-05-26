@@ -10,7 +10,7 @@
           <%= f.text_field :name %>
 
           <%= f.label :topic %>
-          <%= f.select :topic, Rule::TOPICS %>
+          <%= f.select :topic, Rule::TOPICS.map { |k,v| [v, k] } %>
         </div>
       </div>
     </div>
