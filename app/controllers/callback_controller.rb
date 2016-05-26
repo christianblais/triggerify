@@ -7,6 +7,8 @@ class CallbackController < ApplicationController
       callback: params[:callback],
       topic: params[:topic]
     )
+
+    head :ok
   end
 
   private
