@@ -3,6 +3,7 @@ class Handler < ActiveRecord::Base
     Handlers::Emailer,
     Handlers::Tagger,
     Handlers::SMS,
+    Handlers::Slack,
   ]
 
   belongs_to :rule, inverse_of: :handlers
