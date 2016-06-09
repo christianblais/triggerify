@@ -1,7 +1,8 @@
 class Handler < ActiveRecord::Base
   HANDLERS = [
     Handlers::Emailer,
-    Handlers::Tagger
+    Handlers::Tagger,
+    Handlers::SMS,
   ]
 
   belongs_to :rule, inverse_of: :handlers

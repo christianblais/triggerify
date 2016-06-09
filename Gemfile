@@ -32,6 +32,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'pg'
 gem 'haltable'
+gem 'twilio-ruby'
 gem 'shopify_app', git: 'https://github.com/Shopify/shopify_app.git'
 
 group :production do
