@@ -9,8 +9,9 @@ class CallbackController < ApplicationController
     )
 
     head :ok
-  rescue
-    # temp fix, to avoid spamming Shopify
+  rescue => e
+    Rails.logger.error(e)
+    head :ok
   end
 
   private

@@ -5,8 +5,9 @@ class Filter < ActiveRecord::Base
   validates :regex, presence: true
 
   def valid?(payload)
-    value = Parser.new(payload).parse(value)
-    Rails.logger.info("#{value}, #{regex}")
-    value.match(/#{regex}/i)
+    Rails.logger.info("FILTER: #{value} : #{regex} : #{payload}")
+    content = Parser.new(payload).parse(value)
+    Rails.logger.info("FILTER: #{content}")
+    content.match(/#{regex}/i)
   end
 end
