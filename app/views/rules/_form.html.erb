@@ -10,7 +10,10 @@
           <%= f.text_field :name %>
 
           <%= f.label :topic %>
-          <%= f.select :topic, Rule::TOPICS.map { |k,v| [v, k] } %>
+
+          <div class="select-wrapper">
+            <%= f.select :topic, Rule::TOPICS.map { |k,v| [v, k] }, {}, { class: 'select' } %>
+          </div>
         </div>
       </div>
     </div>

@@ -1,7 +1,9 @@
 <div class="section-row">
   <div class="section-cell">
     <%= f.label :service_name %>
-    <%= f.select :service_name, Handler::HANDLERS.map(&:to_s) %>
+    <div class="select-wrapper">
+      <%= f.select :service_name, Handler::HANDLERS.map(&:to_s), {}, { class: 'select' } %>
+    </div>
 
     <%= f.fields_for :settings do |ff| %>
       <% Handler::HANDLERS.each do |handler| %>
