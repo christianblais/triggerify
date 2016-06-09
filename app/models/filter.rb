@@ -5,6 +5,7 @@ class Filter < ActiveRecord::Base
   validates :regex, presence: true
 
   def valid?(payload)
+    return true if value.blank? || regex.blank?
     content = Parser.new(payload).parse(value)
     content.match(/#{regex}/i)
   end
