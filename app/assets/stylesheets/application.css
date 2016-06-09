@@ -14,3 +14,13 @@
  *= require_tree .
  *= require_self
  */
+
+.right {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.section-row {
+  position: relative;
+}

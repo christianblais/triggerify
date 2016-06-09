@@ -1,8 +1,14 @@
-<div class="section-row">
+<div class="section-row" data-section>
   <div class="section-cell">
+    <a href="#" class="right" data-destroy="handler">
+      <span class="icon ico-clear-bluegray"></span>
+    </a>
+
+    <%= f.hidden_field :_destroy, value: local_assigns.fetch(:destroyed, false) %>
+
     <%= f.label :service_name %>
     <div class="select-wrapper">
-      <%= f.select :service_name, Handler::HANDLERS.map(&:to_s), {}, { class: 'select' } %>
+      <%= f.select :service_name, Handler::HANDLERS.map(&:to_s), { prompt: "Handler" }, { class: 'select' } %>
     </div>
 
     <%= f.fields_for :settings do |ff| %>

@@ -22,10 +22,29 @@
   <div id="filters" class="section">
     <div class="section-summary">
       <h1>Filters</h1>
+      <p>
+        <button class="btn primary" data-add="filter">
+          Add filter
+        </button>
+
+        <div style="display: none;" data-filter-template>
+          <%= f.fields_for :filters, @rule.filters.build do |ff| %>
+            <%= render 'filter', f: ff, destroyed: true %>
+          <% end %>
+        </div>
+      <p>
     </div>
-    <div class="section-content">
-      <%= f.fields_for :filters, @rule.filters.first || @rule.filters.build do |ff| %>
-        <%= render 'filter', f: ff %>
+    <div class="section-content" data-filter-list>
+      <% @rule.filters.each do |filter| %>
+        <%= f.fields_for :filters, filter do |ff| %>
+          <%= render 'filter', f: ff %>
+        <% end %>
+      <% end %>
+
+      <% if @rule.filters.empty? %>
+        <%= f.fields_for :filters, @rule.filters.build do |ff| %>
+          <%= render 'filter', f: ff %>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -33,10 +52,29 @@
   <div id="handlers" class="section">
     <div class="section-summary">
       <h1>Handlers</h1>
+      <p>
+        <button class="btn primary" data-add="handler">
+          Add handler
+        </button>
+
+        <div style="display: none;" data-handler-template>
+          <%= f.fields_for :handlers, @rule.handlers.build do |ff| %>
+            <%= render 'handler', f: ff, destroyed: true %>
+          <% end %>
+        </div>
+      <p>
     </div>
-    <div class="section-content">
-      <%= f.fields_for :handlers, @rule.handlers.first || @rule.handlers.build do |ff| %>
-        <%= render 'handler', f: ff %>
+    <div class="section-content" data-handler-list>
+      <% @rule.handlers.each do |handler| %>
+        <%= f.fields_for :handlers, handler do |ff| %>
+          <%= render 'handler', f: ff %>
+        <% end %>
+      <% end %>
+
+      <% if @rule.handlers.empty? %>
+        <%= f.fields_for :handlers, @rule.handlers.build do |ff| %>
+          <%= render 'handler', f: ff %>
+        <% end %>
       <% end %>
     </div>
   </div>
