@@ -40,12 +40,6 @@
           <%= render 'filter', f: ff %>
         <% end %>
       <% end %>
-
-      <% if @rule.filters.empty? %>
-        <%= f.fields_for :filters, @rule.filters.build do |ff| %>
-          <%= render 'filter', f: ff %>
-        <% end %>
-      <% end %>
     </div>
   </div>
 
@@ -67,12 +61,6 @@
     <div class="section-content" data-handler-list>
       <% @rule.handlers.each do |handler| %>
         <%= f.fields_for :handlers, handler do |ff| %>
-          <%= render 'handler', f: ff %>
-        <% end %>
-      <% end %>
-
-      <% if @rule.handlers.empty? %>
-        <%= f.fields_for :handlers, @rule.handlers.build do |ff| %>
           <%= render 'handler', f: ff %>
         <% end %>
       <% end %>
