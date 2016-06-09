@@ -48,7 +48,7 @@ class RulesController < ShopifyApp::AuthenticatedController
 
   def rule_params
     rule = params.require(:rule)
-    rule = rule.permit(:name, :topic, handlers_attributes: [:id, :service_name])
+    rule = rule.permit(:name, :topic, handlers_attributes: [:id, :service_name], filters_attributes: [:id, :value, :regex])
     rule[:handlers_attributes].each do |k, _v|
       rule[:handlers_attributes][k][:settings] = params[:rule][:handlers_attributes][k][:settings]
     end

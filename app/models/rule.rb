@@ -32,10 +32,12 @@ class Rule < ActiveRecord::Base
   }
 
   belongs_to :shop
+  has_many :filters, dependent: :destroy, inverse_of: :rule
   has_many :handlers, dependent: :destroy, inverse_of: :rule
 
   validates :name, presence: true
   validates :topic, presence: true, inclusion: TOPICS.keys
 
   accepts_nested_attributes_for :handlers
+  accepts_nested_attributes_for :filters
 end

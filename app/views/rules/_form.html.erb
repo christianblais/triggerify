@@ -19,6 +19,17 @@
     </div>
   </div>
 
+  <div id="filters" class="section">
+    <div class="section-summary">
+      <h1>Filters</h1>
+    </div>
+    <div class="section-content">
+      <%= f.fields_for :filters, @rule.filters.first || @rule.filters.build do |ff| %>
+        <%= render 'filter', f: ff %>
+      <% end %>
+    </div>
+  </div>
+
   <div id="handlers" class="section">
     <div class="section-summary">
       <h1>Handlers</h1>
