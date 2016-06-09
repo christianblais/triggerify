@@ -9,6 +9,8 @@ class CallbackController < ApplicationController
     )
 
     head :ok
+  rescue
+    # temp fix, to avoid spamming Shopify
   end
 
   private
