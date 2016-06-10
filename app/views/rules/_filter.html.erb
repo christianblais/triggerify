@@ -7,7 +7,13 @@
     <%= f.hidden_field :_destroy, value: local_assigns.fetch(:destroyed, false) %>
     <%= f.label :value %>
     <%= f.text_field :value %>
-    <%= f.label :regex %>
+
+    <%= f.label :verb %>
+    <div class="select-wrapper">
+      <%= f.select :verb, Filter::VERBS.map { |k,v| [v, k] }, {}, { class: 'select' } %>
+    </div>
+
+    <%= f.label :regex, 'Condition' %>
     <%= f.text_field :regex %>
   </div>
 </div>
