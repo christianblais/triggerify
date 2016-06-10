@@ -21,8 +21,8 @@ class Filter < ActiveRecord::Base
   def valid?(payload)
     content = Parser.new(payload).parse(value)
 
-    content.downcase!
-    regex.downcase!
+    content = content.strip.downcase
+    regex = regex.strip.downcase
 
     case verb
     when 'equals'
