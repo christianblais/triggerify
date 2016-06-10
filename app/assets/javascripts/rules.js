@@ -19,10 +19,15 @@ $('body').on('click', '[data-add]', function (event) {
   event.preventDefault();
 
   var target = $(event.currentTarget).attr("data-add");
-  var $clone = $("[data-" + target + "-template]").children().clone();
+  var $clone = $("[data-" + target + "-template]").clone();
+  var new_id = new Date().getTime();
+
   $clone.find('input[type="hidden"]').attr('value', 0);
-  $clone.appendTo("[data-" + target + "-list]");
   $clone.find('select').trigger('change');
+
+  var html = $clone.html().replace(/child-index-id/g, new_id)
+
+  $(html).appendTo("[data-" + target + "-list]");
 });
 
 $('body').on('click', '[data-destroy]',  function (event) {
