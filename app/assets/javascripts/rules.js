@@ -22,9 +22,12 @@ $('body').on('click', '[data-add]', function (event) {
   var $clone = $("[data-" + target + "-template]").clone();
   var new_id = new Date().getTime();
 
-  $clone.find('input[type="hidden"]').attr('value', 0);
 
-  $clone = $($clone.html().replace(/child-index-id/g, new_id));
+  $clone = $($clone.html().replace(/[\_|\[](\d+)[\_|\]]/g, function(x) {
+    return x.replace(/(\d+)/, new_id)
+  }));
+
+  $clone.find('input[type="hidden"]').attr('value', 0);
 
   $clone.appendTo("[data-" + target + "-list]");
 
