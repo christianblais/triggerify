@@ -28,8 +28,8 @@
         </button>
 
         <div style="display: none;" data-filter-template>
-          <%= f.fields_for :filters, Filter.new, child_index: 'child-index-id' do |ff| %>
-            <%= render 'filter', f: ff, destroyed: true %>
+          <%= f.fields_for :filters, Filter.new do |ff| %>
+            <%= render 'filter', f: ff, destroyed: true, disabled: true %>
           <% end %>
         </div>
       <p>
@@ -52,8 +52,8 @@
         </button>
 
         <div style="display: none;" data-handler-template>
-          <%= f.fields_for :handlers, Handler.new, child_index: 'child-index-id' do |ff| %>
-            <%= render 'handler', f: ff, destroyed: true %>
+          <%= f.fields_for :handlers, Handler.new do |ff| %>
+            <%= render 'handler', f: ff, destroyed: true, disabled: true %>
           <% end %>
         </div>
       <p>
