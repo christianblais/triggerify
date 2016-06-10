@@ -2,11 +2,11 @@ module Handlers
   class Base
     class << self
       def settings
-        @settings ||= []
+        @settings ||= {}
       end
 
-      def setting(name)
-        settings << name
+      def setting(name, options = {})
+        settings[name] = options
 
         define_method(name) do
           parser.parse(@settings[name])

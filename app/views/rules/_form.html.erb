@@ -12,10 +12,19 @@
           <%= f.label :topic %>
 
           <div class="select-wrapper">
-            <%= f.select :topic, Rule::TOPICS.map { |k,v| [v, k] }, {}, { class: 'select' } %>
+            <%= f.select :topic, Rule::TOPICS.map { |k,v| [v, k] }, { prompt: 'Topic' }, { class: 'select', data: { topic: true } } %>
           </div>
         </div>
       </div>
+
+      <% Schema.describe.each do |key, payload| %>
+        <div class="section-row" data-topic-payload="<%= key %>">
+          <div class="section-cell">
+            <h3>Example payload for <%= key %></h3>
+            <p><%= payload %></p>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 

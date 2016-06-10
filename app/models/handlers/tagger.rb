@@ -1,6 +1,6 @@
 module Handlers
   class Tagger < Base
-    setting :taggable_type
+    setting :taggable_type, options: %w(Order Customer)
     setting :taggable_id
     setting :tag_name
 

@@ -1,16 +1,31 @@
-$('[data-handler-list]').on('change', 'select', function (event) {
+$('[data-handler-list]').on('change', '[data-handler]', function (event) {
   var $target = $(event.target);
   var handler = $target.val();
 
-  $target.closest('.section-cell').find('[data-handler]').each(function (index, element) {
+  $target.closest('.section-cell').find('[data-handler-details]').each(function (index, element) {
     var $element = $(element);
 
-    if ($element.data('handler') == handler) {
+    if ($element.attr('data-handler-details') == handler) {
       $element.show();
       $element.find('input').prop('disabled', false);
     } else {
       $element.hide();
       $element.find('input').prop('disabled', true);
+    }
+  });
+})
+
+$('[data-topic]').on('change', function (event) {
+  var $target = $(event.target);
+  var topic = $target.val();
+
+  $('[data-topic-payload]').each(function (index, element) {
+    var $element = $(element);
+
+    if ($element.attr('data-topic-payload') == topic) {
+      $element.show();
+    } else {
+      $element.hide();
     }
   });
 })

@@ -8,15 +8,22 @@
 
     <%= f.label :service_name, 'Action' %>
     <div class="select-wrapper">
-      <%= f.select :service_name, Handler::HANDLERS.map { |k, v| [v, k.to_s] }, { prompt: "Action" }, { class: 'select' } %>
+      <%= f.select :service_name, Handler::HANDLERS.map { |k, v| [v, k.to_s] }, { prompt: "Action" }, { class: 'select', data: { handler: true } } %>
     </div>
 
     <%= f.fields_for :settings do |ff| %>
       <% Handler::HANDLERS.keys.each do |handler| %>
-        <div data-handler="<%= handler %>">
-          <% handler.settings.each do |setting_name| %>
-            <%= ff.label setting_name %>
-            <%= ff.text_field setting_name, value: f.object.settings[setting_name] %>
+        <div data-handler-details="<%= handler %>">
+          <% handler.settings.each do |name, options| %>
+            <%= ff.label name %>
+
+            <% if options.key?(:options) %>
+              <div class="select-wrapper">
+                <%= ff.select name, options[:options], { selected: f.object.settings[name] }, { class: 'select' } %>
+              </div>
+            <% else %>
+              <%= ff.text_field name, value: f.object.settings[name] %>
+            <% end %>
           <% end %>
         </div>
       <% end %>
