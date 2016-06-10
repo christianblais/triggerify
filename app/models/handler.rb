@@ -5,6 +5,7 @@ class Handler < ActiveRecord::Base
     Handlers::SMS,
     Handlers::Slack,
     Handlers::Twitter,
+    Handlers::GiftCard,
   ]
 
   belongs_to :rule, inverse_of: :handlers
