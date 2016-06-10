@@ -6,13 +6,13 @@
 
     <%= f.hidden_field :_destroy, value: local_assigns.fetch(:destroyed, false) %>
 
-    <%= f.label :service_name %>
+    <%= f.label :service_name, 'Action' %>
     <div class="select-wrapper">
-      <%= f.select :service_name, Handler::HANDLERS.map(&:to_s), { prompt: "Handler" }, { class: 'select' } %>
+      <%= f.select :service_name, Handler::HANDLERS.map { |k, v| [v, k.to_s] }, { prompt: "Action" }, { class: 'select' } %>
     </div>
 
     <%= f.fields_for :settings do |ff| %>
-      <% Handler::HANDLERS.each do |handler| %>
+      <% Handler::HANDLERS.keys.each do |handler| %>
         <div data-handler="<%= handler %>">
           <% handler.settings.each do |setting_name| %>
             <%= ff.label setting_name %>

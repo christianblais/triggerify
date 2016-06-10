@@ -1,17 +1,17 @@
 class Handler < ActiveRecord::Base
-  HANDLERS = [
-    Handlers::Emailer,
-    Handlers::Tagger,
-    Handlers::SMS,
-    Handlers::Slack,
-    Handlers::Twitter,
-    Handlers::GiftCard,
-  ]
+  HANDLERS = {
+    Handlers::Emailer => 'Send an email',
+    Handlers::Tagger => 'Add a tag to a Shopify resource',
+    Handlers::SMS => 'Send a SMS',
+    Handlers::Slack => 'Send a message on Slack',
+    Handlers::Twitter => 'Send a tweet',
+    Handlers::GiftCard => 'Create a gift card',
+  }
 
   belongs_to :rule, inverse_of: :handlers
 
   validates :rule, presence: true
-  validates :service_name, presence: true, inclusion: HANDLERS.map(&:to_s)
+  validates :service_name, presence: true, inclusion: HANDLERS.keys.map(&:to_s)
 
   serialize :settings
 
