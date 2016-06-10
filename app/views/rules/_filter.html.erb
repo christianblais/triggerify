@@ -10,7 +10,7 @@
 
     <%= f.label :verb %>
     <div class="select-wrapper">
-      <%= f.select :verb, Filter::VERBS.map { |k,v| [v, k] }, {}, { class: 'select' } %>
+      <%= f.select :verb, Filter::VERBS.map { |k,v| [v, k] }, { prompt: 'Verb' }, { class: 'select' } %>
     </div>
 
     <%= f.label :regex, 'Condition' %>
