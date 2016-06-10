@@ -23,11 +23,12 @@ $('body').on('click', '[data-add]', function (event) {
   var new_id = new Date().getTime();
 
   $clone.find('input[type="hidden"]').attr('value', 0);
+
+  $clone = $($clone.html().replace(/child-index-id/g, new_id));
+
+  $clone.appendTo("[data-" + target + "-list]");
+
   $clone.find('select').trigger('change');
-
-  var html = $clone.html().replace(/child-index-id/g, new_id)
-
-  $(html).appendTo("[data-" + target + "-list]");
 });
 
 $('body').on('click', '[data-destroy]',  function (event) {
