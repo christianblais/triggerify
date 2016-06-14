@@ -1,5 +1,8 @@
 class Schema
   class Boolean
+    def self.to_s
+      'Boolean'
+    end
   end
 
   def self.describe
