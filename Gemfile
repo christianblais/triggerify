@@ -42,7 +42,7 @@ group :production do
 end
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console'
   gem 'byebug'
   gem 'sqlite3'
 end

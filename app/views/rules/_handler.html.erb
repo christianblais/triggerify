@@ -15,7 +15,27 @@
       <% Handler::HANDLERS.keys.each do |handler| %>
         <div data-handler-details="<%= handler %>">
           <% handler.settings.each do |name, options| %>
-            <%= ff.label name %>
+            <%= ff.label name do %>
+              <%= name %>
+
+              <% if options.key?(:info) || options.key?(:example) %>
+                <a href="#" class="help">
+                  <span class="icon ico-help-blue"></span>
+                  <span class="tooltip-container">
+                    <span class="tooltip-label">
+                      <% if options.key?(:info) %>
+                        <h1>Information</h1>
+                        <p><%= options[:info] %></p>
+                      <% end %>
+                      <% if options.key?(:example) %>
+                        <h1>Examples</h1>
+                        <p><%= options[:example] %></p>
+                      <% end %>
+                    </span>
+                  </span>
+                </a>
+              <% end %>
+            <% end %>
 
             <% if options.key?(:options) %>
               <div class="select-wrapper">

@@ -24,3 +24,6 @@
 .section-row {
   position: relative;
 }
+
+.help .tooltip-container { display: none; }
+.help:hover .tooltip-container { display: block; }
