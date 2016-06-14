@@ -21,7 +21,7 @@
         <div class="section-row" data-topic-payload="<%= key %>">
           <div class="section-cell">
             <h3>Example payload for <%= key %></h3>
-            <p><%= payload %></p>
+            <pre><%= JSON.pretty_generate(payload) %></pre>
           </div>
         </div>
       <% end %>
