@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160409173114) do
+ActiveRecord::Schema.define(version: 20160610141519) do
+
+  create_table "filters", force: :cascade do |t|
+    t.integer  "rule_id",    null: false
+    t.string   "value",      null: false
+    t.string   "regex",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "verb"
+  end
+
+  add_index "filters", ["rule_id"], name: "index_filters_on_rule_id"
 
   create_table "handlers", force: :cascade do |t|
     t.integer  "rule_id",      null: false
