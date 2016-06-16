@@ -1,8 +1,16 @@
 module Handlers
   class GiftCard < Base
-    setting :value
-    setting :note
-    setting :customer_id
+    setting :value,
+      info: 'Value of the gift card',
+      example: '5.00'
+
+    setting :note,
+      info: 'Note of the gift card',
+      example: 'Here is a small gift to thank you for your first purchase with us. Enjoy!'
+
+    setting :customer_id,
+      info: 'ID of the customer for which it will be created',
+      example: '{{ customer_id }}'
 
     def call
       return if value.blank?
