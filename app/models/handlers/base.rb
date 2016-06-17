@@ -1,6 +1,11 @@
 module Handlers
   class Base
     class << self
+      def description(description = nil)
+        @description = description if description
+        @description
+      end
+
       def settings
         @settings ||= {}
       end

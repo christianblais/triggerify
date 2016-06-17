@@ -14,6 +14,10 @@
     <%= f.fields_for :settings do |ff| %>
       <% Handler::HANDLERS.keys.each do |handler| %>
         <div data-handler-details="<%= handler %>">
+          <% if handler.description.present? %>
+            <p><%= raw(handler.description) %></p>
+          <% end %>
+
           <% handler.settings.each do |name, options| %>
             <%= ff.label name do %>
               <%= name %>

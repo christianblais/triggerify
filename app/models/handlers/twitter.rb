@@ -1,24 +1,30 @@
 module Handlers
   class Twitter < Base
+    description %(
+      Use the Twitter API to send a tweet.
+      <a href="https://apps.twitter.com" target="_blank">Click here</a>
+      for more information.
+    )
+
     setting :consumer_key,
       info: 'Twitter consumer key',
-      example: '286b88262a15cf9aad3a6961e34deaba'
+      example: 'af5wRasYyoPbjwLhCrPEOVz4b'
 
     setting :consumer_secret,
       info: 'Twitter consumer secret',
-      example: '6ae6b6920e58c15edb260a766dc58420'
+      example: 'u2CDLa9pdN8PuPk4diUvnzRfL4vCmxdsajhdsa16673276dds'
 
     setting :access_token,
       info: 'Twitter access token',
-      example: '45c78fd5876ffcad580b65daae3d041a'
+      example: '41051328-5yWpFXcSsHmyk7i7JORiQUna6f9YLvnGDONk0vhw6'
 
     setting :access_token_secret,
       info: 'Twitter secret token',
-      example: ''
+      example: 'Hvav8FUhjJiWgHbfqKk7L91dBSRyoDbxlexVSa1qNTd88'
 
     setting :message,
-      info: '90a6a4d94ed9545af207a972109e84e5',
-      example: 'Message of the Tweet'
+      info: 'Message of the Tweet',
+      example: 'New order from {{ first_name }}!'
 
     def call
       computed_consumer_key = consumer_key.presence || ENV['TWITTER_CONSUMER_KEY']
