@@ -1,24 +1,24 @@
 module Handlers
   class SMS < Base
     setting :twilio_account_sid,
-      info: 'Twilio account id',
+      name: 'Twilio account id',
       example: '{{ 230122901525848 }}'
 
     setting :twilio_auth_token,
-      info: 'Twilio api permission token',
+      name: 'Twilio api permission token',
       example: '0cf24305167f2396aa3f5c16f2e827c4'
 
     setting :twilio_from_phone_number,
-      info: 'The Twilio phone number attached to your account you wish to use',
+      name: 'The Twilio phone number attached to your account you wish to use',
       example: '(555) 555-5555'
 
     setting :phone_number,
-      info: 'The message receiver phone number',
+      name: 'The message receiver phone number',
       example: '(555) 555-5555'
 
     setting :message,
-      info: 'The message to send',
-      example: 'An order just came in from {{ first_name }} {{ last_name }} is ready to be fulfilled'
+      name: 'Message',
+      example: 'An order just came in from {{ first_name }} {{ last_name }}!'
 
     def call
       computed_twilio_account_sid = twilio_account_sid.presence || ENV['TWILIO_ACCOUNT_SID']

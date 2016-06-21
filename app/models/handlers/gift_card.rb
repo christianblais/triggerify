@@ -1,15 +1,16 @@
 module Handlers
   class GiftCard < Base
     setting :value,
-      info: 'Value of the gift card',
+      name: 'Value of the gift card',
       example: '5.00'
 
     setting :note,
-      info: 'Note of the gift card',
-      example: 'Here is a small gift to thank you for your first purchase with us. Enjoy!'
+      name: 'Note of the gift card',
+      example: 'Created by triggerify'
 
     setting :customer_id,
-      info: 'ID of the customer for which it will be created',
+      name: 'ID of the customer',
+      optional: true,
       example: '{{ customer_id }}'
 
     def call

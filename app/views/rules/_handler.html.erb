@@ -19,35 +19,27 @@
           <% end %>
 
           <% handler.settings.each do |name, options| %>
-            <%= ff.label name do %>
-              <%= name %>
+            <div data-handler-settings>
+              <%= ff.label name do %>
+                <%= options[:name] %>
 
-              <% if options.key?(:info) || options.key?(:example) %>
-                <a href="#" class="help">
-                  <span class="icon ico-help-blue"></span>
-                  <span class="tooltip-container">
-                    <span class="tooltip-label">
-                      <% if options.key?(:info) %>
-                        <h1>Information</h1>
-                        <p><%= options[:info] %></p>
-                      <% end %>
-                      <% if options.key?(:example) %>
-                        <h1>Examples</h1>
-                        <p><%= options[:example] %></p>
-                      <% end %>
-                    </span>
-                  </span>
-                </a>
+                <% if options[:optional] %>
+                  <%= raw("<i>(optional)</i>") %>
+                <% end %>
               <% end %>
-            <% end %>
 
-            <% if options.key?(:options) %>
-              <div class="select-wrapper">
-                <%= ff.select name, options[:options], { selected: f.object.settings[name] }, { class: 'select' } %>
-              </div>
-            <% else %>
-              <%= ff.text_field name, value: f.object.settings[name] %>
-            <% end %>
+              <% if options.key?(:options) %>
+                <div class="select-wrapper">
+                  <%= ff.select name, options[:options], { selected: f.object.settings[name] }, { class: 'select' } %>
+                </div>
+              <% else %>
+                <%= ff.text_field name, value: f.object.settings[name] %>
+              <% end %>
+
+              <% if options.key?(:example) %>
+                <p class="example"><b>Example:</b> <%= raw(options[:example]) %></p>
+              <% end %>
+            </div>
           <% end %>
         </div>
       <% end %>

@@ -25,5 +25,23 @@
   position: relative;
 }
 
-.help .tooltip-container { display: none; }
-.help:hover .tooltip-container { display: block; }
+.select-wrapper {
+  margin: 0 0 15px 0;
+}
+
+[data-handler-details] {
+  margin-top: 15px;
+}
+
+[data-handler-settings] {
+  margin-bottom: 15px;
+}
+
+[data-handler-settings] input, [data-handler-settings] .select-wrapper {
+  margin-bottom: 0;
+}
+
+[data-handler-settings] p.example {
+  margin: 0;
+  padding: 4px 0;
+}

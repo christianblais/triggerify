@@ -1,16 +1,17 @@
 module Handlers
   class Tagger < Base
-    setting :taggable_type, options: %w(Order Customer),
-      info: 'The resource type to be tagged',
+    setting :taggable_type,
+      options: %w(Order Customer),
+      name: 'Resource type',
       example: 'Customer'
 
     setting :taggable_id,
-      info: 'The resource id to be tagged',
+      name: 'Resource ID',
       example: '{{ customer_id }}'
 
     setting :tag_name,
-      info: 'The tag to be applied',
-      example: 'purchase_made_during_promotion'
+      name: 'Tag name',
+      example: 'triggerified'
 
     def call
       resource_class = "ShopifyAPI::#{taggable_type}".classify.constantize

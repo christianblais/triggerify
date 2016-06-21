@@ -30,6 +30,12 @@ $('[data-topic]').on('change', function (event) {
   });
 })
 
+$('[data-topic-payload-toggle]').on('click', function (event) {
+  event.preventDefault();
+
+  $(event.target).siblings('[data-topic-payload-details]').toggle();
+})
+
 $('body').on('click', '[data-add]', function (event) {
   event.preventDefault();
 

@@ -7,23 +7,19 @@ module Handlers
     )
 
     setting :consumer_key,
-      info: 'Twitter consumer key',
-      example: 'af5wRasYyoPbjwLhCrPEOVz4b'
+      name: 'Twitter consumer key'
 
     setting :consumer_secret,
-      info: 'Twitter consumer secret',
-      example: 'u2CDLa9pdN8PuPk4diUvnzRfL4vCmxdsajhdsa16673276dds'
+      name: 'Twitter consumer secret'
 
     setting :access_token,
-      info: 'Twitter access token',
-      example: '41051328-5yWpFXcSsHmyk7i7JORiQUna6f9YLvnGDONk0vhw6'
+      name: 'Twitter access token'
 
     setting :access_token_secret,
-      info: 'Twitter secret token',
-      example: 'Hvav8FUhjJiWgHbfqKk7L91dBSRyoDbxlexVSa1qNTd88'
+      name: 'Twitter secret token'
 
     setting :message,
-      info: 'Message of the Tweet',
+      name: 'Message',
       example: 'New order from {{ first_name }}!'
 
     def call

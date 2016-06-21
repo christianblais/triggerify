@@ -1,16 +1,16 @@
 module Handlers
   class Slack < Base
     setting :slack_token,
-      info: 'Slack api permission token',
+      name: 'Slack api permission token',
       example: '2e1bad1377ff7faaae75a46f51663531'
 
     setting :channel,
-      info: 'The slack channel were to post the message',
+      name: 'Slack channel',
       example: '#orders'
 
     setting :message,
-      info: 'The actual message',
-      example: 'New Order: {{ first_name }} {{ last_name }} just placed an order of {{ total_price }}! :tada:'
+      name: 'Message',
+      example: '{{ first_name }} {{ last_name }} just placed an order of {{ total_price }}! :tada:'
 
     def call
       token = slack_token.presence || ENV['SLACK_TOKEN']

@@ -14,17 +14,15 @@
           <div class="select-wrapper">
             <%= f.select :topic, Rule::TOPICS.map { |k,v| [v, k] }, { prompt: 'Topic' }, { class: 'select', data: { topic: true } } %>
           </div>
+
+          <% Schema.describe.each do |key, payload| %>
+            <div data-topic-payload="<%= key %>" style="display: none;">
+              <a href="#" data-topic-payload-toggle>Toggle example payload for <%= key %></a>
+              <pre data-topic-payload-details style="display: none;"><%= JSON.pretty_generate(payload) %></pre>
+            </div>
+          <% end %>
         </div>
       </div>
-
-      <% Schema.describe.each do |key, payload| %>
-        <div class="section-row" data-topic-payload="<%= key %>">
-          <div class="section-cell">
-            <h3>Example payload for <%= key %></h3>
-            <pre><%= JSON.pretty_generate(payload) %></pre>
-          </div>
-        </div>
-      <% end %>
     </div>
   </div>
 

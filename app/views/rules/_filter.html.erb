@@ -5,15 +5,15 @@
     </a>
 
     <%= f.hidden_field :_destroy, value: local_assigns.fetch(:destroyed, false) %>
-    <%= f.label :value %>
-    <%= f.text_field :value %>
+    <%= f.label :value, 'Field' %>
+    <%= f.text_field :value, placeholder: 'Example: {{ default_address.company }}' %>
 
     <%= f.label :verb %>
     <div class="select-wrapper">
       <%= f.select :verb, Filter::VERBS.map { |k,v| [v, k] }, { prompt: 'Verb' }, { class: 'select' } %>
     </div>
 
-    <%= f.label :regex, 'Condition' %>
-    <%= f.text_field :regex %>
+    <%= f.label :regex, 'Value' %>
+    <%= f.text_field :regex, placeholder: 'Example: Shopify' %>
   </div>
 </div>
