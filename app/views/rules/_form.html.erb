@@ -92,6 +92,6 @@
   });
 
   <% if @rule.errors.any? %>
-    ShopifyApp.flashError("<%= @rule.errors.full_messages %>");
+    ShopifyApp.flashError("An error has occurred.");
   <% end %>
 <% end %>
