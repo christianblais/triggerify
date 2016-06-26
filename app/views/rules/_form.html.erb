@@ -36,7 +36,7 @@
 
         <div style="display: none;" data-filter-template>
           <%= f.fields_for :filters, Filter.new do |ff| %>
-            <%= render 'filter', f: ff, destroyed: true, disabled: true %>
+            <%= render 'filter', f: ff, destroyed: true %>
           <% end %>
         </div>
       <p>
@@ -60,7 +60,7 @@
 
         <div style="display: none;" data-handler-template>
           <%= f.fields_for :handlers, Handler.new do |ff| %>
-            <%= render 'handler', f: ff, destroyed: true, disabled: true %>
+            <%= render 'handler', f: ff, destroyed: true %>
           <% end %>
         </div>
       <p>

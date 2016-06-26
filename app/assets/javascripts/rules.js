@@ -7,10 +7,10 @@ $('[data-handler-list]').on('change', '[data-handler]', function (event) {
 
     if ($element.attr('data-handler-details') == handler) {
       $element.show();
-      $element.find('input').prop('disabled', false);
+      $element.find(':input').prop('disabled', false);
     } else {
       $element.hide();
-      $element.find('input').prop('disabled', true);
+      $element.find(':input').prop('disabled', true);
     }
   });
 })
@@ -25,6 +25,22 @@ $('[data-topic]').on('change', function (event) {
     if ($element.attr('data-topic-payload') == topic) {
       $element.show();
     } else {
+      $element.hide();
+    }
+  });
+
+  $('[data-topic-filter-value]').each(function (index, element) {
+    var $element = $(element);
+    var $f_value = $element.siblings('[data-filter-value]');
+
+    $f_value.show().prop('disabled', false);
+
+    if ($element.attr('data-topic-filter-value') == topic) {
+      $f_value.hide().prop('disabled', true);
+      $element.find(':input').prop('disabled', false);
+      $element.show();
+    } else {
+      $element.find(':input').prop('disabled', true);
       $element.hide();
     }
   });

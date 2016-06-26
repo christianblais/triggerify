@@ -6,7 +6,13 @@
 
     <%= f.hidden_field :_destroy, value: local_assigns.fetch(:destroyed, false) %>
     <%= f.label :value, 'Field' %>
-    <%= f.text_field :value, placeholder: 'Example: {{ default_address.company }}' %>
+    <%= f.text_field :value, placeholder: 'Example: {{ default_address.company }}', data: { 'filter-value': true } %>
+
+    <% Schema.describe.each do |key, payload| %>
+      <div class="select-wrapper" data-topic-filter-value="<%= key %>" style="display: none;">
+        <%= f.select :value, payload_to_values(payload), { prompt: 'Value' }, { class: 'select', disabled: true } %>
+      </div>
+    <% end %>
 
     <%= f.label :verb %>
     <div class="select-wrapper">
