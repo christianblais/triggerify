@@ -39,6 +39,6 @@ class SyncWebhookJob < ShopJob
   end
 
   def existing_webhooks
-    @existing_webhooks ||= ShopifyAPI::Webhook.all.select { |webhook| webhook.start_with?(callback_path) }
+    @existing_webhooks ||= ShopifyAPI::Webhook.all
   end
 end
