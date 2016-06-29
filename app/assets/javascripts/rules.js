@@ -29,20 +29,23 @@ $('[data-topic]').on('change', function (event) {
     }
   });
 
-  $('[data-topic-filter-value]').each(function (index, element) {
+  $('[data-filter-value]').each(function (index, element) {
     var $element = $(element);
-    var $f_value = $element.siblings('[data-filter-value]');
 
-    $f_value.show().prop('disabled', false);
+    $element.show().prop('disabled', false);
 
-    if ($element.attr('data-topic-filter-value') == topic) {
-      $f_value.hide().prop('disabled', true);
-      $element.find(':input').prop('disabled', false);
-      $element.show();
-    } else {
-      $element.find(':input').prop('disabled', true);
-      $element.hide();
-    }
+    $element.siblings('[data-topic-filter-value]').each(function(index, value) {
+      $value = $(value);
+
+      if ($value.attr('data-topic-filter-value') == topic) {
+        $element.hide().prop('disabled', true);
+        $value.find(':input').prop('disabled', false);
+        $value.show();
+      } else {
+        $value.find(':input').prop('disabled', true);
+        $value.hide();
+      }
+    });
   });
 })
 
