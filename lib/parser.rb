@@ -12,7 +12,11 @@ class Parser
 
       result = @payload
       elements.each do |element|
-        result = result.try(:[], element)
+        method, *arrays = element.split('[')
+        result = result.try(:[], method)
+        arrays.each do |i|
+          result = result.try(:[], i.to_i)
+        end
       end
       result.to_s
     end
