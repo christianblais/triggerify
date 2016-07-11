@@ -28,25 +28,6 @@ $('[data-topic]').on('change', function (event) {
       $element.hide();
     }
   });
-
-  $('[data-filter-value]').each(function (index, element) {
-    var $element = $(element);
-
-    $element.show().prop('disabled', false);
-
-    $element.siblings('[data-topic-filter-value]').each(function(index, value) {
-      $value = $(value);
-
-      if ($value.attr('data-topic-filter-value') == topic) {
-        $element.hide().prop('disabled', true);
-        $value.find(':input').prop('disabled', false);
-        $value.show();
-      } else {
-        $value.find(':input').prop('disabled', true);
-        $value.hide();
-      }
-    });
-  });
 })
 
 $('[data-topic-payload-toggle]').on('click', function (event) {
