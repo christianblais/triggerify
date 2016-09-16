@@ -6,7 +6,7 @@
 
     <%= f.hidden_field :_destroy, value: local_assigns.fetch(:destroyed, false) %>
     <%= f.label :value, 'Field' %>
-    <%= f.text_field :value, placeholder: 'Example: {{ default_address.company }}', data: { 'filter-value': true } %>
+    <%= f.text_field :value, placeholder: 'line_items[*].vendor', data: { 'filter-value': true } %>
 
     <%= f.label :verb %>
     <div class="select-wrapper">
@@ -14,6 +14,6 @@
     </div>
 
     <%= f.label :regex, 'Value' %>
-    <%= f.text_field :regex, placeholder: 'Example: Shopify' %>
+    <%= f.text_field :regex, placeholder: 'Shopify' %>
   </div>
 </div>
