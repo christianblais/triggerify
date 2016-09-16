@@ -2,6 +2,11 @@
   <div class="section">
     <div class="section-summary">
       <h1>Rule details</h1>
+      <p>
+        <a href="https://help.shopify.com/api/reference/webhook" target="_blank">
+          Click here for info on topics.
+        </a>
+      </p>
     </div>
     <div class="section-content">
       <div class="section-row">
@@ -14,13 +19,6 @@
           <div class="select-wrapper">
             <%= f.select :topic, Rule::TOPICS.map { |k,v| [v, k] }, { prompt: 'Topic' }, { class: 'select', data: { topic: true } } %>
           </div>
-
-          <% Schema.describe.each do |key, payload| %>
-            <div data-topic-payload="<%= key %>" style="display: none;">
-              <a href="#" data-topic-payload-toggle>Toggle example payload for <%= key %></a>
-              <pre data-topic-payload-details style="display: none;"><%= JSON.pretty_generate(payload) %></pre>
-            </div>
-          <% end %>
         </div>
       </div>
     </div>
