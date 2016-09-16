@@ -1,15 +1,15 @@
 class Filter < ActiveRecord::Base
   VERBS = {
-    equals: 'Equals',
-    includes: 'Contains',
-    excludes: 'Excludes',
-    starts_with: 'Starts with',
-    ends_with: 'Ends with',
-    :'>' => 'Greater than',
-    :'<' => 'Lesser than',
-    :'>=' => 'Greater or equal to',
-    :'<=' => 'Lesser or equal to',
-    :'regex' => 'Regex',
+    'equals' => 'Equals',
+    'includes' => 'Contains',
+    'excludes' => 'Excludes',
+    'starts_with' => 'Starts with',
+    'ends_with' => 'Ends with',
+    '>' => 'Greater than',
+    '<' => 'Lesser than',
+    '>=' => 'Greater or equal to',
+    '<=' => 'Lesser or equal to',
+    'regex' => 'Regex',
   }
 
   belongs_to :rule, inverse_of: :filters
@@ -18,9 +18,7 @@ class Filter < ActiveRecord::Base
   validates :verb, presence: true, inclusion: VERBS.keys
   validates :regex, presence: true
 
-  def valid?(payload)
-    content = Parser.new(payload).parse(value)
-
+  def valid_for?(content)
     content.strip!
     content.downcase!
 

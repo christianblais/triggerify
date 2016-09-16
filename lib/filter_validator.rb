@@ -21,7 +21,7 @@ class FilterValidator
   def valid_element?(result, elements)
     method, *elements = elements
 
-    return result.to_s == @filter.regex if method.nil?
+    return @filter.valid_for?(result.to_s) if method.nil?
 
     if method.match(ALL)
       Array.wrap(result).all? do |x|

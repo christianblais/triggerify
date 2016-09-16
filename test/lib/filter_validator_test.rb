@@ -4,7 +4,7 @@ class FilterValidatorTest < ActiveSupport::TestCase
   test '#valid? handle `all` arrays' do
     filter = Filter.new(
       regex: '0',
-      verb: 'equal',
+      verb: 'equals',
       value: "{{ info[+] }}"
     )
 
@@ -28,7 +28,7 @@ class FilterValidatorTest < ActiveSupport::TestCase
   test '#valid? handle `one` arrays' do
     filter = Filter.new(
       regex: '0',
-      verb: 'equal',
+      verb: 'equals',
       value: "{{ info[*] }}"
     )
 
