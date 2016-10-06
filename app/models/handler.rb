@@ -1,5 +1,6 @@
 class Handler < ActiveRecord::Base
   HANDLERS = {
+    Handlers::SendGrid => 'Send an email using the SendGrid API',
     Handlers::Emailer => 'Send an email',
     Handlers::Tagger => 'Add a tag to a Shopify resource',
     Handlers::SMS => 'Send a SMS',
