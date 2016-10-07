@@ -1,5 +1,10 @@
 module Handlers
   class Emailer < Base
+    description %(
+      Note that this is for test purposes only. No garanteed delivery whatsoever.
+      For real email deliveries, please use SendGrid with your own API key.
+    )
+
     setting :recipients,
       name: 'List of recipient email addresses',
       example: 'test@example.com, another@test.com'
