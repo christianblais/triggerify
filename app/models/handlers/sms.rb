@@ -2,7 +2,7 @@ module Handlers
   class SMS < Base
     setting :twilio_account_sid,
       name: 'Twilio account id',
-      example: '{{ 230122901525848 }}'
+      example: '230122901525848'
 
     setting :twilio_auth_token,
       name: 'Twilio api permission token',
@@ -21,20 +21,16 @@ module Handlers
       example: 'An order just came in from {{ first_name }} {{ last_name }}!'
 
     def call
-      computed_twilio_account_sid = twilio_account_sid.presence || ENV['TWILIO_ACCOUNT_SID']
-      computed_twilio_auth_token = twilio_auth_token.presence || ENV['TWILIO_AUTH_TOKEN']
-      computed_twilio_from_phone_number = twilio_from_phone_number.presence || ENV['TWILIO_NUMBER']
-
       return if [
         phone_number,
         message,
-        computed_twilio_account_sid,
-        computed_twilio_auth_token,
-        computed_twilio_from_phone_number
+        twilio_account_sid,
+        twilio_auth_token,
+        twilio_from_phone_number
       ].any?(&:blank?)
 
-      client = Twilio::REST::Client.new(computed_twilio_account_sid, computed_twilio_auth_token)
-      client.account.messages.create(from: computed_twilio_from_phone_number, to: phone_number, body: message)
+      client = Twilio::REST::Client.new(twilio_account_sid, twilio_auth_token)
+      client.account.messages.create(from: twilio_from_phone_number, to: phone_number, body: message)
     rescue Twilio::REST::RequestError => e
       Rails.logger.debug(e)
     end
