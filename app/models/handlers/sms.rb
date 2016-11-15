@@ -1,5 +1,11 @@
 module Handlers
   class SMS < Base
+    description %(
+      Use the Twillio API to send a SMS.
+      <a href="https://www.twilio.com/docs/api/ip-messaging/guides/identity" target="_blank">Click here</a>
+      for more information.
+    )
+
     setting :twilio_account_sid,
       name: 'Twilio account id',
       example: '230122901525848'
