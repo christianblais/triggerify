@@ -31,7 +31,7 @@ class SyncWebhookJob < ShopJob
   end
 
   def desired_topics
-    shop.rules.all.distinct(:topic).pluck(:topic)
+    shop.rules.all.distinct(:topic).pluck(:topic).push('app/uninstalled')
   end
 
   def existing_topics
