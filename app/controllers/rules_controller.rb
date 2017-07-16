@@ -50,7 +50,7 @@ class RulesController < ShopifyApp::AuthenticatedController
     rule = params.require(:rule)
     rule = rule.permit(:name, :topic, handlers_attributes: [:id, :service_name, :_destroy], filters_attributes: [:id, :value, :verb, :regex, :_destroy])
     rule[:handlers_attributes].each do |k, _v|
-      rule[:handlers_attributes][k][:settings] = params[:rule][:handlers_attributes][k][:settings]
+      rule[:handlers_attributes][k][:settings] = params[:rule][:handlers_attributes][k][:settings].to_unsafe_h
     end
     rule
   end
