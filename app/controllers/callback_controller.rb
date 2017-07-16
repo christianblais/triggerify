@@ -4,7 +4,7 @@ class CallbackController < ApplicationController
   def webhook
     CallbackWebhookJob.perform_later(
       shop_domain: shop.shopify_domain,
-      callback: params[:callback],
+      callback: params[:callback].to_unsafe_h,
       topic: params[:topic]
     )
 
