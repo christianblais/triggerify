@@ -73,6 +73,8 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     debug_inspector (0.0.3)
+    dogapi (1.27.0)
+      multi_json
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.10)
@@ -249,6 +251,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
+  dogapi
   haltable
   jbuilder (~> 2.0)
   jquery-rails

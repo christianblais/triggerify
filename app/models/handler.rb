@@ -6,6 +6,7 @@ class Handler < ActiveRecord::Base
     Handlers::SMS => 'Send a SMS',
     Handlers::Slack => 'Send a message on Slack',
     Handlers::Twitter => 'Send a tweet',
+    Handlers::DatadogEvent => 'Send a datadog event',
   }
 
   belongs_to :rule, inverse_of: :handlers

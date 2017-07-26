@@ -35,6 +35,7 @@ gem 'pg'
 gem 'haltable'
 gem 'twilio-ruby'
 gem 'slack-ruby-client'
+gem 'dogapi'
 gem 'twitter'
 gem 'shopify_app', git: 'https://github.com/Shopify/shopify_app.git'
 
