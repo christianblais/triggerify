@@ -42,4 +42,9 @@ class ParserTest < ActiveSupport::TestCase
     assert_equal '123', @parser.parse('{{ shipping_lines[1][0] }}')
     assert_equal '456', @parser.parse('{{ shipping_lines[2] }}')
   end
+
+  test '#parse handle iterations' do
+    assert_equal 'express', @parser.parse('{{ shipping_lines[n].name }}', 0)
+    assert_equal '123', @parser.parse('{{ shipping_lines[n][n] }}', 1, 0)
+  end
 end
