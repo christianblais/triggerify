@@ -6,7 +6,7 @@ class Parser
   end
 
   # parse liquidish thingies
-  def parse(content)
+  def parse(content, *n)
     content.gsub(REGEX) do |str|
       elements = str.match(REGEX)[1].split('.')
 
@@ -15,7 +15,12 @@ class Parser
         method, *arrays = element.split('[')
         result = result.try(:[], method)
         arrays.each do |i|
-          result = result.try(:[], i.to_i)
+          result =
+            if i.match(/n/)
+              result.try(:[], n.shift.to_i)
+            else
+              result.try(:[], i.to_i)
+            end
         end
       end
       result.to_s

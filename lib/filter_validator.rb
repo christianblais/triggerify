@@ -9,6 +9,8 @@ class FilterValidator
   end
 
   def valid?(payload)
+    @parser = Parser.new(payload)
+
     regex = Regexp.union(ALL, ONE, DOT)
     value = @filter.value.gsub(/\{|\}/, '').strip
     array = value.split(regex).reject(&:blank?)
@@ -18,18 +20,20 @@ class FilterValidator
 
   private
 
-  def valid_element?(result, elements)
+  def valid_element?(result, elements, iteration = nil)
     method, *elements = elements
 
-    return @filter.valid_for?(result.to_s) if method.nil?
+    if method.nil?
+      return @filter.valid_for?(@parser, result.to_s, iteration)
+    end
 
     if method.match(ALL)
-      Array.wrap(result).all? do |x|
-        valid_element?(x, elements)
+      Array.wrap(result).each.with_index.all? do |x, index|
+        valid_element?(x, elements, index)
       end
     elsif method.match(ONE)
-      Array.wrap(result).any? do |x|
-        valid_element?(x, elements)
+      Array.wrap(result).each.with_index.any? do |x, index|
+        valid_element?(x, elements, index)
       end
     else
       method, *ints = method.split(INT)
@@ -39,7 +43,7 @@ class FilterValidator
         result = result.try(:[], int.to_i)
       end
 
-      valid_element?(result, elements)
+      valid_element?(result, elements, iteration)
     end
   end
 end
