@@ -65,3 +65,17 @@ For the filter to be valid, the evaluated field will need to match this value ag
 * Field: `line_items[0].requires_shipping`
 * Value: "Equals"
 * Value: `true`
+
+### 3) Send an email if the `compare_at_price` of a variant is greater than it's `price`
+
+**Details**
+
+* Name: Alert on bad compare at price
+* Topic: `products/update`
+
+**Filter 1**
+
+* Field: `variants[*].compare_at_price`
+* Value: "Greater than"
+* Value: `{{ variants[n].price }}`
+
