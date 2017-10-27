@@ -18,11 +18,12 @@ class Filter < ActiveRecord::Base
   validates :verb, presence: true, inclusion: VERBS.keys
   validates :regex, presence: true
 
-  def valid_for?(parser, content, *iterations)
+  def valid_for?(parsed, content)
     content.strip!
     content.downcase!
 
-    parsed = parser.parse(regex.strip.downcase, *iterations)
+    parsed.strip!
+    parsed.downcase!
 
     case verb
     when 'equals'

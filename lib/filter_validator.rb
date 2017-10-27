@@ -20,20 +20,21 @@ class FilterValidator
 
   private
 
-  def valid_element?(result, elements, iteration = nil)
+  def valid_element?(result, elements, iterations = [])
     method, *elements = elements
 
     if method.nil?
-      return @filter.valid_for?(@parser, result.to_s, iteration)
+      parsed = @parser.parse(@filter.regex, *iterations)
+      return @filter.valid_for?(parsed, result.to_s)
     end
 
     if method.match(ALL)
       Array.wrap(result).each.with_index.all? do |x, index|
-        valid_element?(x, elements, index)
+        valid_element?(x, elements, iterations + [index])
       end
     elsif method.match(ONE)
       Array.wrap(result).each.with_index.any? do |x, index|
-        valid_element?(x, elements, index)
+        valid_element?(x, elements, iterations + [index])
       end
     else
       method, *ints = method.split(INT)
@@ -43,7 +44,7 @@ class FilterValidator
         result = result.try(:[], int.to_i)
       end
 
-      valid_element?(result, elements, iteration)
+      valid_element?(result, elements, iterations)
     end
   end
 end
