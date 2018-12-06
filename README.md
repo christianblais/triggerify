@@ -8,7 +8,7 @@ The name is only used internally for you to better reference that rule. It isn't
 
 ### Topic
 
-The topic reference one of the numerous Shopify webhook. You can basically listen to anything, and act accordingly. The webhook you're listening to will influence the payload you have access to, hence the filters and actions you can trigger. Click [here](https://help.shopify.com/api/reference/webhook) for additional details on available webhooks.
+The topic references one of the numerous Shopify webhooks. You can basically listen to anything, and act accordingly. The webhook you're listening to will influence the payload you have access to, hence the filters and actions you can trigger. Click [here](https://help.shopify.com/api/reference/webhook) for additional details on available webhooks.
 
 ## Filters
 
