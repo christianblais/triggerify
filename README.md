@@ -44,42 +44,52 @@ For the filter to be valid, the evaluated field will need to match this value ag
 * Value: `true`
 
 
-#### 2) For each order, send an email if all items require shipping
+#### 2) For each order, if all items require shipping, send an email
 
 **Details**
 
 * Name: Send an email for shippable goods
 * Topic: `orders/create`
 
-**Filter 1**
+**Filter**
 
 * Field: `line_items[+].requires_shipping`
 * Value: "Equals"
 * Value: `true`
 
-#### 3) For each order, send an email if the first item requires shipping
+#### 3) For each order, if the first item requires shipping, send a Slack message
 
 **Details**
 
 * Name: Send an email for shippable goods
 * Topic: `orders/create`
 
-**Filter 1**
+**Filter**
 
 * Field: `line_items[0].requires_shipping`
 * Value: "Equals"
 * Value: `true`
 
-#### 4) Send an email if the `compare_at_price` of a variant is greater than it's `price`
+#### 4) On product updates, if the `compare_at_price` of a variant is greater than it's `price`, send a Tweet
 
 **Details**
 
 * Name: Alert on bad compare at price
 * Topic: `products/update`
 
-**Filter 1**
+**Filter**
 
 * Field: `variants[*].compare_at_price`
 * Value: "Greater than"
 * Value: `{{ variants[n].price }}`
 
+#### 4) On checkout creation, send a Datadog event
+
+**Details**
+
+* Name: Alert on bad compare at price
+* Topic: `checkouts/create`
+
+**Filter**
+
+No required filter, as we always want to trigger the action.
