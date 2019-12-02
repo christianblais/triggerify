@@ -1,4 +1,4 @@
-class CreateFilters < ActiveRecord::Migration
+class CreateFilters < ActiveRecord::Migration[5.0]
   def change
     create_table :filters do |t|
       t.references :rule, index: true, foreign_key: true, null: false

@@ -1,4 +1,4 @@
-class CreateHandlers < ActiveRecord::Migration
+class CreateHandlers < ActiveRecord::Migration[5.0]
   def change
     create_table :handlers do |t|
       t.references :rule, index: true, foreign_key: true, null: false
