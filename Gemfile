@@ -32,7 +32,6 @@ gem 'turbolinks'
 # gem 'capistrano-rails', group: :development
 
 gem 'pg'
-gem 'haltable'
 gem 'twilio-ruby'
 gem 'slack-ruby-client'
 gem 'dogapi'
