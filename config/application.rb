@@ -16,6 +16,9 @@ module Triggerify
 
     config.eager_load_paths << Rails.root.join('lib')
 
+    # SQLite booleans now use integers (1, 0) as opposed to strings ('t', 'f')
+    config.active_record.sqlite3.represent_boolean_as_integer = true
+
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'

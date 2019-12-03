@@ -1,4 +1,4 @@
-class RulesController < ShopifyApp::AuthenticatedController
+class RulesController < AuthenticatedController
   def index
     @rules = shop.rules
   end
