@@ -241,7 +241,7 @@ DEPENDENCIES
   jquery-rails
   pg
   puma
-  rails (~> 5.1)
+  rails (~> 5.2)
   rails_12factor
   shopify_app (~> 11)
   slack-ruby-client
