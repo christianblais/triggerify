@@ -16,7 +16,7 @@ class RulesController < AuthenticatedController
 
     if @rule.save
       sync_webhooks
-      redirect_to(rules_path)
+      redirect_to(rules_path, flash: { notice: "Rule created successfully." })
     else
       render('new')
     end
@@ -27,7 +27,7 @@ class RulesController < AuthenticatedController
 
     if @rule.update_attributes(rule_params)
       sync_webhooks
-      redirect_to(rule_path(@rule))
+      redirect_to(rule_path(@rule), flash: { notice: "Rule updated successfully." })
     else
       render('show')
     end
@@ -38,7 +38,7 @@ class RulesController < AuthenticatedController
 
     if @rule.destroy
       sync_webhooks
-      redirect_to(rules_path)
+      redirect_to(rules_path, flash: { notice: "Rule deleted successfully." })
     else
       render('show')
     end
