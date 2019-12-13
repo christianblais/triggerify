@@ -11,7 +11,7 @@ class SyncWebhookJob < ShopJob
       next if existing_topics.include?(topic)
 
       ShopifyAPI::Webhook.create(
-        address: "#{callback_path}/#{topic}",
+        address: callback_path,
         format: 'json',
         topic: topic,
       )
@@ -27,7 +27,7 @@ class SyncWebhookJob < ShopJob
   end
 
   def callback_path
-    "#{Rails.configuration.application_url}/webhooks/rules/#{shop.id}"
+    "#{Rails.configuration.application_url}/webhooks/receive"
   end
 
   def desired_topics
