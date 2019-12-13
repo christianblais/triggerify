@@ -1,14 +1,24 @@
 class SyncWebhookJob < ShopJob
   def perform_with_shop(*_args)
-    create_missing_webhooks
     delete_extra_webhooks
+    create_missing_webhooks
   end
 
   private
 
+  def delete_extra_webhooks
+    ShopifyAPI::Webhook.all.each do |webhook|
+      if desired_topics.exclude?(webhook.topic) || webhook.address != callback_path
+        webhook.destroy
+      end
+    end
+  end
+
   def create_missing_webhooks
+    existing_webhooks = ShopifyAPI::Webhook.all
+
     desired_topics.each do |topic|
-      next if existing_topics.include?(topic)
+      next if existing_webhooks.map(&:topic).include?(topic)
 
       ShopifyAPI::Webhook.create(
         address: callback_path,
@@ -18,27 +28,11 @@ class SyncWebhookJob < ShopJob
     end
   end
 
-  def delete_extra_webhooks
-    existing_webhooks.each do |webhook|
-      next if desired_topics.include?(webhook.topic)
-
-      webhook.destroy
-    end
-  end
-
   def callback_path
     "#{Rails.configuration.application_url}/webhooks/receive"
   end
 
   def desired_topics
     shop.rules.all.distinct(:topic).pluck(:topic).push('app/uninstalled')
-  end
-
-  def existing_topics
-    existing_webhooks.map(&:topic)
-  end
-
-  def existing_webhooks
-    @existing_webhooks ||= ShopifyAPI::Webhook.all
   end
 end
