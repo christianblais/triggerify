@@ -1,0 +1,16 @@
+*.gem
+.bundle
+Gemfile.lock
+pkg/*
+.DS_Store
+.yardoc
+doc/
+*.log
+*.sqlite3
+test/tmp/*
+.idea
+# ignore sprockets cache
+/test/dummy/tmp/*
+/node_modules/
+.byebug_history
+

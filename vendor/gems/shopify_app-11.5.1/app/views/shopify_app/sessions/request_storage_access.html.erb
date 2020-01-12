@@ -27,7 +27,7 @@
                       appHomeUrl: "#{app_home_url}"
                   },
               },
-  )
+              )
 %>
 <main id="RequestStorageAccess">
   <div class="Polaris-Page">
@@ -63,6 +63,6 @@
     </div>
   </div>
 </main>
-<%= javascript_include_tag('shopify_app/request_storage_access', crossorigin: 'anonymous') %>
+<%= javascript_include_tag('shopify_app/request_storage_access', crossorigin: 'anonymous', integrity: false) %>
 </body>
 </html>
