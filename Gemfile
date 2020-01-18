@@ -32,6 +32,7 @@ gem 'jquery-rails'
 # gem 'capistrano-rails', group: :development
 
 gem 'pg'
+gem 'skylight'
 gem 'twilio-ruby'
 gem 'slack-ruby-client'
 gem 'dogapi'
