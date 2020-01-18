@@ -28,5 +28,8 @@ module Triggerify
     # config.i18n.default_locale = :de
 
     config.application_url = ENV['APPLICATION_URL']
+
+    # enable Skylight background profiling
+    config.skylight.probes << 'active_job'
   end
 end
