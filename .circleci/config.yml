@@ -1,15 +1,44 @@
-version: 2.1
-orbs:
-  ruby: circleci/ruby@0.1.2 
+version: 2
 
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.3-stretch-node
-    executor: default
+      - image: circleci/ruby:2.7.0
+        environment: # environment variables for primary container
+          RAILS_ENV: test
+
     steps:
       - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
       - run:
-          name: Which bundler?
-          command: bundle -v
-      - ruby/bundle-install
+          name: Configure Bundler for v2+
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+
+      - run:
+          name: install dependencies
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+      # Database setup
+      - run:
+          name: Database migration
+          command: bundle exec rake db:migrate
+
+      # run tests!
+      - run:
+          name: run tests
+          command: bundle exec rake test
