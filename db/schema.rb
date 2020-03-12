@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2016_06_10_141519) do
+ActiveRecord::Schema.define(version: 2020_03_12_123853) do
 
   create_table "filters", force: :cascade do |t|
     t.integer "rule_id", null: false
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2016_06_10_141519) do
   create_table "handlers", force: :cascade do |t|
     t.integer "rule_id", null: false
     t.string "service_name", null: false
-    t.text "settings", null: false
+    t.text "settings"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["rule_id"], name: "index_handlers_on_rule_id"
