@@ -19,6 +19,7 @@ class Filter < ActiveRecord::Base
   validates :regex, presence: true
 
   def valid_for?(parsed, content)
+    content = content.dup
     content.strip!
     content.downcase!
 
