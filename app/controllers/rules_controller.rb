@@ -49,10 +49,7 @@ class RulesController < AuthenticatedController
   def rule_params
     rule = params.require(:rule)
     rule = rule.permit(:name, :topic, handlers_attributes: [:id, :service_name, :_destroy], filters_attributes: [:id, :value, :verb, :regex, :_destroy])
-    rule[:handlers_attributes].each do |k, _v|
-      rule[:handlers_attributes][k][:settings] = params[:rule][:handlers_attributes][k][:settings].to_unsafe_h
-    end
-    rule
+    rule.to_unsafe_h
   end
 
   def sync_webhooks
