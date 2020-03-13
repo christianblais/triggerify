@@ -14,11 +14,7 @@ class Handler < ActiveRecord::Base
   validates :rule, presence: true
   validates :service_name, presence: true, inclusion: HANDLERS.keys.map(&:to_s)
 
-  serialize :settings
-
-  def settings
-    super || {}
-  end
+  serialize :settings, Hash
 
   def service
     service_name.constantize
