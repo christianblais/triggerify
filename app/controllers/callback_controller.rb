@@ -10,7 +10,7 @@ class CallbackController < ApplicationController
 
     head :ok
   rescue => e
-    Rails.logger.error(e)
+    Bugsnag.notify(e)
     head :ok
   end
 
@@ -23,7 +23,7 @@ class CallbackController < ApplicationController
 
     head :ok
   rescue => e
-    Rails.logger.error(e)
+    Bugsnag.notify(e)
     head :ok
   end
 
