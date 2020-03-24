@@ -37,8 +37,6 @@ module Handlers
 
       client = Twilio::REST::Client.new(twilio_account_sid, twilio_auth_token)
       client.account.messages.create(from: twilio_from_phone_number, to: phone_number, body: message)
-    rescue Twilio::REST::RequestError => e
-      Rails.logger.debug(e)
     end
   end
 end

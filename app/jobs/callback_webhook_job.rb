@@ -6,15 +6,7 @@ class CallbackWebhookJob < ShopJob
       end
 
       rule.handlers.each do |handler|
-        begin
-          handler.handle(callback)
-        rescue StandardError => exception
-          Rails.logger.info("ERROR with #{handler.class.name}")
-          Rails.logger.info(" -- #{exception}")
-          Rails.logger.info(" -- #{exception.message}")
-
-          Bugsnag.notify(exception)
-        end
+        handler.handle(callback)
       end
     end
   end
