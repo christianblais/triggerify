@@ -7,11 +7,11 @@ module Handlers
     )
 
     setting :twilio_account_sid,
-      name: 'Twilio account id',
-      example: '230122901525848'
+      name: 'Twilio account sid',
+      example: 'AC38562aacf967452e2846559de112f845'
 
     setting :twilio_auth_token,
-      name: 'Twilio api permission token',
+      name: 'Twilio auth token',
       example: '0cf24305167f2396aa3f5c16f2e827c4'
 
     setting :twilio_from_phone_number,
@@ -36,7 +36,11 @@ module Handlers
       ].any?(&:blank?)
 
       client = Twilio::REST::Client.new(twilio_account_sid, twilio_auth_token)
-      client.account.messages.create(from: twilio_from_phone_number, to: phone_number, body: message)
+      client.messages.create(
+        from: twilio_from_phone_number,
+        to: phone_number,
+        body: message,
+      )
     end
   end
 end
