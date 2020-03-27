@@ -8,11 +8,11 @@ module Handlers
 
     setting :twilio_account_sid,
       name: 'Twilio account sid',
-      example: 'AC38562aacf967452e2846559de112f845'
+      example: 'AC1234567890abcdef1234567890abcdef'
 
     setting :twilio_auth_token,
       name: 'Twilio auth token',
-      example: '0cf24305167f2396aa3f5c16f2e827c4'
+      example: '1234567890abcdef1234567890abcdef'
 
     setting :twilio_from_phone_number,
       name: 'The Twilio phone number attached to your account you wish to use',
