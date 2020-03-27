@@ -26,6 +26,11 @@ module Handlers
       name: 'Message',
       example: 'An order just came in from {{ first_name }} {{ last_name }}!'
 
+    TWILLIO_ERRORS = [
+      20404, # Unable to create record (auth error)
+      21211, # Unable to create record The 'To' number 555-555-5555 is not a valid phone number"
+    ].freeze
+
     def call
       return if [
         phone_number,
@@ -35,12 +40,32 @@ module Handlers
         twilio_from_phone_number
       ].any?(&:blank?)
 
+      call_twillio
+    end
+
+    private
+
+    def call_twillio
       client = Twilio::REST::Client.new(twilio_account_sid, twilio_auth_token)
       client.messages.create(
         from: twilio_from_phone_number,
         to: phone_number,
         body: message,
       )
+    rescue Twilio::REST::RestError => e
+      if known_error?(e)
+        Rails.logger.info("Twillio silenced error: #{e.message}")
+        return
+      end
+
+      raise
+    end
+
+    def known_error?(e)
+      match = e.message.match(/^\[.+?\] (?<code>\d+) :/)
+      return false unless match
+
+      TWILLIO_ERRORS.any? { |code| code == match[:code].to_i }
     end
   end
 end
