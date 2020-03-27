@@ -28,7 +28,7 @@ class ParserTest < ActiveSupport::TestCase
     assert_equal 'hello 123!', @parser.parse('hello {{ customer.properties.a }}!')
   end
 
-  test '#parse return nil on missing data' do
+  test '#parse return empty on missing data' do
     assert_equal 'hello !', @parser.parse('hello {{ test }}!')
     assert_equal 'hello !', @parser.parse('hello {{ test.hola }}!')
   end
@@ -46,5 +46,9 @@ class ParserTest < ActiveSupport::TestCase
   test '#parse handle iterations' do
     assert_equal 'express', @parser.parse('{{ shipping_lines[n].name }}', 0)
     assert_equal '123', @parser.parse('{{ shipping_lines[n][n] }}', 1, 0)
+  end
+
+  test '#parse returns empty when trying to incorrectly access an iteration directly' do
+    assert_equal '', @parser.parse('{{ shipping_lines.name }}', 0)
   end
 end
