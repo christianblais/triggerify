@@ -13,7 +13,13 @@ class Parser
       result = @payload
       elements.each do |element|
         method, *arrays = element.split('[')
-        result = result.try(:[], method)
+
+        result = if result.is_a?(Hash)
+          result.try(:[], method)
+        else
+          nil
+        end
+
         arrays.each do |i|
           result =
             if i.match(/n/)
