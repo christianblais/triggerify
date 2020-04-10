@@ -29,6 +29,7 @@ module Handlers
     TWILLIO_ERRORS = [
       20404, # Unable to create record (auth error)
       21211, # Unable to create record The 'To' number 555-555-5555 is not a valid phone number"
+      21606, # Unable to create record The 'From' phone number 555-555-5555 is not a valid, SMS-capable inbound phone number or short code for your account.
     ].freeze
 
     def call
