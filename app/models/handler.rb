@@ -1,12 +1,12 @@
 class Handler < ActiveRecord::Base
   HANDLERS = {
-    Handlers::SendGrid => 'Send an email using the SendGrid API',
+    Handlers::SendGrid => 'Send an email (via SendGrid)',
     Handlers::Emailer => 'Send an email (Test only)',
     Handlers::Tagger => 'Add a tag to a Shopify resource',
-    Handlers::SMS => 'Send a SMS',
+    Handlers::SMS => 'Send a SMS (via Twillio)',
     Handlers::Slack => 'Send a message on Slack',
     Handlers::Twitter => 'Send a tweet',
-    Handlers::DatadogEvent => 'Send a datadog event',
+    Handlers::DatadogEvent => 'Send a Datadog event',
   }
 
   belongs_to :rule, inverse_of: :handlers
