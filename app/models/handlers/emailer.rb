@@ -1,7 +1,7 @@
 module Handlers
   class Emailer < Base
     description %(
-      Note that this is for test purposes only. No garanteed delivery whatsoever.
+      Note that this is for test purposes only. No guaranteed delivery whatsoever.
       For real email deliveries, please use SendGrid with your own API key.
     )
 
@@ -19,7 +19,7 @@ module Handlers
 
     setting :body,
       name: 'Content of the email',
-      example: 'This is an email from triggerify!'
+      example: 'This is an email from Triggerify!'
 
     def call
       ActionMailer::Base.smtp_settings = {

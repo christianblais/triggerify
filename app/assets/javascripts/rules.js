@@ -13,7 +13,7 @@ $('[data-handler-list]').on('change', '[data-handler]', function (event) {
       $element.find(':input').prop('disabled', true);
     }
   });
-})
+});
 
 $('[data-topic]').on('change', function (event) {
   var $target = $(event.target);
@@ -28,13 +28,13 @@ $('[data-topic]').on('change', function (event) {
       $element.hide();
     }
   });
-})
+});
 
 $('[data-topic-payload-toggle]').on('click', function (event) {
   event.preventDefault();
 
   $(event.target).siblings('[data-topic-payload-details]').toggle();
-})
+});
 
 $('body').on('click', '[data-add]', function (event) {
   event.preventDefault();

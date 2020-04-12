@@ -8,7 +8,7 @@
 
     <%= f.label :service_name, 'Action' %>
     <div class="select-wrapper">
-      <%= f.select :service_name, Handler::HANDLERS.map { |k, v| [v, k.to_s] }, { prompt: "Action" }, { class: 'select', data: { handler: true } } %>
+      <%= f.select :service_name, Handler::HANDLERS.map { |k, v| [v, k.to_s] }, { prompt: "Select an action" }, { class: 'select', data: { handler: true } } %>
     </div>
 
     <%= f.fields_for :settings do |ff| %>
