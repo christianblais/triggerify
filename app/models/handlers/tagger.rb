@@ -1,5 +1,10 @@
 module Handlers
   class Tagger < Base
+    description %(
+      Add a tag to Shopify resource on your store.
+      <a href="https://github.com/christianblais/triggerify/wiki/Rule-Action-Shopify-Tag" target="_blank">More information</a>
+    )
+
     setting :taggable_type,
       options: %w(Order Customer),
       name: 'Resource type',

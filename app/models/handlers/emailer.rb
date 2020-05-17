@@ -3,6 +3,7 @@ module Handlers
     description %(
       Note that this is for test purposes only. No guaranteed delivery whatsoever.
       For real email deliveries, please use SendGrid with your own API key.
+      <a href="https://github.com/christianblais/triggerify/wiki/Rule-Action-Email-Test" target="_blank">More information</a>
     )
 
     setting :recipients,

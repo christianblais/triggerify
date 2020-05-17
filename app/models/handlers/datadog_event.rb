@@ -2,12 +2,12 @@ module Handlers
   class DatadogEvent < Base
     description %(
       Use the Datadog API to send custom events.
-      <a href="https://www.datadoghq.com/" target="_blank">Click here</a>
-      for more information.
+      <a href="https://github.com/christianblais/triggerify/wiki/Rule-Action-Datadog-Event" target="_blank">More information</a>
     )
 
     setting :api_key,
-      name: 'Datadog API key'
+      name: 'Datadog API key',
+      example: '4e72a1937a2cxxxxxxxxxxxxxxxxxxxx'
 
     setting :metric_name,
       name: 'Event name',

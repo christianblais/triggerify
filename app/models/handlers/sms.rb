@@ -2,8 +2,7 @@ module Handlers
   class SMS < Base
     description %(
       Use the Twillio API to send a SMS.
-      <a href="https://www.twilio.com/docs/api/ip-messaging/guides/identity" target="_blank">Click here</a>
-      for more information.
+      <a href="https://github.com/christianblais/triggerify/wiki/Rule-Action-SMS-Twillio" target="_blank">More information</a>
     )
 
     setting :twilio_account_sid,
