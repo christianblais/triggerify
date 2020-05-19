@@ -2,8 +2,7 @@ module Handlers
   class Twitter < Base
     description %(
       Use the Twitter API to send a tweet.
-      <a href="https://apps.twitter.com" target="_blank">Click here</a>
-      for more information.
+      <a href="https://github.com/christianblais/triggerify/wiki/Rule-Action-Twitter" target="_blank">More information</a>
     )
 
     setting :consumer_key,

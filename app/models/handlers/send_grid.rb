@@ -2,12 +2,12 @@ module Handlers
   class SendGrid < Base
     description %(
       Use the SendGrid API to send an email.
-      <a href="https://sendgrid.com/" target="_blank">Click here</a>
-      for more information.
+      <a href="https://github.com/christianblais/triggerify/wiki/Rule-Action-Email-SendGrid" target="_blank">More information</a>
     )
 
     setting :api_key,
-      name: 'SendGrid API Key'
+      name: 'SendGrid API Key',
+      example: 'SG.HdfSr2Gxxxxxxxxxx_xxxx.uo-38J2ZDhzkjxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
     setting :recipients,
       name: 'List of recipient email addresses',
