@@ -11,6 +11,14 @@ module Handlers
         @description
       end
 
+      def deprecated!
+        @deprecated = true
+      end
+
+      def deprecated?
+        !!@deprecated
+      end
+
       def settings
         @settings ||= {}
       end

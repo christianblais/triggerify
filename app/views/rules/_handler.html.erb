@@ -8,11 +8,11 @@
 
     <%= f.label :service_name, 'Action' %>
     <div class="select-wrapper">
-      <%= f.select :service_name, Handler::HANDLERS.map { |handler| [handler.label, handler.to_s] }, { prompt: "Select an action" }, { class: 'select', data: { handler: true } } %>
+      <%= f.select :service_name, available_handlers.map { |handler| [handler.label, handler.to_s] }, { prompt: "Select an action" }, { class: 'select', data: { handler: true } } %>
     </div>
 
     <%= f.fields_for :settings do |ff| %>
-      <% Handler::HANDLERS.each do |handler| %>
+      <% available_handlers.each do |handler| %>
         <div data-handler-details="<%= handler %>">
           <% if handler.description.present? %>
             <p><%= raw(handler.description) %></p>

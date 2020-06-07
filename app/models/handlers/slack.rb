@@ -8,6 +8,8 @@ module Handlers
       for more information.
     )
 
+    deprecated!
+
     setting :slack_token,
       name: 'Slack api permission token',
       example: '2e1bad1377ff7faaae75a46f51663531'

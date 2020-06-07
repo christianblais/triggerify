@@ -20,4 +20,12 @@ module RulesHelper
       { prefix => payload }
     end
   end
+
+  def available_handlers
+    current_shop_handlers = shop.rules.map { |r| r.handlers.map { |h| h.service_name } }.flatten.uniq
+
+    Handler::HANDLERS.reject do |handler|
+      handler.deprecated? && !current_shop_handlers.include?(handler.to_s)
+    end
+  end
 end
