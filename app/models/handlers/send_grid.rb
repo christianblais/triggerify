@@ -1,5 +1,7 @@
 module Handlers
   class SendGrid < Base
+    label 'Send an email (via SendGrid)'
+
     description %(
       Use the SendGrid API to send an email.
       <a href="https://github.com/christianblais/triggerify/wiki/Rule-Action-Email-SendGrid" target="_blank">More information</a>

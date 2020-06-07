@@ -1,5 +1,7 @@
 module Handlers
   class DatadogEvent < Base
+    label 'Send a Datadog event'
+
     description %(
       Use the Datadog API to send custom events.
       <a href="https://github.com/christianblais/triggerify/wiki/Rule-Action-Datadog-Event" target="_blank">More information</a>
