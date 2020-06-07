@@ -16,8 +16,12 @@
           <%= f.label :name %>
           <%= f.text_field :name, placeholder: "name" %>
 
-          <%= f.label :topic %>
+          <div class="checkbox-wrapper">
+            <%= f.label :enabled %>
+            <%= f.check_box :enabled, class: "checkbox" %>
+          </div>
 
+          <%= f.label :topic %>
           <div class="select-wrapper">
             <%= f.select :topic, Rule::TOPICS.map { |k,v| [v, k] }, { prompt: 'Select a topic' }, { class: 'select', data: { topic: true } } %>
           </div>

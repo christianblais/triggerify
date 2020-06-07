@@ -25,6 +25,22 @@
   position: relative;
 }
 
+.checkbox {
+  margin: 0 0 15px 0;
+  opacity: 1 !important;
+}
+
+.checkbox-wrapper {
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
+  position: relative;
+  background: #ffffff;
+  overflow: hidden;
+  vertical-align: bottom;
+  margin: 0 0 15px 0;
+}
+
 .select-wrapper {
   margin: 0 0 15px 0;
 }

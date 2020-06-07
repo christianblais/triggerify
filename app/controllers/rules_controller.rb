@@ -51,6 +51,7 @@ class RulesController < AuthenticatedController
       .require(:rule)
       .permit(
         :name,
+        :enabled,
         :topic,
         filters_attributes: [:id, :value, :verb, :regex, :_destroy],
         handlers_attributes: [:id, :service_name, :_destroy, settings: {}],
