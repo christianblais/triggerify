@@ -1,0 +1,4 @@
+email:
+  shop: regular_shop
+  name: 'Email on customer creation from Canada'
+  topic: 'customers/create'

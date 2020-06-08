@@ -1,0 +1,5 @@
+email_from_canada:
+  rule: email
+  value: '{{ country }}'
+  verb: "=="
+  regex: 'Canada'
