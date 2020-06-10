@@ -108,11 +108,17 @@
       primary: { label: "Save", callback: function() {
         $('form').submit()
       }},
-      secondary: [{
-        label: "Cancel", callback: function() {
+      secondary: [
+        {
+          label: "Cancel", callback: function() {
           window.location = "<%= rules_path %>"
-        }
-      }]
+        }},
+        <% unless @rule.persisted? %>
+          { label: "Import from templates", callback: function() {
+            window.location = "<%= templates_rules_path %>"
+          }}
+        <% end %>
+      ]
     }
   });
 
