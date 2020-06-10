@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.7.0
+      - image: circleci/ruby:2.7.1
         environment: # environment variables for primary container
           RAILS_ENV: test
 
