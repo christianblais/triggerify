@@ -55,4 +55,6 @@ class Rule < ActiveRecord::Base
 
   accepts_nested_attributes_for :handlers, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :filters, allow_destroy: true, reject_if: :all_blank
+
+  scope :enabled, -> { where(enabled: true) }
 end

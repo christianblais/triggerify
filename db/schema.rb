@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_12_123853) do
+ActiveRecord::Schema.define(version: 2020_06_06_210100) do
 
   create_table "filters", force: :cascade do |t|
     t.integer "rule_id", null: false
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2020_03_12_123853) do
     t.string "topic", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "enabled", default: true, null: false
     t.index ["shop_id"], name: "index_rules_on_shop_id"
   end
 

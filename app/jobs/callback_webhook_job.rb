@@ -1,6 +1,6 @@
 class CallbackWebhookJob < ShopJob
   def perform_with_shop(topic:, callback:)
-    rules = shop.rules.where(topic: topic).includes(:filters, :handlers)
+    rules = shop.rules.enabled.where(topic: topic).includes(:filters, :handlers)
 
     rules.each do |rule|
       process_rule(rule, callback)

@@ -8,8 +8,17 @@
     <% @rules.each do |rule| %>
       <div class="section-row">
         <div class="section-cell">
+          <%= rule.name %>
 
-          <h1><%= rule.name %></h1>
+          <% if rule.enabled? %>
+            <span class="tag green">
+              Enabled
+            </span>
+          <% else %>
+            <span class="tag orange">
+              Disabled
+            </span>
+          <% end %>
 
           <ul class="segmented right">
             <li><%= link_to 'Edit', rule_path(rule), class: %w(btn default btn-slim) %></li>
