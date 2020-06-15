@@ -1,5 +1,7 @@
 module Handlers
   class Twitter < Base
+    label 'Send a tweet'
+
     description %(
       Use the Twitter API to send a tweet.
       <a href="https://github.com/christianblais/triggerify/wiki/Rule-Action-Twitter" target="_blank">More information</a>

@@ -1,9 +1,22 @@
 module Handlers
   class Base
     class << self
+      def label(label = nil)
+        @label = label if label
+        @label
+      end
+
       def description(description = nil)
         @description = description if description
         @description
+      end
+
+      def deprecated!
+        @deprecated = true
+      end
+
+      def deprecated?
+        !!@deprecated
       end
 
       def settings

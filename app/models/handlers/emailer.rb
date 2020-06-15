@@ -1,5 +1,7 @@
 module Handlers
   class Emailer < Base
+    label 'Send an email (Test only)'
+
     description %(
       Note that this is for test purposes only. No guaranteed delivery whatsoever.
       For real email deliveries, please use SendGrid with your own API key.

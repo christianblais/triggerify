@@ -1,5 +1,7 @@
 module Handlers
   class SMS < Base
+    label 'Send a SMS (via Twillio)'
+
     description %(
       Use the Twillio API to send a SMS.
       <a href="https://github.com/christianblais/triggerify/wiki/Rule-Action-SMS-Twillio" target="_blank">More information</a>

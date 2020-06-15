@@ -1,5 +1,7 @@
 module Handlers
   class Tagger < Base
+    label 'Add a tag to a Shopify resource'
+
     description %(
       Add a tag to Shopify resource on your store.
       <a href="https://github.com/christianblais/triggerify/wiki/Rule-Action-Shopify-Tag" target="_blank">More information</a>

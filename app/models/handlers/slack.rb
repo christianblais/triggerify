@@ -1,10 +1,14 @@
 module Handlers
   class Slack < Base
+    label 'Send a message on Slack'
+
     description %(
       Use the Slack API to send a message.
       <a href="https://get.slack.help/hc/en-us/articles/215770388-Create-and-regenerate-API-tokens" target="_blank">Click here</a>
       for more information.
     )
+
+    deprecated!
 
     setting :slack_token,
       name: 'Slack api permission token',

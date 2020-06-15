@@ -20,4 +20,12 @@ module RulesHelper
       { prefix => payload }
     end
   end
+
+  def available_handlers
+    current_shop_handlers = shop.rules.joins(:handlers).select('handlers.service_name').distinct
+
+    Handler::HANDLERS.reject do |handler|
+      handler.deprecated? && current_shop_handlers.exclude?(handler.to_s)
+    end
+  end
 end
