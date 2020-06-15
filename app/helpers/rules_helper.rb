@@ -22,10 +22,10 @@ module RulesHelper
   end
 
   def available_handlers
-    current_shop_handlers = shop.rules.map { |r| r.handlers.map { |h| h.service_name } }.flatten.uniq
+    current_shop_handlers = shop.rules.joins(:handlers).select('handlers.service_name').distinct
 
     Handler::HANDLERS.reject do |handler|
-      handler.deprecated? && !current_shop_handlers.include?(handler.to_s)
+      handler.deprecated? && current_shop_handlers.exclude?(handler.to_s)
     end
   end
 end
