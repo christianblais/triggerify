@@ -1,7 +1,7 @@
 if Rails.configuration.cache_classes
-  ShopifyApp::SessionRepository.storage = Shop
+  ShopifyApp::SessionRepository.shop_storage = Shop
 else
   ActiveSupport::Reloader.to_prepare do
-    ShopifyApp::SessionRepository.storage = Shop
+    ShopifyApp::SessionRepository.shop_storage = Shop
   end
 end

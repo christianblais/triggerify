@@ -5,7 +5,8 @@ ShopifyApp.configure do |config|
   config.embedded_app = true
   config.after_authenticate_job = false
   config.api_version = "unstable"
-  config.session_repository = Shop
+  config.shop_session_repository = 'Shop'
+  config.user_session_repository = 'User'
 
   config.api_key = ENV['SHOPIFY_CLIENT_API_KEY'].presence || raise("Missing SHOPIFY_CLIENT_API_KEY env variable")
   config.secret = ENV['SHOPIFY_CLIENT_API_SECRET'].presence || raise("Missing SHOPIFY_CLIENT_API_SECRET env variable")
