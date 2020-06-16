@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def shop
-    @shop ||= Shop.find(session[:shopify])
+    @shop ||= Shop.find(session[:shop_id])
   rescue ActiveRecord::RecordNotFound
     nil
   end

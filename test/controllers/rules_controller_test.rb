@@ -5,7 +5,7 @@ class RulesControllerTest < ActionController::TestCase
     shop = shops(:regular_shop)
 
     request.env['rack.url_scheme'] = 'https'
-    @request.session[:shopify] = shop.id
+    @request.session[:shop_id] = shop.id
     @request.session[:shopify_domain] = shop.shopify_domain
   end
 

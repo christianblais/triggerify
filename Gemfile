@@ -38,7 +38,7 @@ gem 'twilio-ruby'
 gem 'slack-ruby-client'
 gem 'dogapi'
 gem 'twitter'
-gem 'shopify_app', '~> 11', path: 'vendor/gems/shopify_app-11.7.0'
+gem 'shopify_app', '~> 13'
 
 group :production do
   gem 'rails_12factor'
