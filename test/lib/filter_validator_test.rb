@@ -210,4 +210,36 @@ class FilterValidatorTest < ActiveSupport::TestCase
       ]
     })
   end
+
+  test '#valid? handle invalid access (Array)' do
+    filter = Filter.new(
+      regex: '0',
+      verb: 'equals',
+      value: "{{ info.test }}"
+    )
+
+    parser = FilterValidator.new(filter)
+
+    assert_equal false, parser.valid?({
+      'info' => [
+        { 'a' => 1 }
+      ]
+    })
+  end
+
+  test '#valid? handle invalid access (Hash)' do
+    filter = Filter.new(
+      regex: '0',
+      verb: 'equals',
+      value: "{{ info[0] }}"
+    )
+
+    parser = FilterValidator.new(filter)
+
+    assert_equal false, parser.valid?({
+      'info' => {
+        'a' => 1
+      }
+    })
+  end
 end
