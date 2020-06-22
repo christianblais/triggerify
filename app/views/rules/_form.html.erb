@@ -123,6 +123,6 @@
   });
 
   <% if @rule.errors.any? %>
-    ShopifyApp.flashError("An error has occurred.");
+    ShopifyApp.flashError("<%= raw @rule.errors.full_messages.to_sentence.html_safe %>");
   <% end %>
 <% end %>

@@ -13,6 +13,7 @@ class Handler < ActiveRecord::Base
 
   validates :rule, presence: true
   validates :service_name, presence: true, inclusion: HANDLERS.map(&:to_s)
+  validate :validate_settings
 
   serialize :settings, Hash
 
@@ -22,5 +23,13 @@ class Handler < ActiveRecord::Base
 
   def handle(payload)
     service.new(settings, payload).call
+  end
+
+  private
+
+  def validate_settings
+    return if service.settings.keys.all? { settings[_1].present? }
+
+    errors.add(:settings, :blank)
   end
 end
