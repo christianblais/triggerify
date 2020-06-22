@@ -14,10 +14,18 @@ class RulesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "new" do
-    rule = rules(:email)
+  test "templates" do
+    get :templates
+    assert_response :success
+  end
 
+  test "new" do
     get :new
+    assert_response :success
+  end
+
+  test "new with templates" do
+    get :new, params: { template: RuleTemplate.all.keys.first }
     assert_response :success
   end
 

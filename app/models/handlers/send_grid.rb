@@ -17,7 +17,7 @@ module Handlers
 
     setting :from,
       name: 'Email address this email is sent from',
-      example: 'my.name@something.com'
+      example: 'store@example.com'
 
     setting :subject,
       name: 'Title of the email',

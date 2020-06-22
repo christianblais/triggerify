@@ -1,0 +1,35 @@
+<div class="section">
+  <div class="section-summary">
+    <h1>Templates</h1>
+    <p>These are templates available.</p>
+  </div>
+
+  <div class="section-content">
+    <% @templates.each do |handle, template| %>
+      <div class="section-row">
+        <div class="section-cell">
+          <ul class="segmented right">
+            <li><%= link_to 'Continue', new_rule_path(template: handle), class: %w(btn default btn-slim) %></li>
+          </ul>
+
+          <%= template.name %><br>
+          <br>
+          <%= template.description %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :shopify_app_javascript do %>
+  ShopifyApp.Bar.initialize({
+    title: 'Pick a template',
+    buttons: {
+      secondary: [
+        { label: "Cancel", callback: function() {
+          window.location = "<%= rules_path %>"
+        }}
+      ]
+    }
+  });
+<% end %>
