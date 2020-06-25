@@ -1,5 +1,7 @@
 Bugsnag.configure do |config|
   config.api_key = ENV['BUGSNAG_API_KEY'].presence
+
+  config.app_version = ENV['HEROKU_SLUG_COMMIT']
 end
 
 module BugsnagConsole
