@@ -29,14 +29,20 @@ class FilterValidator
     end
 
     if method.match(ALL)
-      Array.wrap(result).each.with_index.all? do |x, index|
+      return false unless result.is_a?(Array)
+
+      result.each.with_index.all? do |x, index|
         valid_element?(x, elements, iterations + [index])
       end
     elsif method.match(ONE)
-      Array.wrap(result).each.with_index.any? do |x, index|
+      return false unless result.is_a?(Array)
+
+      result.each.with_index.any? do |x, index|
         valid_element?(x, elements, iterations + [index])
       end
     else
+      return false unless result.is_a?(Hash)
+
       method, *ints = method.split(INT)
       result = result.try(:[], method)
 
