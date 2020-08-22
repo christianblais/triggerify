@@ -34,7 +34,7 @@ module Handlers
         :authentication => :plain,
       }
 
-      HandlerMailer.email(to: recipients, from: 'no-reply@email.com', subject: subject, body: body).deliver_later
+      HandlerMailer.email(to: recipients, from: 'no-reply@email.com', subject: subject, body: body).deliver_now!
     end
   end
 end
