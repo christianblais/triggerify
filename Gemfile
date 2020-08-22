@@ -38,6 +38,8 @@ gem 'twilio-ruby'
 gem 'slack-ruby-client'
 gem 'dogapi'
 gem 'twitter'
+gem 'sendgrid-ruby'
+
 gem 'shopify_app', '~> 13'
 
 group :production do

@@ -194,7 +194,10 @@ GEM
     rake (13.0.1)
     redirect_safely (1.0.0)
       activemodel
+    ruby_http_client (3.5.1)
     semantic_range (2.3.0)
+    sendgrid-ruby (6.3.4)
+      ruby_http_client (~> 3.4)
     shopify_api (9.1.0)
       activeresource (>= 4.1.0, < 6.0.0)
       graphql-client
@@ -277,6 +280,7 @@ DEPENDENCIES
   puma
   rails (~> 6)
   rails_12factor
+  sendgrid-ruby
   shopify_app (~> 13)
   skylight
   slack-ruby-client
