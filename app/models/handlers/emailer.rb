@@ -12,10 +12,6 @@ module Handlers
       name: 'List of recipient email addresses',
       example: 'test@example.com, another@test.com'
 
-    setting :from,
-      name: 'Email address this email is sent from',
-      example: 'my.name@something.com'
-
     setting :subject,
       name: 'Title of the email',
       example: 'Hello {{ first_name }}!'
@@ -34,7 +30,7 @@ module Handlers
         :authentication => :plain,
       }
 
-      HandlerMailer.email(to: recipients, from: 'no-reply@email.com', subject: subject, body: body).deliver_now!
+      HandlerMailer.email(to: recipients, from: "triggerify@#{ENV['MAILGUN_DOMAIN']}", subject: subject, body: body).deliver_now!
     end
   end
 end
