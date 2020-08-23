@@ -20,7 +20,8 @@ class CallbackWebhookJob < ShopJob
   rescue StandardError => e
     report_exception(e) do |report|
       report.add_tab(:rule, {
-        rule_id: rule.id
+        rule_id: rule.id,
+        shopify_domain: shop.shopify_domain,
       })
     end
   end
