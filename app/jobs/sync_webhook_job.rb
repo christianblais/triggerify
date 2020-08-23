@@ -33,6 +33,6 @@ class SyncWebhookJob < ShopJob
   end
 
   def desired_topics
-    shop.rules.where(enabled: true).distinct(:topic).pluck(:topic).push('app/uninstalled')
+    shop.rules.where(enabled: true).joins(:handlers).distinct(:topic).pluck(:topic).push('app/uninstalled')
   end
 end
