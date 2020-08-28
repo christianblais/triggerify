@@ -23,6 +23,8 @@ class Handler < ActiveRecord::Base
 
   def handle(payload)
     service.new(settings, payload).call
+
+    Handler.increment_counter(:handle_count, id, touch: true)
   end
 
   private
