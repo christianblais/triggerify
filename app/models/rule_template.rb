@@ -7,6 +7,7 @@ class RuleTemplate
     def all
       {
         tagger_on_account_creation: tagger_on_account_creation,
+        tagger_on_order_creation: tagger_on_order_creation,
         sendgrid_on_shipping_order: sendgrid_on_shipping_order,
         sms_on_low_inventory: sms_on_low_inventory,
       }
@@ -20,7 +21,7 @@ class RuleTemplate
 
     def tagger_on_account_creation
       rule = Rule.new
-      rule.name = "New customer require approval"
+      rule.name = "New customer registers"
       rule.topic = "customers/create"
       rule.enabled = true
 
@@ -37,6 +38,29 @@ class RuleTemplate
 
       template = new
       template.description = "When a customer is created, assign them a tag."
+      template.rule = rule
+      template
+    end
+
+    def tagger_on_order_creation
+      rule = Rule.new
+      rule.name = "Tag customer on order"
+      rule.topic = "orders/create"
+      rule.enabled = true
+
+      handler = Handler.new
+      handler.service_name = Handlers::Tagger.to_s
+      handler.settings = {
+        taggable_type: "Customer",
+        taggable_id: "{{ customer.id }}",
+        tag_name: "triggerify",
+      }
+
+      rule.filters = []
+      rule.handlers = [handler]
+
+      template = new
+      template.description = "When an order is placed, assign a tag to the customer."
       template.rule = rule
       template
     end
