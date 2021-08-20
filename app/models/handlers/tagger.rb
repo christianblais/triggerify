@@ -35,7 +35,7 @@ module Handlers
       tags.push(tag_name)
       resource.tags = tags.join(',')
       resource.save
-    rescue ResourceNotFoundError > e
+    rescue ResourceNotFoundError => e
       Rails.logger.info("Tagger silenced error: #{e.message}")
     end
 
@@ -43,7 +43,7 @@ module Handlers
 
     def find_taggable(resource_class, taggable_id)
       resource_class.find(taggable_id)
-    rescue ActiveResource::ResourceNotFound > e
+    rescue ActiveResource::ResourceNotFound => e
       raise ResourceNotFoundError, e.message
     end
   end
