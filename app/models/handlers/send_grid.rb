@@ -34,8 +34,12 @@ module Handlers
       mail.from = ::SendGrid::Email.new(email: from)
 
       personalization = ::SendGrid::Personalization.new
+
       recipients.split(",").each do |recipient|
-        personalization.add_to(::SendGrid::Email.new(email: recipient.strip))
+        recipient_sanitized = recipient.strip
+        next if recipient_sanitized.empty?
+
+        personalization.add_to(::SendGrid::Email.new(email: recipient_sanitized))
       end
       mail.add_personalization(personalization)
 
@@ -50,8 +54,19 @@ module Handlers
       Rails.logger.info "Headers: #{response.headers}"
 
       if response.status_code.to_i != 202
-        raise DeliveryError, "Error code: #{response.status_code}. #{response.body}"
+        if known_error?(response)
+          Rails.logger.info("SendGrid silenced error: #{response.status_code}. #{response.body}")
+        else
+          raise DeliveryError, "Error code: #{response.status_code}. #{response.body}"
+        end
       end
+    end
+
+    def known_error?(response)
+      # {"errors":[{"message":"Authenticated user is not authorized to send mail","field":null,"help":null}]}
+      return true if response.status_code.to_i == 401
+
+      false
     end
   end
 end
