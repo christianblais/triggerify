@@ -1,4 +1,6 @@
 class RulesController < AuthenticatedController
+  before_action :update_interacted_at
+
   def index
     @rules = shop.rules
   end
@@ -57,6 +59,10 @@ class RulesController < AuthenticatedController
   end
 
   private
+
+  def update_interacted_at
+    shop.update!(interacted_at: Time.now.utc)
+  end
 
   def rule_params
     params
