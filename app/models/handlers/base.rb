@@ -37,6 +37,10 @@ module Handlers
       @payload = payload
     end
 
+    def call
+      raise "Implement this method in a child class"
+    end
+
     private
 
     def parser
