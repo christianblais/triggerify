@@ -6,6 +6,18 @@
 
     <%= f.hidden_field :_destroy, value: local_assigns.fetch(:destroyed, false) %>
 
+    <% if f.object.last_errors.any? %>
+      <ul class="box warning">
+        <% f.object.last_errors.each do |last_error| %>
+          <li>
+            <%= last_error.message %>
+            <br>
+            <small><%= last_error.timestamp %></small>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
     <%= f.label :service_name, 'Action' %>
     <div class="select-wrapper">
       <%= f.select :service_name, available_handlers.map { |handler| [handler.label, handler.to_s] }, { prompt: "Select an action" }, { class: 'select', data: { handler: true } } %>

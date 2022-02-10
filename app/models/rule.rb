@@ -57,4 +57,8 @@ class Rule < ActiveRecord::Base
   accepts_nested_attributes_for :filters, allow_destroy: true, reject_if: :all_blank
 
   scope :enabled, -> { where(enabled: true) }
+
+  def last_errors
+    @last_errors ||= handlers.flat_map { |handler| handler.last_errors }
+  end
 end

@@ -1,3 +1,5 @@
+require_relative 'handler_error'
+
 class Handler < ActiveRecord::Base
   HANDLERS = [
     Handlers::Tagger,

@@ -20,6 +20,12 @@
             </span>
           <% end %>
 
+          <% if rule.last_errors.any? %>
+            <span class="tag pink">
+              <%= "#{rule.last_errors.size} recent #{ 'error'.pluralize(rule.last_errors.size) }" %>
+            </span>
+          <% end %>
+
           <ul class="segmented right">
             <li><%= link_to 'Edit', rule_path(rule), class: %w(btn default btn-slim) %></li>
             <li><%= link_to 'Delete', rule_path(rule), method: :delete, class: %w(btn destroy btn-slim), data: { confirm: "Delete \"#{rule.name}\"?" } %></li>
