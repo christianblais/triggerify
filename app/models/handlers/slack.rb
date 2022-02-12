@@ -23,20 +23,16 @@ module Handlers
       example: '{{ first_name }} {{ last_name }} just placed an order of {{ total_price }}! :tada:'
 
     def call
-      token = slack_token.presence
+      raise(UserError, "Missing 'slack_token'") if slack_token.blank?
+      raise(UserError, "Missing 'message'") if message.blank?
+      raise(UserError, "Missing 'channel'") if channel.blank?
 
-      return if [
-        channel,
-        message,
-        token
-      ].any?(&:blank?)
-
-      client = ::Slack::Web::Client.new(token: token)
+      client = ::Slack::Web::Client.new(token: slack_token)
 
       begin
         client.chat_postMessage(channel: channel, text: message)
-      rescue ::Slack::Web::Api::Errors::TooManyRequestsError
-        Rails.logger.error "Silenced 'TooManyRequestsError'"
+      rescue ::Slack::Web::Api::Errors::TooManyRequestsError => e
+        raise(UserError, "TooManyRequestsError: #{e.message}")
       end
     end
   end

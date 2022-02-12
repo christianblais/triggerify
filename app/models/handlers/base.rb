@@ -1,4 +1,6 @@
 module Handlers
+  class UserError < StandardError; end
+
   class Base
     class << self
       def label(label = nil)

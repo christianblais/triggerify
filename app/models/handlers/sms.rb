@@ -1,5 +1,7 @@
 module Handlers
   class SMS < Base
+    class DeliveryError < StandardError; end
+
     label 'Send a SMS (via Twillio)'
 
     description %(
@@ -34,13 +36,11 @@ module Handlers
     ].freeze
 
     def call
-      return if [
-        phone_number,
-        message,
-        twilio_account_sid,
-        twilio_auth_token,
-        twilio_from_phone_number
-      ].any?(&:blank?)
+      raise(UserError, "Missing 'phone_number'") if phone_number.blank?
+      raise(UserError, "Missing 'message'") if message.blank?
+      raise(UserError, "Missing 'twilio_account_sid'") if twilio_account_sid.blank?
+      raise(UserError, "Missing 'twilio_auth_token'") if twilio_auth_token.blank?
+      raise(UserError, "Missing 'twilio_from_phone_number'") if twilio_from_phone_number.blank?
 
       call_twillio
     end
@@ -56,11 +56,10 @@ module Handlers
       )
     rescue Twilio::REST::RestError => e
       if known_error?(e)
-        Rails.logger.info("Twillio silenced error: #{e.message}")
-        return
+        raise(UserError, "Twillio error: #{e.message}")
+      else
+        raise(e)
       end
-
-      raise
     end
 
     def known_error?(e)

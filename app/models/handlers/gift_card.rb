@@ -19,7 +19,7 @@ module Handlers
       example: '{{ customer_id }}'
 
     def call
-      return if value.blank?
+      raise(UserError, "Missing 'value'") if value.blank?
 
       gift_card = ShopifyAPI::GiftCard.new
       gift_card.initial_value = value

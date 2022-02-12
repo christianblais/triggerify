@@ -24,12 +24,10 @@ module Handlers
       example: 'New order from {{ first_name }}!'
 
     def call
-      return if [
-        consumer_key,
-        consumer_secret,
-        access_token,
-        access_token_secret
-      ].any?(&:blank?)
+      raise(UserError, "Missing 'consumer_key'") if consumer_key.blank?
+      raise(UserError, "Missing 'consumer_secret'") if consumer_secret.blank?
+      raise(UserError, "Missing 'access_token'") if access_token.blank?
+      raise(UserError, "Missing 'access_token_secret'") if access_token_secret.blank?
 
       client = ::Twitter::REST::Client.new do |config|
         config.consumer_key = consumer_key
