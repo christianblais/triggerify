@@ -130,7 +130,7 @@ GEM
       rake
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.14.1)
+    minitest (5.15.0)
     multi_json (1.14.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -294,7 +294,7 @@ DEPENDENCIES
   webpacker
 
 RUBY VERSION
-   ruby 2.7.1p83
+   ruby 3.1.0p0
 
 BUNDLED WITH
    2.1.4
