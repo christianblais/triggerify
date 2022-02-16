@@ -12,6 +12,7 @@ ShopifyApp.configure do |config|
   config.allow_jwt_authentication = true
   config.allow_cookie_authentication = false
 
-  config.api_key = ENV['SHOPIFY_CLIENT_API_KEY'].presence || raise("Missing SHOPIFY_CLIENT_API_KEY env variable")
-  config.secret = ENV['SHOPIFY_CLIENT_API_SECRET'].presence || raise("Missing SHOPIFY_CLIENT_API_SECRET env variable")
+  credentials = Rails.application.credentials[:shopify][Rails.env.to_sym]
+  config.api_key = credentials.fetch(:client_api_key)
+  config.secret = credentials.fetch(:client_api_secret)
 end

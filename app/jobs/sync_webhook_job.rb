@@ -29,7 +29,7 @@ class SyncWebhookJob < ShopJob
   end
 
   def callback_path
-    ENV.fetch('WEBHOOK_CALLBACK_URL')
+    Rails.configuration.webhook_callback_url
   end
 
   def desired_topics

@@ -1,5 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  config.webhook_callback_url = "https://app.hooklys.com/services/webhooks/23b2ec8a-deac-4334-927e-5066360cc167"
 
   # Code is not reloaded between requests.
   config.cache_classes = true
