@@ -124,8 +124,6 @@
 
   var saveButton = Button.create(app, { label: 'Save' });
   saveButton.subscribe(Button.Action.CLICK, () => {
-    Turbolinks.controller.adapter.showProgressBarAfterDelay();
-    
     var form = document.getElementById('rule-form');
 
     fetch(form.getAttribute('action'), {
@@ -145,8 +143,6 @@
           
           Turbolinks.dispatch("turbolinks:load");
           window.scroll(0, 0);
-
-          Turbolinks.controller.adapter.hideProgressBar();
         })
       }
     })
