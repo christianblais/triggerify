@@ -1,5 +1,5 @@
 {
-  "name": "triggerify_new",
+  "name": "triggerify",
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^6.0.0",
