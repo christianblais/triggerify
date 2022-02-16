@@ -4,9 +4,7 @@ class RulesControllerTest < ActionController::TestCase
   setup do
     shop = shops(:regular_shop)
 
-    request.env['rack.url_scheme'] = 'https'
-    @request.session[:shop_id] = shop.id
-    @request.session[:shopify_domain] = shop.shopify_domain
+    request.env['jwt.shopify_domain'] = shop.shopify_domain
   end
 
   test "index" do
