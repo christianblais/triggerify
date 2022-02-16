@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_03_193957) do
+ActiveRecord::Schema.define(version: 2022_02_11_205713) do
 
   create_table "filters", force: :cascade do |t|
     t.integer "rule_id", null: false
@@ -48,8 +48,11 @@ ActiveRecord::Schema.define(version: 2021_09_03_193957) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "interacted_at", default: "1970-01-01 00:00:00", null: false
+    t.string "access_scopes"
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
   end
 
   add_foreign_key "filters", "rules"
+  add_foreign_key "handlers", "rules"
+  add_foreign_key "rules", "shops"
 end

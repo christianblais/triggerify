@@ -1,4 +1,4 @@
-<%= form_for(@rule) do |f| %>
+<%= form_for(@rule, html: { id: 'rule-form' }) do |f| %>
   <div class="section">
     <div class="section-summary">
       <h1>Foundation</h1>
@@ -53,9 +53,9 @@
       </div>
 
       <p>
-        <button class="btn primary" data-add="filter">
+        <div class="btn primary" data-add="filter">
           Add Filter
-        </button>
+        </div>
 
         <div style="display: none;" data-filter-template>
           <%= f.fields_for :filters, Filter.new do |ff| %>
@@ -86,9 +86,9 @@
         <% end %>
       </div>
       <p>
-        <button class="btn primary" data-add="handler">
+        <div class="btn primary" data-add="handler">
           Add Action
-        </button>
+        </div>
 
         <div style="display: none;" data-handler-template>
           <%= f.fields_for :handlers, Handler.new do |ff| %>
@@ -100,29 +100,64 @@
   </div>
 <% end %>
 
-<% content_for :shopify_app_javascript do %>
-  ShopifyApp.Bar.initialize({
-    title: "<%= @rule.persisted? ? @rule.name : 'New' %>",
-    breadcrumb: { label: "Rules", href: "<%= rules_path %>", target: 'app', loading: false },
-    buttons: {
-      primary: { label: "Save", callback: function() {
-        $('form').submit()
-      }},
-      secondary: [
-        {
-          label: "Cancel", callback: function() {
-          window.location = "<%= rules_path %>"
-        }},
-        <% unless @rule.persisted? %>
-          { label: "Import from templates", callback: function() {
-            window.location = "<%= templates_rules_path %>"
-          }}
-        <% end %>
-      ]
-    }
+<script>
+  var breadcrumb = Button.create(app, { label: 'Rules' });
+  breadcrumb.subscribe(Button.Action.CLICK, () => {
+    Turbolinks.visit('<%= rules_path %>');
   });
 
-  <% if @rule.errors.any? %>
-    ShopifyApp.flashError("<%= raw @rule.errors.full_messages.to_sentence.html_safe %>");
+  var secondaryButtons = [];
+
+  var cancelButton = Button.create(app, { label: 'Cancel' });
+  cancelButton.subscribe(Button.Action.CLICK, () => {
+    Turbolinks.visit('<%= rules_path %>');
+  });
+  secondaryButtons.push(cancelButton);
+
+  <% unless @rule.persisted? %>
+    var templatesButton = Button.create(app, { label: 'Import from templates' });
+    templatesButton.subscribe(Button.Action.CLICK, () => {
+      Turbolinks.visit('<%= templates_rules_path %>');
+    });
+    secondaryButtons.push(templatesButton);
   <% end %>
-<% end %>
+
+  var saveButton = Button.create(app, { label: 'Save' });
+  saveButton.subscribe(Button.Action.CLICK, () => {
+    Turbolinks.controller.adapter.showProgressBarAfterDelay();
+    
+    var form = document.getElementById('rule-form');
+
+    fetch(form.getAttribute('action'), {
+      method: 'POST',
+      redirect: 'manual',
+      headers: { "Authorization": "Bearer " + window.sessionToken },
+      body: new FormData(form)
+    }).then((response) => {
+      if (response.type === "opaqueredirect") {
+        Turbolinks.visit(response.url);
+      } else {
+        response.text().then((response) => {
+          Turbolinks.clearCache();
+      
+          var responseHTML = (new DOMParser()).parseFromString(response, 'text/html');
+          document.querySelector('main').innerHTML = responseHTML.querySelector('main').innerHTML;
+          
+          Turbolinks.dispatch("turbolinks:load");
+          window.scroll(0, 0);
+
+          Turbolinks.controller.adapter.hideProgressBar();
+        })
+      }
+    })
+  });
+  
+  TitleBar.create(app, {
+    title: "<%= @rule.persisted? ? @rule.name : 'New' %>",
+    buttons: {
+      primary: saveButton,
+      secondary: secondaryButtons
+    },
+    breadcrumbs: breadcrumb,
+  });
+</script>

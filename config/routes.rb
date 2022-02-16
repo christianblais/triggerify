@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   # NEW
   post '/webhooks/receive', to: 'callback#receive'
 
-  root to: 'rules#index'
+  root to: 'home#index'
 
   mount ShopifyApp::Engine, at: '/'
 end

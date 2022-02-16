@@ -1,11 +1,8 @@
 class ApplicationController < ActionController::Base
-  include ShopifyApp::LoginProtection
-  protect_from_forgery with: :exception
-
   protected
 
   def shop
-    @shop ||= Shop.find(session[:shop_id])
+    @shop_record ||= Shop.where(shopify_domain: current_shopify_session.domain).first
   rescue ActiveRecord::RecordNotFound
     nil
   end
