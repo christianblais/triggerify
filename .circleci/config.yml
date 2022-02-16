@@ -24,6 +24,10 @@ jobs:
             gem install bundler
 
       - run:
+          name: install sqlite3 dependencies
+          command: sudo apt-get update && sudo apt-get install -y sqlite3 libsqlite3-dev
+
+      - run:
           name: install dependencies
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
@@ -38,7 +42,12 @@ jobs:
           name: Database migration
           command: bundle exec rake db:migrate
 
-      # webpacker
+      # Yarn
+      - run:
+          name: Yarn
+          command: yarn install
+
+      # Webpacker
       - run:
           name: Webpacker
           command: NODE_ENV=test bundle exec rails webpacker:compile
