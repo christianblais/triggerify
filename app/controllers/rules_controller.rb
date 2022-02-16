@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RulesController < AuthenticatedController
   before_action :update_interacted_at
 
@@ -32,6 +34,7 @@ class RulesController < AuthenticatedController
       sync_webhooks
       redirect_to(rules_path, flash: { notice: "Rule created successfully." })
     else
+      flash.now[:error] = 'Oops, there was an error'
       render('new')
     end
   end
@@ -43,6 +46,7 @@ class RulesController < AuthenticatedController
       sync_webhooks
       redirect_to(rule_path(@rule), flash: { notice: "Rule updated successfully." })
     else
+      flash.now[:error] = 'Oops, there was an error'
       render('show')
     end
   end
@@ -54,6 +58,7 @@ class RulesController < AuthenticatedController
       sync_webhooks
       redirect_to(rules_path, flash: { notice: "Rule deleted successfully." })
     else
+      flash.now[:error] = 'Oops, there was an error'
       render('show')
     end
   end

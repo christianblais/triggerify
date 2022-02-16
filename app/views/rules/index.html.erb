@@ -22,7 +22,7 @@
 
           <ul class="segmented right">
             <li><%= link_to 'Edit', rule_path(rule), class: %w(btn default btn-slim) %></li>
-            <li><%= link_to 'Delete', rule_path(rule), method: :delete, class: %w(btn destroy btn-slim), data: { confirm: "Delete \"#{rule.name}\"?" } %></li>
+            <li><%= link_to 'Delete', rule_path(rule), remote: true, method: :delete, class: %w(btn destroy btn-slim), data: { confirm: "Delete \"#{rule.name}\"?" } %></li>
           </ul>
 
         </div>
@@ -31,13 +31,17 @@
   </div>
 </div>
 
-<% content_for :shopify_app_javascript do %>
-  ShopifyApp.Bar.initialize({
+<script>
+  var button = Button.create(app, { label: 'New Rule' });
+
+  button.subscribe('click', () => {
+    Turbolinks.visit('<%= new_rule_path %>');
+  });
+  
+  TitleBar.create(app, {
     title: 'Rules',
     buttons: {
-      primary: { label: "New rule", callback: function() {
-        window.location = "<%= new_rule_path %>"
-      }}
+      primary: button
     }
   });
-<% end %>
+</script>

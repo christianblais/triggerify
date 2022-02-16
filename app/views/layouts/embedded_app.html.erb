@@ -2,39 +2,44 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title><%= ShopifyApp.configuration.application_name %></title>
+    <% application_name = ShopifyApp.configuration.application_name %>
+    <title><%= application_name %></title>
     <%= stylesheet_link_tag 'application' %>
+
+    <script src="https://unpkg.com/@shopify/app-bridge@2"></script>
+    <script src="https://unpkg.com/@shopify/app-bridge-utils@2"></script>
+    <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
+
+    <% if ShopifyApp.use_webpacker? %>
+      <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <% elsif ShopifyApp.use_importmap? %>
+      <%= javascript_importmap_tags %>
+    <% else %>
+      <%= javascript_include_tag 'application', "data-turbolinks-track" => true %>
+    <% end %>
     <%= csrf_meta_tags %>
+
+    <meta name="turbolinks-cache-control" content="no-cache">
   </head>
 
   <body>
     <div class="app-wrapper">
       <div class="app-content">
         <main role="main">
+          <%= content_tag(:div, nil, id: 'shopify-app-flash', data: { flash: { notice: flash[:notice], error: flash[:error] } }) %>
+
           <%= yield %>
         </main>
       </div>
     </div>
 
-    <%= render 'layouts/flash_messages' %>
-
-    <script src="https://cdn.shopify.com/s/assets/external/app.js?<%= Time.now.strftime('%Y%m%d%H') %>"></script>
-
-    <script type="text/javascript">
-      ShopifyApp.init({
-        apiKey: "<%= ShopifyApp.configuration.api_key %>",
-        shopOrigin: "<%= "https://#{ @current_shopify_session.domain }" if @current_shopify_session %>",
-        debug: <%= Rails.env.development? ? 'true' : 'false' %>,
-        forceRedirect: true
-      });
-
-      ShopifyApp.ready(function() {
-        <%= yield :shopify_app_javascript %>
-        ShopifyApp.Bar.loadingOff();
-      });
-    </script>
-
-    <%= javascript_include_tag 'application', "data-turbolinks-track" => true %>
+    <%= content_tag(:div, nil, id: 'shopify-app-init', data: {
+      api_key: ShopifyApp.configuration.api_key,
+      shop_origin: @shop_origin || (@current_shopify_session.domain if @current_shopify_session),
+      load_path: params[:return_to] || rules_path,
+      host: params[:host],
+      debug: Rails.env.development?
+    } ) %>
 
     <% if content_for?(:javascript) %>
       <div id="ContentForJavascript" data-turbolinks-temporary>
