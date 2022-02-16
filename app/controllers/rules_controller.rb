@@ -42,7 +42,7 @@ class RulesController < AuthenticatedController
   def update
     @rule = shop.rules.find(params[:id])
 
-    if @rule.update_attributes(rule_params)
+    if @rule.update(rule_params)
       sync_webhooks
       redirect_to(rule_path(@rule), flash: { notice: "Rule updated successfully." })
     else
