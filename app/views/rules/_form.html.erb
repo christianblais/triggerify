@@ -53,9 +53,9 @@
       </div>
 
       <p>
-        <div class="btn primary" data-add="filter">
+        <button class="btn primary" data-add="filter">
           Add Filter
-        </div>
+        </button>
 
         <div style="display: none;" data-filter-template>
           <%= f.fields_for :filters, Filter.new do |ff| %>
@@ -86,9 +86,9 @@
         <% end %>
       </div>
       <p>
-        <div class="btn primary" data-add="handler">
+        <button class="btn primary" data-add="handler">
           Add Action
-        </div>
+        </button>
 
         <div style="display: none;" data-handler-template>
           <%= f.fields_for :handlers, Handler.new do |ff| %>

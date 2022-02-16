@@ -38,6 +38,11 @@ jobs:
           name: Database migration
           command: bundle exec rake db:migrate
 
+      # webpacker
+      - run:
+          name: Webpacker
+          command: NODE_ENV=test bundle exec rails webpacker:compile
+
       # run tests!
       - run:
           name: run tests
