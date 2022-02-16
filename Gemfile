@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
-ruby "2.7.1"
+ruby "3.1.0"
 
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1'
 gem 'puma', '~> 5'
-gem 'webpacker', '~> 4.0'
+gem 'webpacker', '~> 5'
 gem 'turbolinks', '~> 5'
 # Use SCSS for stylesheets
 # gem 'sass-rails', '>= 6'
@@ -21,6 +21,7 @@ gem 'turbolinks', '~> 5'
 # gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
+gem 'net-smtp', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'pg'
