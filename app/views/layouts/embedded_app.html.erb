@@ -2,8 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <% application_name = ShopifyApp.configuration.application_name %>
-    <title><%= application_name %></title>
+    <title><%= ShopifyApp.configuration.application_name %></title>
     <%= stylesheet_link_tag 'application' %>
 
     <script src="https://unpkg.com/@shopify/app-bridge@2"></script>
@@ -19,17 +18,22 @@
     <% end %>
     <%= csrf_meta_tags %>
 
+    <%= javascript_pack_tag 'rules' %>
+
     <meta name="turbolinks-cache-control" content="no-cache">
   </head>
 
   <body>
-    <div class="app-wrapper">
-      <div class="app-content">
-        <main role="main">
-          <%= content_tag(:div, nil, id: 'shopify-app-flash', data: { flash: { notice: flash[:notice], error: flash[:error] } }) %>
+    <div class="Polaris-Frame Polaris-Frame--hasTopBar">
+      <main class="Polaris-Frame__Main" id="AppFrameMain">
+          <div class="Polaris-Frame__Content">
+            <div class="Polaris-Page">
+              <%= content_tag(:div, nil, id: 'shopify-app-flash', data: { flash: { notice: flash[:notice], error: flash[:error] } }) %>
 
-          <%= yield %>
-        </main>
+              <%= yield %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -37,6 +41,7 @@
       api_key: ShopifyApp.configuration.api_key,
       shop_origin: @shop_origin || (@current_shopify_session.domain if @current_shopify_session),
       load_path: params[:return_to] || rules_path,
+      root_path: rules_path,
       host: params[:host],
       debug: Rails.env.development?
     } ) %>

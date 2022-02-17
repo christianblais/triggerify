@@ -35,6 +35,7 @@ gem 'twitter'
 gem 'sendgrid-ruby'
 
 gem 'shopify_app', '~> 18'
+gem 'react-rails'
 
 group :production do
   gem 'rails_12factor'

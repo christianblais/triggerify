@@ -70,6 +70,10 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    babel-source (5.8.35)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     bindex (0.8.1)
     bootsnap (1.10.3)
       msgpack (~> 1.2)
@@ -90,6 +94,7 @@ GEM
       xpath (~> 3.2)
     childprocess (4.1.0)
     concurrent-ruby (1.1.9)
+    connection_pool (2.2.5)
     crass (1.0.6)
     digest (3.1.0)
     dogapi (1.45.0)
@@ -98,6 +103,7 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.11)
     erubi (1.10.0)
+    execjs (2.8.1)
     faraday (1.9.3)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
@@ -256,6 +262,12 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    react-rails (2.6.1)
+      babel-transpiler (>= 0.7.0)
+      connection_pool
+      execjs
+      railties (>= 3.2)
+      tilt
     redirect_safely (1.0.0)
       activemodel
     regexp_parser (2.2.0)
@@ -306,6 +318,7 @@ GEM
     strscan (3.0.1)
     thor (1.2.1)
     thread_safe (0.3.6)
+    tilt (2.0.10)
     timeout (0.2.0)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
@@ -368,6 +381,7 @@ DEPENDENCIES
   puma (~> 5)
   rails (~> 6.1)
   rails_12factor
+  react-rails
   selenium-webdriver
   sendgrid-ruby
   shopify_app (~> 18)

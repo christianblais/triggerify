@@ -139,7 +139,7 @@
           Turbolinks.clearCache();
       
           var responseHTML = (new DOMParser()).parseFromString(response, 'text/html');
-          document.querySelector('main').innerHTML = responseHTML.querySelector('main').innerHTML;
+          document.querySelector('#AppFrameMain').innerHTML = responseHTML.querySelector('#AppFrameMain').innerHTML;
           
           Turbolinks.dispatch("turbolinks:load");
           window.scroll(0, 0);
