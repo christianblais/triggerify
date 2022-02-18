@@ -5,6 +5,12 @@ class RulesController < AuthenticatedController
 
   def index
     @rules = shop.rules
+
+    if @rules.none?
+      render :empty
+    else
+      render :index
+    end
   end
 
   def new

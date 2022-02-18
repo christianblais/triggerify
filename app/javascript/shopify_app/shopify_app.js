@@ -11,9 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     host: data.host,
   });
 
-  TitleBar.create(app, {
-    title: data.page,
-  });
+  TitleBar.create(app, { title: data.page });
 
   // Wait for a session token before trying to load an authenticated page
   await retrieveToken(app);
@@ -22,8 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   keepRetrievingToken(app);
 
   // Redirect to the requested page when DOM loads
-  var isInitialRedirect = true;
-  redirectThroughTurbolinks(isInitialRedirect);
+  redirectThroughTurbolinks(true);
 
   document.addEventListener("turbolinks:load", function (event) {
     redirectThroughTurbolinks();
@@ -47,7 +44,7 @@ function redirectThroughTurbolinks(isInitialRedirect = false) {
   if (isInitialRedirect) {
     var shouldRedirect = data && data.loadPath;
   } else {
-    var shouldRedirect = data && data.loadPath && data.loadPath !== '/rules';
+    var shouldRedirect = data && data.loadPath && data.loadPath !== data.rootPath;
   }
 
   if (shouldRedirect) {
@@ -56,13 +53,11 @@ function redirectThroughTurbolinks(isInitialRedirect = false) {
 }
 
 document.addEventListener("turbolinks:request-start", function (event) {
-  var xhr = event.data.xhr;
-  xhr.setRequestHeader("Authorization", "Bearer " + window.sessionToken);
+  event.data.xhr.setRequestHeader("Authorization", "Bearer " + window.sessionToken);
 });
 
 document.addEventListener("turbolinks:render", function () {
   $("form, a[data-method=delete]").on("ajax:beforeSend", function (event) {
-    const xhr = event.detail[0];
-    xhr.setRequestHeader("Authorization", "Bearer " + window.sessionToken);
+    event.detail[0].setRequestHeader("Authorization", "Bearer " + window.sessionToken);
   });
 });
