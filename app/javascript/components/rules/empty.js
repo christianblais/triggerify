@@ -9,7 +9,7 @@ class Empty extends React.Component {
           <EmptyState
             heading="Create your first rule"
             action={{
-              content: 'Add transfer',
+              content: 'Add rule',
               url: this.props.new_rule_path
             }}
             secondaryAction={{
