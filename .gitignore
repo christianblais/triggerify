@@ -7,7 +7,8 @@
 # Ignore bundler config.
 /.bundle
 
-master.key
+/config/credentials/development.*
+/config/credentials/production.key
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
