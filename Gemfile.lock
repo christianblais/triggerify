@@ -172,6 +172,7 @@ GEM
     mini_mime (1.1.2)
     mini_portile2 (2.7.1)
     minitest (5.15.0)
+    mocha (1.13.0)
     msgpack (1.4.4)
     multi_json (1.15.0)
     multi_xml (0.6.0)
@@ -374,6 +375,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   dogapi
   listen (~> 3.2)
+  mocha
   net-imap
   net-pop
   net-smtp

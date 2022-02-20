@@ -35,14 +35,62 @@ class RulesControllerTest < ActionController::TestCase
   end
 
   test "create" do
-    skip
+    assert_difference('Rule.count', 1) do
+      attributes = {
+        name: "Test",
+        enabled: 1,
+        topic: "carts/update"
+      }
+
+      post :create, params: { rule: attributes }
+    end
+  end
+
+  test "create invalid rule" do
+    assert_difference('Rule.count', 0) do
+      attributes = {
+        name: "",
+        enabled: 1,
+        topic: ""
+      }
+
+      post :create, params: { rule: attributes }
+    end
+
+    assert_match "Oops, there was an error", flash[:error]
   end
 
   test "update" do
-    skip
+    rule = rules(:email)
+
+    attributes = {
+      name: "This is a test",
+    }
+
+    post :update, params: { id: rule.id, rule: attributes }
+
+    assert_equal "This is a test", rule.reload.name
+  end
+
+  test "update invalid rule" do
+    rule = rules(:email)
+
+    attributes = {
+      name: "",
+    }
+
+    post :update, params: { id: rule.id, rule: attributes }
+
+    assert_equal "Email on customer creation from Canada", rule.reload.name
+
+    assert_match "Oops, there was an error", flash[:error]
   end
 
   test "destroy" do
-    skip
+    assert_difference('Rule.count', -1) do
+      rule = rules(:email)
+
+      post :destroy, params: { id: rule.id }
+    end
   end
 end
