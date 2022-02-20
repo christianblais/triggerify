@@ -26,10 +26,8 @@ module Handlers
       example: 'normal'
 
     def call
-      return if [
-        api_key,
-        metric_name
-      ].any?(&:blank?)
+      raise(UserError, "Missing 'api_key'") if api_key.blank?
+      raise(UserError, "Missing 'metric_name'") if metric_name.blank?
 
       dog = ::Dogapi::Client.new(api_key)
       msg = ::Dogapi::Event.new(metric_name, @settings.except(:api_key, :metric_name))

@@ -1,7 +1,5 @@
 module Handlers
   class Tagger < Base
-    class ResourceNotFoundError < StandardError; end
-
     label 'Add a tag to a Shopify resource'
 
     description %(
@@ -35,16 +33,14 @@ module Handlers
       tags.push(tag_name)
       resource.tags = tags.join(',')
       resource.save
-    rescue ResourceNotFoundError => e
-      Rails.logger.info("Tagger silenced error: #{e.message}")
     end
 
     private
 
     def find_taggable(resource_class, taggable_id)
       resource_class.find(taggable_id)
-    rescue ActiveResource::ResourceNotFound => e
-      raise ResourceNotFoundError, e.message
+    rescue ActiveResource::ResourceNotFound
+      raise(UserError, "Resource not found: Unable to find #{resource_class} with id '#{taggable_id}'")
     end
   end
 end

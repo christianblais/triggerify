@@ -55,9 +55,9 @@ module Handlers
 
       if response.status_code.to_i != 202
         if known_error?(response)
-          Rails.logger.info("SendGrid silenced error: #{response.status_code}. #{response.body}")
+          raise(UserError, "SendGrid error: #{response.status_code}. #{response.body}")
         else
-          raise DeliveryError, "Error code: #{response.status_code}. #{response.body}"
+          raise(DeliveryError, "Error code: #{response.status_code}. #{response.body}")
         end
       end
     end

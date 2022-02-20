@@ -22,7 +22,13 @@ class Handler < ActiveRecord::Base
   end
 
   def handle(payload)
-    service.new(settings, payload).call
+    instance = service.new(settings, payload)
+
+    begin
+      instance.call
+    rescue UserError => e
+      Rails.logger.info("User error: #{e.message}")
+    end
 
     Handler.increment_counter(:handle_count, id, touch: true)
   end
