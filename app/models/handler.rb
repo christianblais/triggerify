@@ -26,7 +26,7 @@ class Handler < ActiveRecord::Base
 
     begin
       instance.call
-    rescue UserError => e
+    rescue Handlers::UserError => e
       Rails.logger.info("User error: #{e.message}")
     end
 
