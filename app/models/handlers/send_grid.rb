@@ -65,6 +65,8 @@ module Handlers
     def known_error?(response)
       # {"errors":[{"message":"Authenticated user is not authorized to send mail","field":null,"help":null}]}
       return true if response.status_code.to_i == 401
+      # {"errors":[{"message":"The from address does not match a verified Sender Identity. Mail cannot be sent until this error is resolved. Visit https://sendgrid.com/docs/for-developers/sending-email/sender-identity/ to see the Sender Identity requirements","field":"from","help":null}]}
+      return true if response.status_code.to_i == 403
 
       false
     end
