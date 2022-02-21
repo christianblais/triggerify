@@ -57,7 +57,9 @@ document.addEventListener("turbolinks:request-start", function (event) {
 });
 
 document.addEventListener("turbolinks:render", function () {
-  $("form, a[data-method=delete]").on("ajax:beforeSend", function (event) {
-    event.detail[0].setRequestHeader("Authorization", "Bearer " + window.sessionToken);
+  document.querySelectorAll('form, a[data-method=delete]').forEach((element) => {
+    element.addEventListener("ajax:beforeSend", function (event) {
+      event.detail[0].setRequestHeader("Authorization", "Bearer " + window.sessionToken);
+    });
   });
 });
