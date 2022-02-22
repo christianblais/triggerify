@@ -56,7 +56,7 @@ module Handlers
       )
     rescue Twilio::REST::RestError => e
       if known_error?(e)
-        raise(UserError, "Twillio error: #{e.message}")
+        raise(UserError, "Twillio error: #{e.message.strip}")
       else
         raise(e)
       end
