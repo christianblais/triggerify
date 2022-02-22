@@ -39,6 +39,10 @@ module Handlers
       @payload = payload
     end
 
+    def call
+      raise NotImplementedError
+    end
+
     private
 
     def parser
