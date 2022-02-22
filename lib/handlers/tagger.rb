@@ -21,8 +21,7 @@ module Handlers
       example: 'triggerified'
 
     def call
-      resource_class = "ShopifyAPI::#{taggable_type}".classify.constantize
-      resource = find_taggable(resource_class, taggable_id)
+      resource = find_taggable(taggable_type, taggable_id)
       tags = resource.tags.split(',').map(&:strip)
 
       if tags.include?(tag_name.strip)
@@ -37,10 +36,11 @@ module Handlers
 
     private
 
-    def find_taggable(resource_class, taggable_id)
+    def find_taggable(taggable_type, taggable_id)
+      resource_class = "ShopifyAPI::#{taggable_type}".classify.constantize
       resource_class.find(taggable_id)
     rescue ActiveResource::ResourceNotFound
-      raise(UserError, "Resource not found: Unable to find #{resource_class} with id '#{taggable_id}'")
+      raise(UserError, "Resource not found: Unable to find #{taggable_type} with id '#{taggable_id}'")
     end
   end
 end
