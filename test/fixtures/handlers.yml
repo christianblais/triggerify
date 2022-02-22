@@ -2,7 +2,7 @@ email_deliver:
   rule: email
   service_name: 'Handlers::Emailer'
   settings:
-    recipients: "test+to@example.com"
-    from: "test+from@example.com"
-    subject: "New customer registered"
-    body: "New customer registered from Canada with id {{ id }} and email {{ email }}."
+    :recipients: "test+to@example.com"
+    :from: "test+from@example.com"
+    :subject: "New customer registered"
+    :body: "New customer registered from Canada with id {{ id }} and email {{ email }}."
