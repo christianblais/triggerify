@@ -1,48 +1,84 @@
-<div class="section-row" data-section>
-  <div class="section-cell">
-    <a href="#" class="right" data-destroy="handler">
-      <span class="icon ico-clear-bluegray"></span>
-    </a>
+<div class="Polaris-Card" data-section>  
+  <div class="Polaris-Card__Section">
+    <div class="Polaris-Card__SectionHeader">
+      <div class="Polaris-Stack Polaris-Stack--alignmentBaseline">
+        <div class="Polaris-Stack__Item Polaris-Stack__Item--fill"></div>
+        <div class="Polaris-Stack__Item">
+          <div class="Polaris-ButtonGroup">
+            <div class="Polaris-ButtonGroup__Item Polaris-ButtonGroup__Item--plain">
+              <button class="Polaris-Button Polaris-Button--destructive Polaris-Button--plain" type="button" data-destroy>
+                <span class="Polaris-Button__Content">
+                  <span class="Polaris-Button__Text">Remove</span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <%= f.hidden_field :_destroy, value: local_assigns.fetch(:destroyed, false) %>
 
-    <%= f.label :service_name, 'Action' %>
-    <div class="select-wrapper">
-      <%= f.select :service_name, available_handlers.map { |handler| [handler.label, handler.to_s] }, { prompt: "Select an action" }, { class: 'select', data: { handler: true } } %>
-    </div>
-
-    <%= f.fields_for :settings do |ff| %>
-      <% available_handlers.each do |handler| %>
-        <div data-handler-details="<%= handler %>">
-          <% if handler.description.present? %>
-            <p><%= raw(handler.description) %></p>
-          <% end %>
-
-          <% handler.settings.each do |name, options| %>
-            <div data-handler-settings>
-              <%= ff.label name do %>
-                <%= options[:name] %>
-
-                <% if options[:optional] %>
-                  <%= raw("<i>(optional)</i>") %>
-                <% end %>
-              <% end %>
-
-              <% if options.key?(:options) %>
-                <div class="select-wrapper">
-                  <%= ff.select name, options[:options], { selected: f.object.settings[name] }, { class: 'select' } %>
-                </div>
-              <% else %>
-                <%= ff.text_field name, value: f.object.settings[name] %>
-              <% end %>
-
-              <% if options.key?(:example) %>
-                <p class="example"><b>Example:</b> <%= raw(options[:example]) %></p>
-              <% end %>
-            </div>
-          <% end %>
+    <div class="Polaris-FormLayout">
+      <div class="Polaris-FormLayout__Item">
+        <div class="Polaris-Labelled__LabelWrapper">
+          <div class="Polaris-Label">
+            <%= f.label :service_name, 'Action', class: "Polaris-Label__Text" %>
+          </div>
         </div>
+        <div class="Polaris-Select">
+          <%= f.select :service_name, available_handlers.map { |handler| [handler.label, handler.to_s] }, { prompt: "Select an action" }, { data: { handler: true } } %>
+        </div>
+      </div>
+
+      <%= f.fields_for :settings do |ff| %>
+        <% available_handlers.each do |handler| %>
+          <div data-handler-details="<%= handler %>">
+            <% if handler.description.present? %>
+              <div class="Polaris-FormLayout__Item">
+                <p class="Polaris-TextStyle--variationSubdued"><%= raw(handler.description) %></p>
+              </div>
+            <% end %>
+
+            <% handler.settings.each do |name, options| %>
+              <div class="Polaris-FormLayout__Item" data-handler-settings>
+                <div class="Polaris-Labelled__LabelWrapper">
+                  <div class="Polaris-Label">
+                    <%= ff.label name, class: "Polaris-Label__Text" do %>
+                      <%= options[:name] %>
+
+                      <% if options[:optional] %>
+                        <%= raw("<i>(optional)</i>") %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+
+                <% if options.key?(:options) %>
+                  <div class="Polaris-Select">
+                    <%= ff.select name, options[:options], { selected: f.object.settings[name] } %>
+                  </div>
+                <% else %>
+                  <div class="Polaris-Connected">
+                    <div class="Polaris-Connected__Item Polaris-Connected__Item--primary">
+                      <div class="Polaris-TextField Polaris-TextField--hasValue">
+                        <%= ff.text_field name, value: f.object.settings[name], class: "Polaris-TextField__Input" %>
+                        <div class="Polaris-TextField__Backdrop"></div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+
+                <% if options.key?(:example) %>
+                  <div class="Polaris-Labelled__HelpText">
+                    <b>Example:</b> <%= raw(options[:example]) %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </div>

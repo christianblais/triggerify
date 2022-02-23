@@ -5,15 +5,15 @@ class RuleTemplate
 
   class << self
     def all
-      {
-        tagger_on_account_creation: tagger_on_account_creation,
-        sendgrid_on_shipping_order: sendgrid_on_shipping_order,
-        sms_on_low_inventory: sms_on_low_inventory,
-      }
+      [
+        tagger_on_account_creation,
+        sendgrid_on_shipping_order,
+        sms_on_low_inventory,
+      ]
     end
 
     def find_by_handle(handle)
-      all[handle]
+      all.detect { |template| template.handle == handle }
     end
 
     private
@@ -36,6 +36,7 @@ class RuleTemplate
       rule.handlers = [handler]
 
       template = new
+      template.handle = :tagger_on_account_creation
       template.description = "When a customer is created, assign them a tag."
       template.rule = rule
       template
@@ -66,6 +67,7 @@ class RuleTemplate
       rule.handlers = [handler]
 
       template = new
+      template.handle = :sendgrid_on_shipping_order
       template.description = "When an order is created and require shipping, send a email."
       template.rule = rule
       template
@@ -96,6 +98,7 @@ class RuleTemplate
       rule.handlers = [handler]
 
       template = new
+      template.handle = :sms_on_low_inventory
       template.description = "When an item inventory available quantity drops below 5, send a SMS message."
       template.rule = rule
       template

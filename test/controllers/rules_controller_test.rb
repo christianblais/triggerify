@@ -23,7 +23,7 @@ class RulesControllerTest < ActionController::TestCase
   end
 
   test "new with templates" do
-    get :new, params: { template: RuleTemplate.all.keys.first }
+    get :new, params: { template: RuleTemplate.all.first }
     assert_response :success
   end
 
