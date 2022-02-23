@@ -1,19 +1,67 @@
-<div class="section-row" data-section>
-  <div class="section-cell">
-    <a href="#" class="right" data-destroy="filter">
-      <span class="icon ico-clear-bluegray"></span>
-    </a>
-
-    <%= f.hidden_field :_destroy, value: local_assigns.fetch(:destroyed, false) %>
-    <%= f.label :value, 'Field' %>
-    <%= f.text_field :value, placeholder: 'line_items[*].vendor', data: { 'filter-value': true } %>
-
-    <%= f.label :verb %>
-    <div class="select-wrapper">
-      <%= f.select :verb, Filter::VERBS.map { |k,v| [v, k] }, { prompt: 'Select a verb' }, { class: 'select' } %>
+<div class="Polaris-Card" data-section>  
+  <div class="Polaris-Card__Section">
+    <div class="Polaris-Card__SectionHeader">
+      <div class="Polaris-Stack Polaris-Stack--alignmentBaseline">
+        <div class="Polaris-Stack__Item Polaris-Stack__Item--fill"></div>
+        <div class="Polaris-Stack__Item">
+          <div class="Polaris-ButtonGroup">
+            <div class="Polaris-ButtonGroup__Item Polaris-ButtonGroup__Item--plain">
+              <button class="Polaris-Button Polaris-Button--destructive Polaris-Button--plain" type="button" data-destroy>
+                <span class="Polaris-Button__Content">
+                  <span class="Polaris-Button__Text">Remove</span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <%= f.label :regex, 'Value' %>
-    <%= f.text_field :regex, placeholder: 'Shopify' %>
+    <%= f.hidden_field :_destroy, value: local_assigns.fetch(:destroyed, false) %>
+    
+    <div class="Polaris-FormLayout">
+      <div class="Polaris-FormLayout__Item">
+        <div class="Polaris-Labelled__LabelWrapper">
+          <div class="Polaris-Label">
+            <%= f.label :value, 'Field', class: "Polaris-Label__Text" %>
+          </div>
+        </div>
+        <div class="Polaris-Connected">
+          <div class="Polaris-Connected__Item Polaris-Connected__Item--primary">
+            <div class="Polaris-TextField Polaris-TextField--hasValue">
+              <%= f.text_field :value, placeholder: "line_items[*].vendor", class: "Polaris-TextField__Input" %>
+              <div class="Polaris-TextField__Backdrop"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="Polaris-FormLayout__Item">
+        <div class="Polaris-Labelled__LabelWrapper">
+          <div class="Polaris-Label">
+            <%= f.label :verb, class: "Polaris-Label__Text" %>
+          </div>
+        </div>
+        <div class="Polaris-Select">
+          <%= f.select :verb, Filter::VERBS.map { |k,v| [v, k] }, { prompt: 'Select a verb' } %>
+        </div>
+      </div>
+
+      <div class="Polaris-FormLayout__Item">
+        <div class="Polaris-Labelled__LabelWrapper">
+          <div class="Polaris-Label">
+            <%= f.label :regex, 'Value', class: "Polaris-Label__Text" %>
+          </div>
+        </div>
+        <div class="Polaris-Connected">
+          <div class="Polaris-Connected__Item Polaris-Connected__Item--primary">
+            <div class="Polaris-TextField Polaris-TextField--hasValue">
+              <%= f.text_field :regex, placeholder: "Shopify", class: "Polaris-TextField__Input" %>
+              <div class="Polaris-TextField__Backdrop"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

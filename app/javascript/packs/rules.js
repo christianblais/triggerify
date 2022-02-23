@@ -3,7 +3,7 @@ document.addEventListener("turbolinks:load", function (event) {
     var $target = $(event.target);
     var handler = $target.val();
 
-    $target.closest('.section-cell').find('[data-handler-details]').each(function (index, element) {
+    $target.closest('[data-section]').find('[data-handler-details]').each(function (index, element) {
       var $element = $(element);
 
       if ($element.attr('data-handler-details') == handler) {
