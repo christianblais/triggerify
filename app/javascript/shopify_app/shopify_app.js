@@ -56,7 +56,7 @@ document.addEventListener("turbolinks:request-start", function (event) {
   event.data.xhr.setRequestHeader("Authorization", "Bearer " + window.sessionToken);
 });
 
-document.addEventListener("turbolinks:render", function () {
+document.addEventListener("DOMSubtreeModified", function () {
   document.querySelectorAll('form, a[data-method=delete]').forEach((element) => {
     element.addEventListener("ajax:beforeSend", function (event) {
       event.detail[0].setRequestHeader("Authorization", "Bearer " + window.sessionToken);
