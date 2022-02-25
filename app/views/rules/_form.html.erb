@@ -1,4 +1,4 @@
-<%= form_for(@rule, html: { id: 'rule-form' }) do |f| %>  
+<%= form_for(@rule, builder: PolarisFormBuilder, html: { id: 'rule-form' }) do |f| %>  
   <div class="Polaris-Layout">
     <div class="Polaris-Layout__AnnotatedSection">
       <div class="Polaris-Layout__AnnotationWrapper">
@@ -19,53 +19,9 @@
           <div class="Polaris-Card">
             <div class="Polaris-Card__Section">
               <div class="Polaris-FormLayout">
-                <div class="Polaris-FormLayout__Item">
-                  <div class="Polaris-Labelled__LabelWrapper">
-                    <div class="Polaris-Label">
-                      <%= f.label :name, class: "Polaris-Label__Text" %>
-                    </div>
-                  </div>
-                  <div class="Polaris-Connected">
-                    <div class="Polaris-Connected__Item Polaris-Connected__Item--primary">
-                      <div class="Polaris-TextField Polaris-TextField--hasValue">
-                        <%= f.text_field :name, placeholder: "name", class: "Polaris-TextField__Input" %>
-                        <div class="Polaris-TextField__Backdrop"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="Polaris-FormLayout__Item">
-                  <%= f.label :enabled, class: "Polaris-Choice" do %>
-                    <span class="Polaris-Choice__Control">
-                      <span class="Polaris-Checkbox">
-                        <%= f.check_box :enabled, class: "checkbox", class: "Polaris-Checkbox__Input" %>
-                        <span class="Polaris-Checkbox__Backdrop"></span>
-                        <span class="Polaris-Checkbox__Icon">
-                          <span class="Polaris-Icon">
-                            <span class="Polaris-VisuallyHidden"></span>
-                            <svg viewBox="0 0 20 20" class="Polaris-Icon__Svg" focusable="false" aria-hidden="true">
-                              <path d="m8.315 13.859-3.182-3.417a.506.506 0 0 1 0-.684l.643-.683a.437.437 0 0 1 .642 0l2.22 2.393 4.942-5.327a.436.436 0 0 1 .643 0l.643.684a.504.504 0 0 1 0 .683l-5.91 6.35a.437.437 0 0 1-.642 0"></path>
-                            </svg>
-                          </span>
-                        </span>
-                      </span>
-                    </span>
-                    <span class="Polaris-Choice__Label">Enabled</span>
-                  <% end %>
-                </div>
-
-                <div class="Polaris-FormLayout__Item">
-                  <div class="Polaris-Labelled__LabelWrapper">
-                    <div class="Polaris-Label">
-                      <%= f.label :topic, class: "Polaris-Label__Text" %>
-                    </div>
-                  </div>
-                  <div class="Polaris-Select">
-                    <%= f.select :topic, Rule::TOPICS.map { |k,v| [v, k] }, { prompt: 'Select a topic' }, { data: { topic: true } } %>
-                  </div>
-                </div>
-                
+                <%= f.polaris_text_field(:name, placeholder: "name") %>
+                <%= f.polaris_check_box(:enabled) %>
+                <%= f.polaris_select(:topic, Rule::TOPICS.map { |k,v| [v, k] }, { prompt: 'Select a topic' }, { data: { topic: true } }) %>
               </div>
             </div>
           </div>

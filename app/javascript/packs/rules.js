@@ -37,7 +37,7 @@ document.addEventListener("turbolinks:load", function (event) {
     $(event.target).siblings('[data-topic-payload-details]').toggle();
   });
 
-  $('body').on('click', '[data-add]', function (event) {
+  $('[data-add]').on('click', function (event) {
     event.preventDefault();
 
     var target = $(event.currentTarget).attr("data-add");

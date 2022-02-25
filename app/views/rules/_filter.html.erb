@@ -20,48 +20,9 @@
     <%= f.hidden_field :_destroy, value: local_assigns.fetch(:destroyed, false) %>
     
     <div class="Polaris-FormLayout">
-      <div class="Polaris-FormLayout__Item">
-        <div class="Polaris-Labelled__LabelWrapper">
-          <div class="Polaris-Label">
-            <%= f.label :value, 'Field', class: "Polaris-Label__Text" %>
-          </div>
-        </div>
-        <div class="Polaris-Connected">
-          <div class="Polaris-Connected__Item Polaris-Connected__Item--primary">
-            <div class="Polaris-TextField Polaris-TextField--hasValue">
-              <%= f.text_field :value, placeholder: "line_items[*].vendor", class: "Polaris-TextField__Input" %>
-              <div class="Polaris-TextField__Backdrop"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="Polaris-FormLayout__Item">
-        <div class="Polaris-Labelled__LabelWrapper">
-          <div class="Polaris-Label">
-            <%= f.label :verb, class: "Polaris-Label__Text" %>
-          </div>
-        </div>
-        <div class="Polaris-Select">
-          <%= f.select :verb, Filter::VERBS.map { |k,v| [v, k] }, { prompt: 'Select a verb' } %>
-        </div>
-      </div>
-
-      <div class="Polaris-FormLayout__Item">
-        <div class="Polaris-Labelled__LabelWrapper">
-          <div class="Polaris-Label">
-            <%= f.label :regex, 'Value', class: "Polaris-Label__Text" %>
-          </div>
-        </div>
-        <div class="Polaris-Connected">
-          <div class="Polaris-Connected__Item Polaris-Connected__Item--primary">
-            <div class="Polaris-TextField Polaris-TextField--hasValue">
-              <%= f.text_field :regex, placeholder: "Shopify", class: "Polaris-TextField__Input" %>
-              <div class="Polaris-TextField__Backdrop"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <%= f.polaris_text_field(:value, placeholder: "line_items[*].vendor") %>
+      <%= f.polaris_select(:verb, Filter::VERBS.map { |k,v| [v, k] }, { prompt: 'Select a verb' }) %>
+      <%= f.polaris_text_field(:regex, placeholder: "Shopify") %>
     </div>
   </div>
 </div>
