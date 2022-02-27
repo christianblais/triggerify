@@ -29,7 +29,7 @@ class Handler < ActiveRecord::Base
     rescue Handlers::UserError => e
       Rails.logger.info("User error: #{e.message}")
     end
-
+  ensure
     Handler.increment_counter(:handle_count, id, touch: true)
   end
 
