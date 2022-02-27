@@ -46,6 +46,8 @@ class Rule < ActiveRecord::Base
     'themes/publish' => 'Theme publish',
   }
 
+  EVENTS_TO_KEEP = 10
+
   belongs_to :shop
   has_many :filters, dependent: :destroy, inverse_of: :rule
   has_many :handlers, dependent: :destroy, inverse_of: :rule
@@ -53,8 +55,18 @@ class Rule < ActiveRecord::Base
   validates :name, presence: true
   validates :topic, presence: true, inclusion: TOPICS.keys
 
+  serialize :events, RuleEventsSerializer
+
   accepts_nested_attributes_for :handlers, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :filters, allow_destroy: true, reject_if: :all_blank
 
   scope :enabled, -> { where(enabled: true) }
+
+  before_save :drop_old_events
+
+  private
+
+  def drop_old_events
+    self.events = self.events.last(EVENTS_TO_KEEP)
+  end
 end

@@ -13,7 +13,12 @@ class CallbackWebhookJobTest < ActiveSupport::TestCase
       "country" => "Canada",
     }
 
-    Handlers::Emailer.any_instance.expects(:call)
+    mock_runner = mock
+    mock_runner.expects(:perform)
+    RuleRunner
+      .expects(:new)
+      .with(rule: @shop.rules.first, callback: callback)
+      .returns(mock_runner)
 
     @job.perform(
       shop_domain: @shop.shopify_domain,
