@@ -36,7 +36,7 @@ class RuleRunnerTest < ActiveSupport::TestCase
         { "level" => "info", "message" => "Handler #1: Successful" }
       ]
     }
-    assert_equal(expected, @rule.events.last.dump)
+    assert_equal(expected, @rule.reload.events.last.dump)
   end
 
   test '#perform on user error writes a rule event' do
@@ -59,7 +59,7 @@ class RuleRunnerTest < ActiveSupport::TestCase
         { "level" => "error", "message" => "Handler #1: Something wrong with Twillio" }
       ],
     }
-    assert_equal(expected, @rule.events.last.dump)
+    assert_equal(expected, @rule.reload.events.last.dump)
   end
 
   test '#perform on server error writes a rule event' do
@@ -81,9 +81,9 @@ class RuleRunnerTest < ActiveSupport::TestCase
       "details" => [
         { "level" => "info", "message" => "Event received" },
         { "level" => "info", "message" => "Filter #1: Met" },
-        { "level" => "error", "message" => "Handler #1: Server error" }
+        { "level" => "error", "message" => "Server error" }
       ],
     }
-    assert_equal(expected, @rule.events.last.dump)
+    assert_equal(expected, @rule.reload.events.last.dump)
   end
 end

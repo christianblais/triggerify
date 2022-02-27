@@ -8,14 +8,10 @@ class RuleRunner
     rule_event.add_detail(:info, "Event received")
 
     rule.filters.each.with_index do |filter, index|
-      valid = FilterValidator.new(filter).valid?(callback)
-      
-      if valid
+      if FilterValidator.new(filter).valid?(callback)
         rule_event.add_detail(:info, "Filter ##{index + 1}: Met")
       else
         rule_event.add_detail(:info, "Filter ##{index + 1}: Unmet, event dropped")
-
-        save_rule_event!
         return
       end
     end
@@ -23,7 +19,11 @@ class RuleRunner
     rule.handlers.each.with_index do |handler, index|
       handle(handler, index)
     end
+  rescue StandardError
+    rule_event.add_detail(:error, "Server error")
 
+    raise
+  ensure
     save_rule_event!
   end
 
@@ -43,16 +43,10 @@ class RuleRunner
     Rails.logger.info("User error: #{e.message}")
 
     rule_event.add_detail(:error, "Handler ##{index + 1}: #{e.message}")
-  rescue StandardError
-    rule_event.add_detail(:error, "Handler ##{index + 1}: Server error")
-
-    save_rule_event!
-
-    raise
   end
 
   def save_rule_event!
     rule.events = rule.events.push(rule_event)
-    rule.save!
+    rule.save!(validate: false)
   end
 end
