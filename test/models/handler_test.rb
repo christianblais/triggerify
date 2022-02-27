@@ -13,14 +13,6 @@ class HandlerTest < ActiveSupport::TestCase
     end
   end
 
-  test "#handle increment handle_count on user error" do
-    Handlers::Emailer.any_instance.expects(:call).raises(Handlers::UserError)
-
-    assert_difference(-> { @handler.reload.handle_count }, 1) do
-      @handler.handle({})
-    end
-  end
-
   test "#handle increment handle_count on exceptions" do
     Handlers::Emailer.any_instance.expects(:call).raises(StandardError)
 
