@@ -47,6 +47,8 @@ class Filter < ActiveRecord::Base
       content.to_i <= parsed.to_i
     when 'regex'
       content.match(/#{parsed}/i)
+    else
+      false
     end
   end
 end
