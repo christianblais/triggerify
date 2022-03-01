@@ -16,25 +16,14 @@ document.addEventListener("turbolinks:load", function (event) {
     });
   });
 
-  $('[data-topic]').on('change', function (event) {
-    var $target = $(event.target);
-    var topic = $target.val();
+  // Polaris' Selects don't work outside of React, so... here's a manual implementation
+  $('body').on('change', '.Polaris-Select__Input', function (event) {
+    $target = $(event.target);
+    $value = $target.find('option:selected').text();
+    $parent = $target.closest('.Polaris-Select');
+    $content = $parent.find('.Polaris-Select__SelectedOption');
 
-    $('[data-topic-payload]').each(function (index, element) {
-      var $element = $(element);
-
-      if ($element.attr('data-topic-payload') == topic) {
-        $element.show();
-      } else {
-        $element.hide();
-      }
-    });
-  });
-
-  $('[data-topic-payload-toggle]').on('click', function (event) {
-    event.preventDefault();
-
-    $(event.target).siblings('[data-topic-payload-details]').toggle();
+    $content.html($value);
   });
 
   $('[data-add]').on('click', function (event) {
