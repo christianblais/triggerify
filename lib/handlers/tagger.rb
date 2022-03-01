@@ -39,6 +39,8 @@ module Handlers
     def find_taggable(taggable_type, taggable_id)
       resource_class = "ShopifyAPI::#{taggable_type}".classify.constantize
       resource_class.find(taggable_id)
+    rescue ActiveResource::BadRequest => e
+      raise(UserError, "Bad request: #{e.message}")
     rescue ActiveResource::ResourceNotFound
       raise(UserError, "Resource not found: Unable to find #{taggable_type} with id '#{taggable_id}'")
     end

@@ -31,12 +31,33 @@ module Handlers
     test '#call resource not found' do
       handler = build_handler
 
-      ShopifyAPI::Customer.expects(:find).with("1234").raises(ActiveResource::ResourceNotFound, "Resource not found")
+      ShopifyAPI::Customer
+        .expects(:find)
+        .with("1234")
+        .raises(ActiveResource::ResourceNotFound, "Resource not found")
 
       e = assert_raises(UserError) do
         handler.call
       end
       assert_equal(e.message, "Resource not found: Unable to find Customer with id '1234'")
+    end
+
+    test '#call bad request' do
+      handler = build_handler(taggable_id: "not-an-id")
+
+      response = stub(
+        code: 400,
+        message: "Response message = Bad Request (id; expected String to be a id)"
+      )
+      ShopifyAPI::Customer
+        .expects(:find)
+        .with("not-an-id")
+        .raises(ActiveResource::BadRequest, response)
+
+      e = assert_raises(UserError) do
+        handler.call
+      end
+      assert_equal(e.message, "Bad request: Failed.  Response code = 400.  Response message = Response message = Bad Request (id; expected String to be a id).")
     end
 
     private
