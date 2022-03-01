@@ -71,6 +71,15 @@ module Handlers
       assert_equal(e.message, "Error code: 500. Some error from the server")
     end
 
+    test "#call with invalid recipients" do
+      handler = build_handler(recipients: "example.com")
+
+      e = assert_raises(UserError) do
+        handler.call
+      end
+      assert_equal(e.message, 'email (example.com) is invalid')
+    end
+
     private
 
     def build_handler(recipients: "test@example.com", subject: "email subject", body: "email body")
