@@ -31,7 +31,7 @@ module Handlers
 
     def call
       mail = ::SendGrid::Mail.new
-      mail.from = ::SendGrid::Email.new(email: from)
+      mail.from = build_email(email: from)
 
       personalization = ::SendGrid::Personalization.new
 
@@ -39,7 +39,8 @@ module Handlers
         recipient_sanitized = recipient.strip
         next if recipient_sanitized.empty?
 
-        personalization.add_to(::SendGrid::Email.new(email: recipient_sanitized))
+        email = build_email(email: recipient_sanitized)
+        personalization.add_to(email)
       end
       mail.add_personalization(personalization)
 
@@ -69,6 +70,12 @@ module Handlers
       return true if response.status_code.to_i == 403
 
       false
+    end
+
+    def build_email(email:)
+      ::SendGrid::Email.new(email: email)
+    rescue ArgumentError => e
+      raise UserError, e.message
     end
   end
 end

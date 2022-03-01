@@ -118,6 +118,24 @@ module Handlers
       assert_equal(e.message, 'SendGrid error: 403. {"errors":[{"message":"The from address does not match a verified Sender Identity......","field":"from","help":null}]}')
     end
 
+    test "#call with invalid from" do
+      handler = build_handler(from: "example.com")
+
+      e = assert_raises(UserError) do
+        handler.call
+      end
+      assert_equal(e.message, 'email (example.com) is invalid')
+    end
+
+    test "#call with invalid recipients" do
+      handler = build_handler(recipients: "example.com")
+
+      e = assert_raises(UserError) do
+        handler.call
+      end
+      assert_equal(e.message, 'email (example.com) is invalid')
+    end
+
     private
 
     def build_handler(api_key: "test_api_key", from: "test_from@example.com", recipients: "test@example.com", subject: "email subject", body: "email body")

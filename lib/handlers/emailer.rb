@@ -28,7 +28,11 @@ module Handlers
 
       personalization = ::SendGrid::Personalization.new
       recipients.split(",").each do |recipient|
-        personalization.add_to(::SendGrid::Email.new(email: recipient.strip))
+        recipient_sanitized = recipient.strip
+        next if recipient_sanitized.empty?
+
+        email = build_email(email: recipient_sanitized)
+        personalization.add_to(email)
       end
       mail.add_personalization(personalization)
 
@@ -45,6 +49,12 @@ module Handlers
       if response.status_code.to_i != 202
         raise DeliveryError, "Error code: #{response.status_code}. #{response.body}"
       end
+    end
+
+    def build_email(email:)
+      ::SendGrid::Email.new(email: email)
+    rescue ArgumentError => e
+      raise UserError, e.message
     end
   end
 end
