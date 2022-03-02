@@ -53,16 +53,20 @@
         <div class="Polaris-Layout__AnnotationContent">
           <div data-filter-list>
             <% @rule.filters.each do |filter| %>
-              <%= f.fields_for :filters, filter do |ff| %>
-                <%= render 'filter', f: ff %>
-              <% end %>
+              <div class="Polaris-Card" data-section>
+                <%= f.fields_for :filters, filter do |ff| %>
+                  <%= render 'filter', f: ff %>
+                <% end %>
+              </div>
             <% end %>
           </div>
 
           <div style="display: none;" data-filter-template>
-            <%= f.fields_for :filters, Filter.new do |ff| %>
-              <%= render 'filter', f: ff, destroyed: true %>
-            <% end %>
+            <div class="Polaris-Card" data-section>
+              <%= f.fields_for :filters, Filter.new do |ff| %>
+                <%= render 'filter', f: ff, destroyed: true %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -92,16 +96,20 @@
         <div class="Polaris-Layout__AnnotationContent">
           <div data-handler-list>
             <% @rule.handlers.each do |handler| %>
-              <%= f.fields_for :handlers, handler do |ff| %>
-                <%= render 'handler', f: ff %>
-              <% end %>
+              <div class="Polaris-Card" data-section>
+                <%= f.fields_for :handlers, handler do |ff| %>
+                  <%= render 'handler', f: ff %>
+                <% end %>
+              </div>
             <% end %>
           </div>
 
           <div style="display: none;" data-handler-template>
-            <%= f.fields_for :handlers, Handler.new do |ff| %>
-              <%= render 'handler', f: ff, destroyed: true %>
-            <% end %>
+            <div class="Polaris-Card" data-section>
+              <%= f.fields_for :handlers, Handler.new do |ff| %>
+                <%= render 'handler', f: ff, destroyed: true %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
