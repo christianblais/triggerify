@@ -4,8 +4,17 @@ jobs:
   build:
     docker:
       - image: cimg/ruby:3.1.0-node
-        environment: # environment variables for primary container
+        environment:
           RAILS_ENV: test
+          PGHOST: localhost
+          PGUSER: triggerify
+
+      # Heroku currently on 13
+      - image: cimg/postgres:13.5
+        environment:
+          POSTGRES_USER: triggerify
+          POSTGRES_DB: triggerify_test
+          POSTGRES_PASSWORD: ""
 
     steps:
       - checkout
@@ -24,10 +33,6 @@ jobs:
             gem install bundler
 
       - run:
-          name: install sqlite3 dependencies
-          command: sudo apt-get update && sudo apt-get install -y sqlite3 libsqlite3-dev
-
-      - run:
           name: install dependencies
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
@@ -36,6 +41,10 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: Waiting for Postgres
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       # Database setup
       - run:

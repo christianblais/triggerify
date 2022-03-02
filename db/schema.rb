@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2022_02_11_205713) do
 
-  create_table "filters", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "filters", id: :serial, force: :cascade do |t|
     t.integer "rule_id", null: false
     t.string "value", null: false
     t.string "regex", null: false
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 2022_02_11_205713) do
     t.index ["rule_id"], name: "index_filters_on_rule_id"
   end
 
-  create_table "handlers", force: :cascade do |t|
+  create_table "handlers", id: :serial, force: :cascade do |t|
     t.integer "rule_id", null: false
     t.string "service_name", null: false
     t.text "settings"
@@ -32,7 +35,7 @@ ActiveRecord::Schema.define(version: 2022_02_11_205713) do
     t.index ["rule_id"], name: "index_handlers_on_rule_id"
   end
 
-  create_table "rules", force: :cascade do |t|
+  create_table "rules", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.integer "shop_id", null: false
     t.string "topic", null: false
@@ -42,7 +45,7 @@ ActiveRecord::Schema.define(version: 2022_02_11_205713) do
     t.index ["shop_id"], name: "index_rules_on_shop_id"
   end
 
-  create_table "shops", force: :cascade do |t|
+  create_table "shops", id: :serial, force: :cascade do |t|
     t.string "shopify_domain", null: false
     t.string "shopify_token", null: false
     t.datetime "created_at", null: false
