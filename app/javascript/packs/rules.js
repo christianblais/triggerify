@@ -49,7 +49,7 @@ document.addEventListener("turbolinks:load", function (event) {
       return x.replace(/(\d+)/, new_id)
     }));
 
-    $clone.find('input[type="hidden"]').attr('value', 0);
+    $clone.find('[data-destroy-input]').attr('value', 0);
 
     $clone.appendTo("[data-" + target + "-list]");
 
@@ -60,7 +60,7 @@ document.addEventListener("turbolinks:load", function (event) {
     event.preventDefault();
 
     var parent = $(event.target).closest("[data-section]");
-    parent.hide().find('input[type="hidden"]').attr('value', 1);
+    parent.hide().find('[data-destroy-input]').attr('value', 1);
   });
 
   $('select').trigger('change');
