@@ -1,14 +1,16 @@
 <%= react_component("rules/templates", { templates: @templates.as_json }) %>
 
-<% content_for :shopify_app_javascript do %>
-  ShopifyApp.Bar.initialize({
+<script>
+  var button = Button.create(app, { label: 'Cancel' });
+
+  button.subscribe('click', () => {
+    Turbolinks.visit('<%= new_rule_path %>');
+  });
+
+  TitleBar.create(app, {
     title: 'Pick a template',
     buttons: {
-      secondary: [
-        { label: "Cancel", callback: function() {
-          window.location = "<%= rules_path %>"
-        }}
-      ]
+      secondary: [button]
     }
   });
-<% end %>
+</script>
