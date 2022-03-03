@@ -5,8 +5,6 @@ class RuleEventRepository
     end
 
     def load(data)
-      return new if data.nil?
-
       object = allocate
       object.instance_variable_set(:@events, data.map { RuleEvent.load(_1) })
       object
