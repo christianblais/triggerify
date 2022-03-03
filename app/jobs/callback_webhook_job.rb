@@ -1,6 +1,6 @@
 class CallbackWebhookJob < ShopJob
   def perform_with_shop(topic:, callback:)
-    rules = shop.rules.enabled.where(topic: topic).includes(:filters, :handlers)
+    rules = shop.rules.enabled.where(topic: topic)
 
     rules.each do |rule|
       process_rule(rule, callback)
@@ -10,13 +10,10 @@ class CallbackWebhookJob < ShopJob
   private
 
   def process_rule(rule, callback)
-    return unless rule.filters.all? do |filter|
-      FilterValidator.new(filter).valid?(callback)
-    end
-
-    rule.handlers.each do |handler|
-      handler.handle(callback)
-    end
+    RuleRunner.new(
+      rule: rule,
+      callback: callback
+    ).perform
   rescue StandardError => e
     report_exception(e) do |report|
       report.add_tab(:rule, {
