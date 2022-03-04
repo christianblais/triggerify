@@ -36,7 +36,11 @@ module Handlers
         config.access_token_secret = access_token_secret
       end
 
-      client.update(message)
+      begin
+        client.update(message)
+      rescue Twitter::Error
+        raise UserError, e.message
+      end
     end
   end
 end
