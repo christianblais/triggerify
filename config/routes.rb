@@ -3,6 +3,10 @@ Rails.application.routes.draw do
     collection do
       get :templates
     end
+
+    member do
+      get :activity
+    end
   end
 
   # OLD

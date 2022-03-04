@@ -29,6 +29,10 @@ class RulesController < AuthenticatedController
     @templates = RuleTemplate.all
   end
 
+  def activity
+    @rule = shop.rules.find(params[:id])
+  end
+
   def show
     @rule = shop.rules.find(params[:id])
   end

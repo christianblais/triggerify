@@ -23,4 +23,11 @@ class RuleEvent
       "details" => @details.map(&:dump),
     }
   end
+
+  def as_json
+    dump.merge({
+      name: @details.first.timestamp.to_s(:db),
+      error: @details.any? { _1.level == :error },
+    })
+  end
 end

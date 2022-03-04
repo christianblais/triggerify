@@ -132,7 +132,13 @@
   });
   secondaryButtons.push(cancelButton);
 
-  <% unless @rule.persisted? %>
+  <% if @rule.persisted? %>
+    var activityButton = Button.create(app, { label: 'Activity' });
+    activityButton.subscribe(Button.Action.CLICK, () => {
+      Turbolinks.visit('<%= activity_rule_path(@rule) %>');
+    });
+    secondaryButtons.push(activityButton);
+  <% else %>
     var templatesButton = Button.create(app, { label: 'Import from templates' });
     templatesButton.subscribe(Button.Action.CLICK, () => {
       Turbolinks.visit('<%= templates_rules_path %>');
