@@ -38,7 +38,7 @@ module Handlers
 
       begin
         client.update(message)
-      rescue Twitter::Error
+      rescue ::Twitter::Error => e
         raise UserError, e.message
       end
     end
