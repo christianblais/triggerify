@@ -105,7 +105,7 @@ class RuleRunnerTest < ActiveSupport::TestCase
       "details" => [
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Event received" },
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Filter #1: Met" },
-        { "timestamp"=>"2022-02-26 18:33:03", "level" => "error", "message" => "Server error" }
+        { "timestamp"=>"2022-02-26 18:33:03", "level" => "error", "message" => "An unhandled exception happenend on our server. Our engineers have been notified." }
       ],
     }
     assert_equal(expected, @rule.reload.events.to_a.last.dump)

@@ -26,7 +26,7 @@ class RuleRunner
       handle(handler, index)
     end
   rescue StandardError
-    rule_event.add_detail(:error, "Server error")
+    rule_event.add_detail(:error, "An unhandled exception happenend on our server. Our engineers have been notified.")
 
     raise
   ensure
