@@ -9,7 +9,8 @@ class RuleRunnerTest < ActiveSupport::TestCase
         "id" => "1234",
         "email" => "test@example.com",
         "country" => "Canada",
-      }
+      },
+      shopify_identifier: 'abc'
     )
   end
 
@@ -29,6 +30,7 @@ class RuleRunnerTest < ActiveSupport::TestCase
     end
 
     expected = {
+      "identifier" => "abc",
       "details" => [
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Event received" },
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Filter #1: Met" },
@@ -46,7 +48,8 @@ class RuleRunnerTest < ActiveSupport::TestCase
       callback: {
         "id" => "1234",
         "country" => "Not-Canada",
-      }
+      },
+      shopify_identifier: "abc"
     )
 
     assert_difference(-> { @rule.reload.events.count }, 1) do
@@ -56,6 +59,7 @@ class RuleRunnerTest < ActiveSupport::TestCase
     end
 
     expected = {
+      "identifier" => "abc",
       "details" => [
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Event received" },
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Filter #1: Unmet" },
@@ -78,6 +82,7 @@ class RuleRunnerTest < ActiveSupport::TestCase
     end
 
     expected = {
+      "identifier" => "abc",
       "details" => [
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Event received" },
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Filter #1: Met" },
@@ -102,6 +107,7 @@ class RuleRunnerTest < ActiveSupport::TestCase
     end
 
     expected = {
+      "identifier" => "abc",
       "details" => [
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Event received" },
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Filter #1: Met" },
