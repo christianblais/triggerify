@@ -9,10 +9,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # OLD
-  post '/webhooks/rules/:shop_id/:topic', to: 'callback#webhook', constraints: { shop_id: /\d+/, topic: /.*/ }
-
-  # NEW
   post '/webhooks/receive', to: 'callback#receive'
 
   root to: 'home#index'
