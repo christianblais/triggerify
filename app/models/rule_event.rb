@@ -1,6 +1,7 @@
 class RuleEvent
   def self.load(attributes)
     object = allocate
+    # Ensures we do not bust on historic events that do not have an identifier
     object.instance_variable_set(:@identifier, attributes.fetch("identifier", ""))
     object.instance_variable_set(:@details, attributes.fetch("details").map { RuleEventDetail.load(_1) })
     object
