@@ -1,4 +1,4 @@
-<%= react_component("rules/activity", { events: @rule.events.as_json }) %>
+<%= react_component("rules/activity", { events: @rule.events.as_json.reverse }) %>
 
 <script>
   // App Bridge limits to a single breadcrumb...
