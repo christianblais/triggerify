@@ -34,6 +34,13 @@ class RulesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "activity" do
+    rule = rules(:email)
+
+    get :activity, params: { id: rule.id }
+    assert_response :success
+  end
+
   test "create" do
     assert_difference('Rule.count', 1) do
       attributes = {
