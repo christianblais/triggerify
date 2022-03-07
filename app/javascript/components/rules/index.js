@@ -26,6 +26,10 @@ class Index extends React.Component {
                     <Card.Section title={ rule.name }
                       actions={[
                         {
+                          content: 'Activity',
+                          url: `/rules/${ rule.id }/activity`
+                        },
+                        {
                           content: 'Edit',
                           url: `/rules/${ rule.id }`
                         },
