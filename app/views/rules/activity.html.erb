@@ -1,22 +1,25 @@
 <%= react_component("rules/activity", { events: @rule.events.as_json.reverse }) %>
 
 <script>
-  // App Bridge limits to a single breadcrumb...
   var breadcrumb = Button.create(app, { label: '<%= @rule.name %>' });
   breadcrumb.subscribe(Button.Action.CLICK, () => {
     Turbolinks.visit('<%= rule_path(@rule) %>');
   });
 
-  var button = Button.create(app, { label: 'Back' });
+  var button1 = Button.create(app, { label: 'Back' });
+  button1.subscribe('click', () => {
+    Turbolinks.visit('<%= rules_path %>');
+  });
 
-  button.subscribe('click', () => {
+  var button2 = Button.create(app, { label: 'Edit' });
+  button2.subscribe('click', () => {
     Turbolinks.visit('<%= rule_path(@rule) %>');
   });
 
   TitleBar.create(app, {
     title: 'Activity',
     buttons: {
-      secondary: [button]
+      secondary: [button1, button2]
     },
     breadcrumbs: breadcrumb
   });
