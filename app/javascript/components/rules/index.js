@@ -43,10 +43,12 @@ class Index extends React.Component {
                             event.preventDefault();
                             event.stopPropagation();
 
-                            event.currentTarget.setAttribute("data-remote", "remote"); 
-                            event.currentTarget.setAttribute("data-method", "delete");
-                            
-                            event.currentTarget.click();
+                            if (window.confirm('Delete this rule?')) {
+                              event.currentTarget.setAttribute("data-remote", "remote");
+                              event.currentTarget.setAttribute("data-method", "delete");
+
+                              event.currentTarget.click();
+                            }
                           }
                         }
                       ]}
