@@ -40,6 +40,37 @@ class RuleRunnerTest < ActiveSupport::TestCase
     assert_equal(expected, @rule.reload.events.to_a.last.dump)
   end
 
+  test '#perform with errorring filter stops the chain' do
+    Handlers::Emailer.any_instance.expects(:call).never
+
+    FilterValidator.any_instance.expects(:valid?).raises(StandardError)
+
+    runner = RuleRunner.new(
+      rule: @rule,
+      callback: {
+        "id" => "1234",
+        "country" => "Canada",
+      },
+      shopify_identifier: "abc"
+    )
+
+    assert_difference(-> { @rule.reload.events.count }, 1) do
+      travel_to("2022-02-26 18:33:03 UTC") do
+        runner.perform
+      end
+    end
+
+    expected = {
+      "identifier" => "abc",
+      "details" => [
+        { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Event received" },
+        { "timestamp"=>"2022-02-26 18:33:03", "level" => "error", "message" => "Filter #1: There was an error applying this filter" },
+        { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "A filter was unmet, dropping event" }
+      ]
+    }
+    assert_equal(expected, @rule.reload.events.to_a.last.dump)
+  end
+
   test '#perform with unmet filter stops the chain' do
     Handlers::Emailer.any_instance.expects(:call).never
 

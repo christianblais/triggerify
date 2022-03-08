@@ -8,17 +8,23 @@ class RuleRunner
   def perform
     rule_event.add_detail(:info, "Event received")
 
-    filters_valid = true
-    rule.filters.order(:id).each.with_index do |filter, index|
-      if FilterValidator.new(filter).valid?(callback)
-        rule_event.add_detail(:info, "Filter ##{index + 1}: Met")
-      else
-        rule_event.add_detail(:info, "Filter ##{index + 1}: Unmet")
-        filters_valid = false
+    filters_results = rule.filters.order(:id).map.with_index do |filter, index|
+      begin
+        if FilterValidator.new(filter).valid?(callback)
+          rule_event.add_detail(:info, "Filter ##{index + 1}: Met")
+          true
+        else
+          rule_event.add_detail(:info, "Filter ##{index + 1}: Unmet")
+          false
+        end
+      rescue StandardError => e
+        rule_event.add_detail(:error, "Filter ##{index + 1}: There was an error applying this filter")
+        Rails.logger.info("User error: #{e.message}")
+        false
       end
     end
 
-    unless filters_valid
+    unless filters_results.all?
       rule_event.add_detail(:info, "A filter was unmet, dropping event")
       return
     end
