@@ -7,16 +7,17 @@ class Activity extends React.Component {
       <AppProvider>
         <Layout>
           { this.props.events.map((event, i) => {
-            let description = <p>
-              <b>Webhook ID</b><br /><Caption>{ event.identifier }</Caption>
-            </p>
+            let description = <>
+              <b>Webhook ID</b><br />
+              <Caption>{ event.identifier }</Caption>
+            </>
 
             return(
-              <Layout.AnnotatedSection id={ i } title={ event.timestamp } description={ description }>
+              <Layout.AnnotatedSection key={ i } title={ event.timestamp } description={ description }>
                 <Card sectioned>
                   <DescriptionList items={
                     event.details.map((details, j) => {
-                      let badgeStatus = details.level == "info" ? "info" : "warning";
+                      let badgeStatus = details.level === "info" ? "info" : "warning";
 
                       return({
                         term: <Badge status={ badgeStatus }>{ details.level }</Badge>,
