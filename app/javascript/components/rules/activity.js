@@ -7,10 +7,10 @@ class Activity extends React.Component {
       <AppProvider>
         <Layout>
           { this.props.events.map((event, i) => {
-            let description = <div>
+            let description = <>
               <b>Webhook ID</b><br />
               <Caption>{ event.identifier }</Caption>
-            </div>
+            </>
 
             return(
               <Layout.AnnotatedSection key={ i } title={ event.timestamp } description={ description }>
