@@ -1,54 +1,33 @@
 import React from "react"
-import { AppProvider, Layout, Card, Badge, Caption, TextContainer, Banner } from '@shopify/polaris'
+import { AppProvider, Layout, Card, Badge, DescriptionList, Caption } from '@shopify/polaris'
 
 class Activity extends React.Component {
   render () {
     return (
       <AppProvider>
         <Layout>
-          <Layout.AnnotatedSection
-            id="ruleActivity"
-            title="Activity"
-            description="See the most recent activity pertaining to this rule."
-          >
-            { this.props.events.map((event, i) => {
-              let banner;
+          { this.props.events.map((event, i) => {
+            let description = <p>
+              <b>Webhook ID</b><br /><Caption>{ event.identifier }</Caption>
+            </p>
 
-              if (event.error) {
-                banner =
-                  <Card.Section>
-                    <Banner status="warning">
-                      <p>There has been a problem executing this rule.</p>
-                    </Banner>
-                  </Card.Section>
-              }
+            return(
+              <Layout.AnnotatedSection id={ i } title={ event.timestamp } description={ description }>
+                <Card sectioned>
+                  <DescriptionList items={
+                    event.details.map((details, j) => {
+                      let badgeStatus = details.level == "info" ? "info" : "warning";
 
-              return(
-                <Card title={ event.name } key={ i }>
-                  { banner }
-
-                  { event.details.map((details, j) => {
-                    let badgeStatus = details.level == "info" ? "info" : "warning";
-
-                    return(
-                      <Card.Section key={ j }>
-                        <TextContainer>
-                          <p>
-                            <Badge status={ badgeStatus }>{ details.level }</Badge>
-                            &nbsp;
-                            { details.message }
-                          </p>
-                          <p>
-                            <Caption>{ details.timestamp }</Caption>
-                          </p>
-                        </TextContainer>
-                      </Card.Section>
-                    );
-                  }) }
+                      return({
+                        term: <Badge status={ badgeStatus }>{ details.level }</Badge>,
+                        description: details.message
+                      });
+                    })
+                  } />
                 </Card>
-              );
-            }) }
-          </Layout.AnnotatedSection>
+              </Layout.AnnotatedSection>
+            );
+          })}
         </Layout>
       </AppProvider>
     );

@@ -30,7 +30,8 @@ class RuleEvent
 
   def as_json
     dump.merge({
-      name: @identifier,
+      identifier: @identifier,
+      timestamp: @details.first.timestamp.to_s(:db),
       error: @details.any? { _1.level == :error },
     })
   end
