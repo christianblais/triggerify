@@ -39,7 +39,7 @@ module Handlers
       e = assert_raises(UserError) do
         handler.call
       end
-      assert_equal(e.message, "Resource not found: Unable to find Customer with id '1234'")
+      assert_equal(e.message, "Unable to tag resource as Shopify can't find Customer with id '1234'")
     end
 
     test '#call bad request' do
@@ -57,7 +57,8 @@ module Handlers
       e = assert_raises(UserError) do
         handler.call
       end
-      assert_equal(e.message, "Bad request: Failed.  Response code = 400.  Response message = Response message = Bad Request (id; expected String to be a id).")
+      assert_equal(e.message, "Unable to tag resource. Shopify replied with the following message: Failed.  \
+Response code = 400.  Response message = Response message = Bad Request (id; expected String to be a id).")
     end
 
     private

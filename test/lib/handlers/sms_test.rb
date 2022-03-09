@@ -47,7 +47,7 @@ module Handlers
       e = assert_raise(UserError) do
         handler.call
       end
-      assert_equal e.message, "Twillio error: [HTTP 20404] 20404 : Error message"
+      assert_equal e.message, "Unable to send SMS. Twillio replied with the following message: [HTTP 20404] 20404 : Error message"
     end
 
     private

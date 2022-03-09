@@ -31,8 +31,8 @@ module Handlers
 
       begin
         client.chat_postMessage(channel: channel, text: message)
-      rescue ::Slack::Web::Api::Errors::TooManyRequestsError => e
-        raise(UserError, "TooManyRequestsError: #{e.message}")
+      rescue ::Slack::Web::Api::Errors::ServerError, ::Slack::Web::Api::Errors::SlackError, ::Slack::Web::Api::Errors::TooManyRequestsError => e
+        raise(UserError, "Unable to send Slack message. Slack replied with the following message: #{e.message}")
       end
     end
   end

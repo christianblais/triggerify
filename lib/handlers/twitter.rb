@@ -39,7 +39,7 @@ module Handlers
       begin
         client.update(message)
       rescue ::Twitter::Error => e
-        raise UserError, e.message
+        raise UserError, "Unable to send tweet. Twitter replied with the following message: #{e.message}"
       end
     end
   end
