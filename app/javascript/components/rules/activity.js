@@ -1,8 +1,32 @@
 import React from "react"
-import { AppProvider, Layout, Card, Badge, DescriptionList, Caption } from '@shopify/polaris'
+import { AppProvider, Layout, Card, EmptyState, Badge, DescriptionList, Caption } from '@shopify/polaris'
+
+class Empty extends React.Component {
+  render () {
+    return (
+      <AppProvider>
+        <Card sectioned>
+          <EmptyState
+            heading="Nothing to show yet"
+            image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
+          >
+            <p>
+              Once events start being processed by this rule, you'll get a detailed view of
+              what's happening, when it's happening, as well as information on potential errors.
+            </p>
+          </EmptyState>
+        </Card>
+      </AppProvider>
+    );
+  }
+}
 
 class Activity extends React.Component {
   render () {
+    if (this.props.events.length === 0) {
+      return <Empty />
+    }
+
     return (
       <AppProvider>
         <Layout>
