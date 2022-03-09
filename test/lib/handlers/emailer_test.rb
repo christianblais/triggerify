@@ -77,7 +77,7 @@ module Handlers
       e = assert_raises(UserError) do
         handler.call
       end
-      assert_equal(e.message, 'email (example.com) is invalid')
+      assert_equal(e.message, 'Unable to send mail. SendGrid replied with the following message: email (example.com) is invalid')
     end
 
     private

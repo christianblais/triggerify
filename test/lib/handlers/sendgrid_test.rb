@@ -89,7 +89,7 @@ module Handlers
       e = assert_raises(UserError) do
         handler.call
       end
-      assert_equal(e.message, 'SendGrid error: 401. {"errors":[{"message":"Authenticated user is not authorized to send mail","field":null,"help":null}]}')
+      assert_equal(e.message, 'Unable to send mail. SendGrid replied with the following message: 401. {"errors":[{"message":"Authenticated user is not authorized to send mail","field":null,"help":null}]}')
     end
 
     test '#call unverified 403 error' do
@@ -115,7 +115,7 @@ module Handlers
       e = assert_raises(UserError) do
         handler.call
       end
-      assert_equal(e.message, 'SendGrid error: 403. {"errors":[{"message":"The from address does not match a verified Sender Identity......","field":"from","help":null}]}')
+      assert_equal(e.message, 'Unable to send mail. SendGrid replied with the following message: 403. {"errors":[{"message":"The from address does not match a verified Sender Identity......","field":"from","help":null}]}')
     end
 
     test "#call with invalid from" do
@@ -124,7 +124,7 @@ module Handlers
       e = assert_raises(UserError) do
         handler.call
       end
-      assert_equal(e.message, 'email (example.com) is invalid')
+      assert_equal(e.message, 'Unable to send mail. SendGrid replied with the following message: email (example.com) is invalid')
     end
 
     test "#call with invalid recipients" do
@@ -133,7 +133,7 @@ module Handlers
       e = assert_raises(UserError) do
         handler.call
       end
-      assert_equal(e.message, 'email (example.com) is invalid')
+      assert_equal(e.message, 'Unable to send mail. SendGrid replied with the following message: email (example.com) is invalid')
     end
 
     private

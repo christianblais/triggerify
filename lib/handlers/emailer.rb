@@ -54,7 +54,7 @@ module Handlers
     def build_email(email:)
       ::SendGrid::Email.new(email: email)
     rescue ArgumentError => e
-      raise UserError, e.message
+      raise UserError, "Unable to send mail. SendGrid replied with the following message: #{e.message}"
     end
   end
 end

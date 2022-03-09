@@ -40,9 +40,9 @@ module Handlers
       resource_class = "ShopifyAPI::#{taggable_type}".classify.constantize
       resource_class.find(taggable_id)
     rescue ActiveResource::BadRequest => e
-      raise(UserError, "Bad request: #{e.message}")
+      raise(UserError, "Unable to tag resource. Shopify replied with the following message: #{e.message}")
     rescue ActiveResource::ResourceNotFound
-      raise(UserError, "Resource not found: Unable to find #{taggable_type} with id '#{taggable_id}'")
+      raise(UserError, "Unable to tag resource as Shopify can't find #{taggable_type} with id '#{taggable_id}'")
     end
   end
 end

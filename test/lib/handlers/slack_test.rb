@@ -34,7 +34,7 @@ module Handlers
       e = assert_raises(UserError) do
         handler.call
       end
-      assert_equal(e.message, "TooManyRequestsError: Retry after 60 seconds")
+      assert_equal(e.message, "Unable to send Slack message. Slack replied with the following message: Retry after 60 seconds")
     end
 
     private

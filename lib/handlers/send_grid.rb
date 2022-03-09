@@ -56,7 +56,7 @@ module Handlers
 
       if response.status_code.to_i != 202
         if known_error?(response)
-          raise(UserError, "SendGrid error: #{response.status_code}. #{response.body}")
+          raise(UserError, "Unable to send mail. SendGrid replied with the following message: #{response.status_code}. #{response.body}")
         else
           raise(DeliveryError, "Error code: #{response.status_code}. #{response.body}")
         end
@@ -75,7 +75,7 @@ module Handlers
     def build_email(email:)
       ::SendGrid::Email.new(email: email)
     rescue ArgumentError => e
-      raise UserError, e.message
+      raise UserError, "Unable to send mail. SendGrid replied with the following message: #{e.message}"
     end
   end
 end
