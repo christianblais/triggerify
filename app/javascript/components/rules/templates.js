@@ -9,7 +9,7 @@ class Templates extends React.Component {
           <Layout.AnnotatedSection
             id="ruleTemplates"
             title="Templates"
-            description="Select a template to help you jumpstart your own rule."
+            description="Select a template to help you jumpstart your own rule. You'll be able to tweak all the details at the next step."
           >
             {
               this.props.templates.map(function(template, index) {
