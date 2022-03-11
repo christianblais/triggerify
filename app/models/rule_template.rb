@@ -9,6 +9,7 @@ class RuleTemplate
         tagger_on_account_creation,
         sendgrid_on_shipping_order,
         sms_on_low_inventory,
+        tag_customer_on_specific_item,
       ]
     end
 
@@ -18,9 +19,39 @@ class RuleTemplate
 
     private
 
+    def tag_customer_on_specific_item
+      rule = Rule.new
+      rule.name = "Tag customers who buy a specific item"
+      rule.topic = "orders/create"
+      rule.enabled = true
+
+      filter = Filter.new
+      filter.value = "line_items[*].sku"
+      filter.verb = "equals"
+      filter.regex = "REPLACE ME WITH A SKU"
+
+      handler = Handler.new
+      handler.service_name = Handlers::Tagger.to_s
+      handler.settings = {
+        taggable_type: "Customer",
+        taggable_id: "{{ customer.id }}",
+        tag_name: "REPLACE ME WITH THE DESIRED TAG NAME",
+      }
+
+      rule.filters = [filter]
+      rule.handlers = [handler]
+
+      template = new
+      template.handle = :tag_customer_on_specific_item
+      template.description = "This rule is perfect if you have special items that require special care. Whenever an order contains such item, tag the customer. \
+Feel free to enhance with additional actions if you'd like to, say, also get notified by email, or receive an SMS whenever that item is sold"
+      template.rule = rule
+      template
+    end
+
     def tagger_on_account_creation
       rule = Rule.new
-      rule.name = "New customer require approval"
+      rule.name = "Tag new customers"
       rule.topic = "customers/create"
       rule.enabled = true
 
@@ -37,14 +68,14 @@ class RuleTemplate
 
       template = new
       template.handle = :tagger_on_account_creation
-      template.description = "When a customer is created, assign them a tag."
+      template.description = "Use this rule to tag customers as soon as they get created. This comes handy if you have some sort of approval process."
       template.rule = rule
       template
     end
 
     def sendgrid_on_shipping_order
       rule = Rule.new
-      rule.name = "Order received with shippable goods"
+      rule.name = "Email me when an order has shippable goods"
       rule.topic = "orders/create"
       rule.enabled = true
 
@@ -68,14 +99,15 @@ class RuleTemplate
 
       template = new
       template.handle = :sendgrid_on_shipping_order
-      template.description = "When an order is created and require shipping, send a email."
+      template.description = "This rule will notify you as soon as an order contains an item that requires shipping. Especially handy if you have a mix of digital \
+physical goods, and you'd like to be aware whenever a physical good is sold."
       template.rule = rule
       template
     end
 
     def sms_on_low_inventory
       rule = Rule.new
-      rule.name = "Item inventory is low"
+      rule.name = "SMS on low inventory"
       rule.topic = "inventory_levels/update"
       rule.enabled = true
 
@@ -99,7 +131,8 @@ class RuleTemplate
 
       template = new
       template.handle = :sms_on_low_inventory
-      template.description = "When an item inventory available quantity drops below 5, send a SMS message."
+      template.description = "This rule can be used to quickly get notified whenever an item's inventory available quantity drops below a certain threshold.\
+Simply replace the twilio credentials with your own to get started."
       template.rule = rule
       template
     end
