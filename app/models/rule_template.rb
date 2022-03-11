@@ -10,6 +10,7 @@ class RuleTemplate
         sendgrid_on_shipping_order,
         sms_on_low_inventory,
         tag_customer_on_specific_item,
+        email_on_tagged_customer,
       ]
     end
 
@@ -18,6 +19,38 @@ class RuleTemplate
     end
 
     private
+
+    def email_on_tagged_customer
+      rule = Rule.new
+      rule.name = "Email me when a WHOLESALE customer buys something"
+      rule.topic = "orders/create"
+      rule.enabled = true
+
+      filter = Filter.new
+      filter.value = "customer.tags"
+      filter.verb = "includes"
+      filter.regex = "WHOLESALE"
+
+      handler = Handler.new
+      handler.service_name = Handlers::SendGrid.to_s
+      handler.settings = {
+        api_key: "REPLACE_ME",
+        recipients: "test@example.com, another@test.com",
+        from: "store@example.com",
+        subject: "New order for wholesale customer",
+        body: "Wholesale order {{ order_number }} from {{ customer.first_name }}",
+      }
+
+      rule.filters = [filter]
+      rule.handlers = [handler]
+
+      template = new
+      template.handle = :email_on_tagged_customer
+      template.description = "This rule is perfect if you'd like to get notified whenever a certain type of customers buy something on your store. \
+This is achieved by leveraging customers tags, and only notify when a specific tag is present."
+      template.rule = rule
+      template
+    end
 
     def tag_customer_on_specific_item
       rule = Rule.new
