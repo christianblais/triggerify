@@ -1,23 +1,38 @@
 import React from "react"
 import { AppProvider, Layout, Card, Badge } from '@shopify/polaris'
 
-class Rule extends React.Component {
+class RuleStatus extends React.Component {
   render () {
-    let rule = this.props.rule;
+    const rule = this.props.rule;
 
     let status;
+    let text;
     if (!rule.enabled) {
-      status = <Badge status="new">Disabled</Badge>;
+      status = "new";
+      text = "Disabled";
     }
     else if (rule.events.length === 0) {
-      status = <Badge status="new">No activity</Badge>;
+      status = "new";
+      text = "No activity";
     }
     else if (rule.events.length > 0 && rule.events[rule.events.length - 1].error) {
-      status = <Badge status="warning">Warning</Badge>;
+      status = "warning";
+      text = "Warning";
     }
     else {
-      status = <Badge status="success">Healthy</Badge>;
+      status = "success";
+      text = "Healthy";
     }
+
+    return (
+      <Badge status={status}>{text}</Badge>
+    )
+  }
+}
+
+class Rule extends React.Component {
+  render () {
+    const rule = this.props.rule;
 
     return (
       <Card>
@@ -52,7 +67,7 @@ class Rule extends React.Component {
           ]}
         >
           <p>
-            { status }
+            <RuleStatus rule={rule}/>
           </p>
         </Card.Section>
       </Card>
@@ -60,48 +75,61 @@ class Rule extends React.Component {
   }
 }
 
+class SectionEnabled extends React.Component {
+  render () {
+    return(
+      <Layout.AnnotatedSection
+        id="ruleIndex"
+        title="Enabled rules"
+        description="Rules are listening to events produced by your Shopify store."
+      >
+        {
+          this.props.rules.map(function(rule, index) {
+            return <Rule rule={ rule } key={ index } />
+          })
+        }
+      </Layout.AnnotatedSection>
+    )
+  }
+}
+
+class SectionDisabled extends React.Component {
+  render () {
+    if (this.props.rules.length === 0) {
+      return (
+        <></>
+      )
+    }
+
+    return(
+      <Layout.AnnotatedSection
+        id="ruleIndex"
+        title="Disabled rules"
+        description="Rules can be enabled from their edit section."
+      >
+        {
+          this.props.rules.map(function(rule, index) {
+            return <Rule rule={ rule } key={ index } />
+          })
+        }
+      </Layout.AnnotatedSection>
+    )
+  }
+}
+
 class Index extends React.Component {
   render () {
-    let rules_enabled = [];
-    let rules_disabled = [];
+    const rules_enabled = [];
+    const rules_disabled = [];
     this.props.rules.forEach((rule) => {
       rule.enabled ? rules_enabled.push(rule) : rules_disabled.push(rule)
     });
 
-    let enabled_section = <Layout.AnnotatedSection
-      id="ruleIndex"
-      title="Enabled rules"
-      description="Rules are listening to events produced by your Shopify store."
-    >
-      {
-        rules_enabled.map(function(rule, index) {
-          return <Rule rule={ rule } key={ index } />
-        })
-      }
-    </Layout.AnnotatedSection>;
-
-    let disabled_section;
-    if (rules_disabled.length > 0) {
-      disabled_section =
-        <Layout.AnnotatedSection
-          id="ruleIndex"
-          title="Disabled rules"
-          description="Rules can be enabled from their edit section."
-        >
-          {
-            rules_disabled.map(function(rule, index) {
-              return <Rule rule={ rule } key={ index } />
-            })
-          }
-        </Layout.AnnotatedSection>
-    }
- 
-
     return (
       <AppProvider>
         <Layout>
-          { enabled_section }
-          { disabled_section }
+          <SectionEnabled rules={rules_enabled} />
+          <SectionDisabled rules={rules_disabled} />
         </Layout>
       </AppProvider>
     );
