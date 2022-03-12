@@ -152,24 +152,23 @@
 
     fetch(form.getAttribute('action'), {
       method: 'POST',
-      redirect: 'manual',
       headers: { "Authorization": "Bearer " + window.sessionToken },
       body: new FormData(form)
     }).then((response) => {
-      if (response.type === "opaqueredirect") {
-        Turbolinks.visit(response.url);
-      } else {
-        response.text().then((response) => {
+      response.text().then((body) => {
+        if (response.status === 200) {
+          Turbolinks.visit(response.url);
+        } else {
           Turbolinks.clearCache();
-      
-          var responseHTML = (new DOMParser()).parseFromString(response, 'text/html');
+
+          var responseHTML = (new DOMParser()).parseFromString(body, 'text/html');
           document.querySelector('#AppFrameMain').innerHTML = responseHTML.querySelector('#AppFrameMain').innerHTML;
-          
+
           Turbolinks.dispatch("turbolinks:load");
           window.scroll(0, 0);
-        })
-      }
-    })
+        }
+      })
+    });
   });
   
   TitleBar.create(app, {
