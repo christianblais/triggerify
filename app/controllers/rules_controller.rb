@@ -45,7 +45,7 @@ class RulesController < AuthenticatedController
       redirect_to(rules_path, flash: { notice: "Rule created successfully." })
     else
       flash.now[:error] = 'Oops, there was an error'
-      render('new')
+      render('new', status: :unprocessable_entity)
     end
   end
 
@@ -54,10 +54,10 @@ class RulesController < AuthenticatedController
 
     if @rule.update(rule_params)
       sync_webhooks
-      redirect_to(rule_path(@rule), flash: { notice: "Rule updated successfully." })
+      redirect_to(rules_path, flash: { notice: "Rule updated successfully." })
     else
       flash.now[:error] = 'Oops, there was an error'
-      render('show')
+      render('show', status: :unprocessable_entity)
     end
   end
 
@@ -69,7 +69,7 @@ class RulesController < AuthenticatedController
       redirect_to(rules_path, flash: { notice: "Rule deleted successfully." })
     else
       flash.now[:error] = 'Oops, there was an error'
-      render('show')
+      render('index')
     end
   end
 
