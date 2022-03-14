@@ -17,6 +17,7 @@ class RulesController < AuthenticatedController
     if params[:template]
       template = RuleTemplate.find_by_handle(params[:template].to_s.to_sym)
       if template
+        flash.now[:notice] = "Template imported successfuly"
         @rule = template.rule
         return
       end

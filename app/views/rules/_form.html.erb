@@ -19,9 +19,10 @@
           <div class="Polaris-Card">
             <div class="Polaris-Card__Section">
               <div class="Polaris-FormLayout">
-                <%= f.polaris_text_field(:name, placeholder: "name") %>
+                <%= f.polaris_text_field(:name, placeholder: "name", help: "Make your rule easier to remember. Nobody else will see this.") %>
                 <%= f.polaris_check_box(:enabled) %>
-                <%= f.polaris_select(:topic, Rule::TOPICS.map { |k,v| [v, k] }, { prompt: 'Select a topic' }, { data: { topic: true } }) %>
+                <% help_text = 'For more information about Shopify webhooks, <a href="https://shopify.dev/api/admin-rest/unstable/resources/webhook" target="_blank">click here</a>.' %>
+                <%= f.polaris_select(:topic, Rule::TOPICS.map { |k,v| [v, k] }, { prompt: 'Select a topic', help: help_text }, { data: { topic: true } }) %>
               </div>
             </div>
           </div>
@@ -38,7 +39,7 @@
             </h2>
             <div class="Polaris-Layout__AnnotationDescription">
               <p>
-                Add a filter to ensure actions are only performed when certain criterias are met. Skip this test if you'd like for this action to always execute.
+                Add a filter to ensure actions are only performed when certain criterias are met. Optional. Skip this if you'd like for this action to always execute.
                 For more information, <a href="https://github.com/christianblais/triggerify/wiki/Rule-Filters" target="_blank">click here</a>.
                 <br><br>
                 <button class="Polaris-Button" type="button" data-add="filter">
@@ -81,7 +82,7 @@
             </h2>
             <div class="Polaris-Layout__AnnotationDescription">
               <p>
-                Configure on which Shopify event you'd like this rule to execute. For more information,
+                Configure which actions you'd like to trigger once this event happens.
                 <a href="https://github.com/christianblais/triggerify/wiki/Rule-Actions" target="_blank">click here</a>.
                 <br><br>
                 <button class="Polaris-Button" type="button" data-add="handler">
