@@ -1,26 +1,29 @@
-<div class="Polaris-Card__Section">
-  <div class="Polaris-Card__SectionHeader">
-    <div class="Polaris-Stack Polaris-Stack--alignmentBaseline">
-      <div class="Polaris-Stack__Item Polaris-Stack__Item--fill"></div>
-      <div class="Polaris-Stack__Item">
-        <div class="Polaris-ButtonGroup">
-          <div class="Polaris-ButtonGroup__Item Polaris-ButtonGroup__Item--plain">
-            <button class="Polaris-Button Polaris-Button--destructive Polaris-Button--plain" type="button" data-destroy>
-              <span class="Polaris-Button__Content">
-                <span class="Polaris-Button__Text">Remove</span>
-              </span>
-            </button>
+<div class="Polaris-Card" data-section>
+  <div class="Polaris-Card__Section">
+    <div class="Polaris-Card__SectionHeader">
+      <div class="Polaris-Stack Polaris-Stack--alignmentBaseline">
+        <div class="Polaris-Stack__Item Polaris-Stack__Item--fill"></div>
+        <div class="Polaris-Stack__Item">
+          <div class="Polaris-ButtonGroup">
+            <div class="Polaris-ButtonGroup__Item Polaris-ButtonGroup__Item--plain">
+              <button class="Polaris-Button Polaris-Button--destructive Polaris-Button--plain" type="button" data-destroy>
+                <span class="Polaris-Button__Content">
+                  <span class="Polaris-Button__Text">Remove</span>
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <%= f.hidden_field :_destroy, value: local_assigns.fetch(:destroyed, false), data: { :'destroy-input' => true } %>
+    <%= f.hidden_field :_destroy, value: local_assigns.fetch(:destroyed, false), data: { :'destroy-input' => true } %>
+    <%= f.hidden_field(:id) %>
 
-  <div class="Polaris-FormLayout">
-    <%= f.polaris_text_field(:value, placeholder: "line_items[*].vendor") %>
-    <%= f.polaris_select(:verb, Filter::VERBS.map { |k,v| [v, k] }, { prompt: 'Select a verb' }) %>
-    <%= f.polaris_text_field(:regex, placeholder: "Shopify") %>
+    <div class="Polaris-FormLayout">
+      <%= f.polaris_text_field(:value, placeholder: "line_items[*].vendor") %>
+      <%= f.polaris_select(:verb, Filter::VERBS.map { |k,v| [v, k] }, { prompt: 'Select a verb' }) %>
+      <%= f.polaris_text_field(:regex, placeholder: "Shopify") %>
+    </div>
   </div>
 </div>
