@@ -22,6 +22,7 @@
 
 .byebug_history
 .local
+.idea
 
 .env*.local
 
