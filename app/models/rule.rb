@@ -35,7 +35,7 @@ class Rule < ActiveRecord::Base
     'orders/create' => 'Order creation',
     'orders/delete' => 'Order deletion',
     'orders/fulfilled' => 'Order fulfillment',
-    'orders/paid' => 'Order payment',
+    'orders/paid' => 'Order paid',
     'orders/updated' => 'Order update',
     'order_transactions/create' => 'Order transaction creation',
     'products/create' => 'Product creation',
