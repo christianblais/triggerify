@@ -1,5 +1,5 @@
 import React from "react"
-import { AppProvider, Layout, Card, EmptyState, Badge, DescriptionList, Caption } from '@shopify/polaris'
+import { AppProvider, Layout, Card, EmptyState, Badge, DescriptionList, Caption, Link } from '@shopify/polaris'
 
 class Empty extends React.Component {
   render () {
@@ -21,6 +21,20 @@ class Empty extends React.Component {
   }
 }
 
+class CaptionHooklysPreview extends React.Component {
+  render () {
+    if (this.props.identifier === "") {
+      return(<></>);
+    }
+    
+    return (
+      <Caption>
+        <Link url={ "https://app.hooklys.com/view/webhooks/" + this.props.identifier } external={true}>Show details</Link>
+      </Caption>
+    );
+  }
+}
+
 class Activity extends React.Component {
   render () {
     if (this.props.events.length === 0) {
@@ -33,7 +47,8 @@ class Activity extends React.Component {
           { this.props.events.map((event, i) => {
             let description = <>
               <b>Webhook ID</b><br />
-              <Caption>{ event.identifier }</Caption>
+              <Caption>{ event.shopify_identifier }</Caption>
+              <CaptionHooklysPreview identifier={ event.hooklys_identifier } />
             </>;
 
             return(

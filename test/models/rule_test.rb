@@ -16,7 +16,7 @@ class RuleTest < ActiveSupport::TestCase
   end
 
   test "#events are persisted" do
-    event = RuleEvent.new(identifier: 'abc')
+    event = RuleEvent.new(shopify_identifier: 'abc', hooklys_identifier: 'def')
     event.add_detail(:info, "test persistence")
 
     assert_difference(-> { @rule.reload.events.count }, 1) do
@@ -29,14 +29,14 @@ class RuleTest < ActiveSupport::TestCase
 
   test "#event serialization persist non-ruby objects" do
     travel_to("2022-02-26 18:33:03 UTC") do
-      event = RuleEvent.new(identifier: 'abc')
+      event = RuleEvent.new(shopify_identifier: 'abc', hooklys_identifier: 'def')
       event.add_detail(:info, "test")
       @rule.events.add_event(event)
       @rule.save!
     end
 
     results = Rule.connection.select_all("SELECT events FROM rules where id = #{@rule.id}")
-    expected = '[{"identifier":"abc","details":[{"timestamp":"2022-02-26 18:33:03","level":"info","message":"test"}]}]'
+    expected = '[{"shopify_identifier":"abc","hooklys_identifier":"def","details":[{"timestamp":"2022-02-26 18:33:03","level":"info","message":"test"}]}]'
     assert_equal(expected, results.rows.first.first)
   end
 

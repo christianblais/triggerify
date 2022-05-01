@@ -1,8 +1,9 @@
 class RuleRunner
-  def initialize(rule:, callback:, shopify_identifier:)
+  def initialize(rule:, callback:, shopify_identifier:, hooklys_identifier:)
     @rule = rule
     @callback = callback
     @shopify_identifier = shopify_identifier
+    @hooklys_identifier = hooklys_identifier
   end
 
   def perform
@@ -36,10 +37,13 @@ class RuleRunner
 
   private
 
-  attr_reader :rule, :callback, :shopify_identifier
+  attr_reader :rule, :callback, :shopify_identifier, :hooklys_identifier
 
   def rule_event
-    @rule_event ||= RuleEvent.new(identifier: shopify_identifier)
+    @rule_event ||= RuleEvent.new(
+      shopify_identifier: shopify_identifier,
+      hooklys_identifier: hooklys_identifier,
+    )
   end
 
   def handle(handler, index)
