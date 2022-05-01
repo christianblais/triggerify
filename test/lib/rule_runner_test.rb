@@ -10,7 +10,8 @@ class RuleRunnerTest < ActiveSupport::TestCase
         "email" => "test@example.com",
         "country" => "Canada",
       },
-      shopify_identifier: 'abc'
+      shopify_identifier: 'abc',
+      hooklys_identifier: 'def',
     )
   end
 
@@ -30,7 +31,8 @@ class RuleRunnerTest < ActiveSupport::TestCase
     end
 
     expected = {
-      "identifier" => "abc",
+      "shopify_identifier" => "abc",
+      "hooklys_identifier" => "def",
       "details" => [
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Event received" },
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Filter #1: Met" },
@@ -49,7 +51,8 @@ class RuleRunnerTest < ActiveSupport::TestCase
         "id" => "1234",
         "country" => "Not-Canada",
       },
-      shopify_identifier: "abc"
+      shopify_identifier: "abc",
+      hooklys_identifier: "def"
     )
 
     assert_difference(-> { @rule.reload.events.count }, 1) do
@@ -59,7 +62,8 @@ class RuleRunnerTest < ActiveSupport::TestCase
     end
 
     expected = {
-      "identifier" => "abc",
+      "shopify_identifier" => "abc",
+      "hooklys_identifier" => "def",
       "details" => [
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Event received" },
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Filter #1: Unmet" },
@@ -82,7 +86,8 @@ class RuleRunnerTest < ActiveSupport::TestCase
     end
 
     expected = {
-      "identifier" => "abc",
+      "shopify_identifier" => "abc",
+      "hooklys_identifier" => "def",
       "details" => [
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Event received" },
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Filter #1: Met" },
@@ -107,7 +112,8 @@ class RuleRunnerTest < ActiveSupport::TestCase
     end
 
     expected = {
-      "identifier" => "abc",
+      "shopify_identifier" => "abc",
+      "hooklys_identifier" => "def",
       "details" => [
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Event received" },
         { "timestamp"=>"2022-02-26 18:33:03", "level" => "info", "message" => "Filter #1: Met" },

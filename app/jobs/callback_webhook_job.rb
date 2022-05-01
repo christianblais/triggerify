@@ -1,19 +1,20 @@
 class CallbackWebhookJob < ShopJob
-  def perform_with_shop(topic:, callback:, shopify_identifier:)
+  def perform_with_shop(topic:, callback:, shopify_identifier:, hooklys_identifier:)
     rules = shop.rules.enabled.where(topic: topic)
 
     rules.each do |rule|
-      process_rule(rule, callback, shopify_identifier)
+      process_rule(rule, callback, shopify_identifier, hooklys_identifier)
     end
   end
 
   private
 
-  def process_rule(rule, callback, shopify_identifier)
+  def process_rule(rule, callback, shopify_identifier, hooklys_identifier)
     RuleRunner.new(
       rule: rule,
       callback: callback,
-      shopify_identifier: shopify_identifier
+      shopify_identifier: shopify_identifier,
+      hooklys_identifier: hooklys_identifier
     ).perform
   rescue StandardError => e
     report_exception(e) do |report|

@@ -17,7 +17,7 @@ class CallbackWebhookJobTest < ActiveSupport::TestCase
     mock_runner.expects(:perform)
     RuleRunner
       .expects(:new)
-      .with(rule: @shop.rules.first, callback: callback, shopify_identifier: 'abc')
+      .with(rule: @shop.rules.first, callback: callback, shopify_identifier: 'abc', hooklys_identifier: 'def')
       .returns(mock_runner)
 
     @job.perform(
@@ -25,6 +25,7 @@ class CallbackWebhookJobTest < ActiveSupport::TestCase
       topic: "customers/create",
       callback: callback,
       shopify_identifier: 'abc',
+      hooklys_identifier: 'def',
     )
   end
 end
