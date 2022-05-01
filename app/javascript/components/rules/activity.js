@@ -1,5 +1,5 @@
 import React from "react"
-import { AppProvider, Layout, Card, EmptyState, Badge, DescriptionList, Caption } from '@shopify/polaris'
+import { AppProvider, Layout, Card, EmptyState, Badge, DescriptionList, Caption, Link } from '@shopify/polaris'
 
 class Empty extends React.Component {
   render () {
@@ -29,7 +29,7 @@ class CaptionHooklysPreview extends React.Component {
     
     return (
       <Caption>
-        <a href={ "https://app.hooklys.com/view/webhooks/" + this.props.identifier } target="_blank">Show details</a>
+        <Link url={ "https://app.hooklys.com/view/webhooks/" + this.props.identifier } external={true}>Show details</Link>
       </Caption>
     );
   }
