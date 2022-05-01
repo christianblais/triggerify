@@ -34,7 +34,7 @@ class Activity extends React.Component {
             let description = <>
               <b>Webhook ID</b><br />
               <Caption>{ event.identifier }</Caption>
-            </>
+            </>;
 
             return(
               <Layout.AnnotatedSection key={ i } title={ event.timestamp } description={ description }>
