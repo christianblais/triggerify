@@ -7,6 +7,7 @@ gem 'rails', '~> 7.0'
 gem 'puma', '~> 5'
 gem 'webpacker', '~> 5'
 gem 'turbolinks', '~> 5'
+gem 'sprockets-rails', :require => 'sprockets/railtie'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'net-imap', require: false
