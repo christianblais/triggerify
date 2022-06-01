@@ -25,7 +25,8 @@ module Handlers
         customer_id: customer_id,
       }
 
-      GiftCard.new(settings, {})
+      shop = shops(:regular_shop)
+      GiftCard.new(shop, settings, {})
     end
   end
 end

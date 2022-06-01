@@ -7,10 +7,22 @@ module Handlers
 
       mock_api = mock
       mock_api.expects(:tags).returns("canada,marketing")
-      mock_api.expects(:tags=).with("canada,marketing,VIP")
-      mock_api.expects(:save)
 
       ShopifyAPI::Customer.expects(:find).with("1234").returns(mock_api)
+
+      put_mock = mock
+      put_mock.expects(:body=).with("{\"customer\":{\"tags\":\"canada,marketing,VIP\"}}")
+
+      expected_path = "/admin/api/unstable/customers/1234.json"
+      expected_headers = {"Content-Type" => "application/json", "X-Shopify-Access-Token" => "token"}
+      Net::HTTP::Put.expects(:new).with(expected_path, expected_headers).returns(put_mock)
+
+      http_mock = mock
+      http_mock.expects(:use_ssl=).with(true)
+      http_mock.expects(:start).yields(http_mock)
+      http_mock.expects(:request).with(put_mock)
+
+      Net::HTTP.expects(:new).with("regular-shop.myshopify.com", 443).returns(http_mock)
 
       handler.call
     end
@@ -70,7 +82,8 @@ Response code = 400.  Response message = Response message = Bad Request (id; exp
         tag_name: tag_name,
       }
 
-      Tagger.new(settings, {})
+      shop = shops(:regular_shop)
+      Tagger.new(shop, settings, {})
     end
   end
 end

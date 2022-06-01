@@ -34,7 +34,8 @@ module Handlers
       end
     end
 
-    def initialize(settings, payload)
+    def initialize(shop, settings, payload)
+      @shop = shop
       @settings = settings
       @payload = payload
     end

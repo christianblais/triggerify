@@ -61,7 +61,8 @@ module Handlers
         message: message,
       }
 
-      SMS.new(settings, {})
+      shop = shops(:regular_shop)
+      SMS.new(shop, settings, {})
     end
   end
 end

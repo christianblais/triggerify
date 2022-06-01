@@ -1,3 +1,5 @@
+require 'net/http'
+
 module Handlers
   class Tagger < Base
     label 'Add a tag to a Shopify resource'
@@ -30,8 +32,29 @@ module Handlers
       end
 
       tags.push(tag_name)
-      resource.tags = tags.join(',')
-      resource.save
+
+      host = @shop.shopify_domain
+      path = "/admin/api/unstable/#{taggable_type.downcase}s/#{taggable_id}.json"
+
+      headers = {
+        "Content-Type" => "application/json",
+        "X-Shopify-Access-Token" => @shop.shopify_token,
+      }
+
+      payload = {
+        taggable_type.downcase => {
+          "tags" => tags.join(',')
+        }
+      }
+
+      req = Net::HTTP::Put.new(path, headers)
+
+      # Deliberately not using ActiveResource to avoid an issue on Shopify end
+      # ActiveResource uploads all params of the resource, not only the mutated elements
+      req.body = payload.to_json
+      http = Net::HTTP.new(host, 443)
+      http.use_ssl = true
+      http.start { |h| h.request(req) }
     end
 
     private

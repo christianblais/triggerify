@@ -46,7 +46,8 @@ module Handlers
         message: message,
       }
 
-      Slack.new(settings, {})
+      shop = shops(:regular_shop)
+      Slack.new(shops, settings, {})
     end
   end
 end
