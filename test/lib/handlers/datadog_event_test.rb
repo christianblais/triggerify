@@ -52,7 +52,8 @@ module Handlers
         priority: priority,
       }
 
-      DatadogEvent.new(settings, {})
+      shop = shops(:regular_shop)
+      DatadogEvent.new(shop, settings, {})
     end
   end
 end

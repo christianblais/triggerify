@@ -7,7 +7,7 @@ class CallbackController < ApplicationController
       callback: params.fetch(:callback).to_unsafe_h,
       topic: request.headers.fetch('X-Shopify-Topic'),
       shopify_identifier: request.headers.fetch('X-Shopify-Webhook-Id'),
-      hooklys_identifier: request.headers.fetch('X-Hooklys-Id')
+      hooklys_identifier: request.headers.fetch('X-Hooklys-Id', "")
     )
 
     head :ok

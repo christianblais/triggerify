@@ -33,7 +33,8 @@ module Handlers
         message: message,
       }
 
-      Twitter.new(settings, {})
+      shop = shops(:regular_shop)
+      Twitter.new(shop, settings, {})
     end
   end
 end

@@ -22,7 +22,7 @@ class Handler < ActiveRecord::Base
   end
 
   def handle(payload)
-    instance = service.new(settings, payload)
+    instance = service.new(rule.shop, settings, payload)
 
     begin
       instance.call

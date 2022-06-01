@@ -147,7 +147,8 @@ module Handlers
         body: body,
       }
 
-      SendGrid.new(settings, {})
+      shop = shops(:regular_shop)
+      SendGrid.new(shop, settings, {})
     end
   end
 end

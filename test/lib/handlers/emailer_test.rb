@@ -89,7 +89,8 @@ module Handlers
         body: body,
       }
 
-      Emailer.new(settings, {})
+      shop = shops(:regular_shop)
+      Emailer.new(shop, settings, {})
     end
   end
 end
