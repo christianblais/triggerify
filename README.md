@@ -1,6 +1,6 @@
 # Triggerify
 
-Wiki: https://github.com/christianblais/triggerify/wiki
+Official repository for [Triggerify](https://apps.shopify.com/triggerify). For details on how it works, please visit our [wiki](https://github.com/christianblais/triggerify/wiki).
 
 ## Development
 
