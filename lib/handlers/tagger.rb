@@ -34,7 +34,7 @@ module Handlers
       tags.push(tag_name)
 
       host = @shop.shopify_domain
-      path = "/admin/api/unstable/#{taggable_type.downcase}s/#{taggable_id}.json"
+      path = "/admin/api/2022-07/#{taggable_type.downcase}s/#{taggable_id}.json"
 
       headers = {
         "Content-Type" => "application/json",
