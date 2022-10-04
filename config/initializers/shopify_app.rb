@@ -4,7 +4,7 @@ ShopifyApp.configure do |config|
   config.scope = "write_orders, write_products, write_customers, write_fulfillments, write_themes, write_inventory"
   config.embedded_app = true
   config.after_authenticate_job = false
-  config.api_version = "unstable"
+  config.api_version = "2022-07"
   config.shop_session_repository = 'Shop'
 
   config.reauth_on_access_scope_changes = true

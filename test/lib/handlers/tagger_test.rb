@@ -13,7 +13,7 @@ module Handlers
       put_mock = mock
       put_mock.expects(:body=).with("{\"customer\":{\"tags\":\"canada,marketing,VIP\"}}")
 
-      expected_path = "/admin/api/unstable/customers/1234.json"
+      expected_path = "/admin/api/2022-07/customers/1234.json"
       expected_headers = {"Content-Type" => "application/json", "X-Shopify-Access-Token" => "token"}
       Net::HTTP::Put.expects(:new).with(expected_path, expected_headers).returns(put_mock)
 
