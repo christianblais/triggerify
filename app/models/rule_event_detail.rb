@@ -17,7 +17,7 @@ class RuleEventDetail
 
   def dump
     {
-      "timestamp" => @timestamp.to_s(:db),
+      "timestamp" => @timestamp.to_fs(:db),
       "level" => @level.to_s,
       "message" => @message,
     }

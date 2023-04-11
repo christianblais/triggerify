@@ -3,22 +3,11 @@ ruby "3.1.0"
 
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1'
+gem 'rails', '~> 7.0'
 gem 'puma', '~> 5'
 gem 'webpacker', '~> 5'
 gem 'turbolinks', '~> 5'
-# Use SCSS for stylesheets
-# gem 'sass-rails', '>= 6'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.7'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-# Use Active Model has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'sprockets-rails', :require => 'sprockets/railtie'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'net-imap', require: false
@@ -51,8 +40,7 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring', '~> 4.0'
 end
 
 gem "bugsnag", "~> 6.13"

@@ -23,7 +23,7 @@
     <div class="Polaris-FormLayout">
       <%= f.polaris_select(:service_name, available_handlers.map { |handler| [handler.label, handler.to_s] }, { prompt: "Select an action" }, { data: { handler: true } }) %>
 
-      <%= f.fields_for :settings, f.object.settings do |ff| %>
+      <%= f.fields_for :settings do |ff| %>
         <% available_handlers.each do |handler| %>
           <div data-handler-details="<%= handler %>">
             <% if handler.description.present? %>

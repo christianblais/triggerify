@@ -37,7 +37,7 @@ class RuleEvent
     dump.merge({
       shopify_identifier: @shopify_identifier,
       hooklys_identifier: @hooklys_identifier,
-      timestamp: @details.first.timestamp.to_s(:db),
+      timestamp: @details.first.timestamp.to_fs(:db),
       error: @details.any? { _1.level == :error },
     })
   end
